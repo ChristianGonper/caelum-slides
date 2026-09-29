@@ -1,6 +1,6 @@
 import type { PresentationDefinition } from '../../system/src/definition';
 import { deepTeal, monochromeBlue, primarySpace } from '../../system/src/palettes';
-import { Block, Cover, Slide } from './content';
+import { Block, Cover, NorthSlide, SouthSlide } from './content';
 import { Decoration, FinalMark, RouteMark } from './visual';
 import './styles.css';
 
@@ -14,11 +14,11 @@ const model: PresentationDefinition['model'] = {
       bounds: { x: -390, y: -550, width: 780, height: 290 }, states: ['intro', 'closing'] },
     { id: 'block-north', kind: 'block', label: 'Norte',
       bounds: { x: -780, y: -115, width: 830, height: 510 } },
-    { id: 'slide-north', kind: 'slide', label: 'Norte: detalle', parentId: 'block-north',
+    { id: 'slide-north', kind: 'slide', label: 'Norte: interacción', parentId: 'block-north',
       bounds: { x: -690, y: 0, width: 650, height: 366 } },
     { id: 'block-south', kind: 'block', label: 'Sur',
       bounds: { x: 150, y: 510, width: 830, height: 510 } },
-    { id: 'slide-south', kind: 'slide', label: 'Sur: detalle', parentId: 'block-south',
+    { id: 'slide-south', kind: 'slide', label: 'Sur: datos', parentId: 'block-south',
       bounds: { x: 240, y: 625, width: 650, height: 366 } },
   ],
   stops: [
@@ -26,14 +26,14 @@ const model: PresentationDefinition['model'] = {
       visibleIds: ['cover', 'block-north', 'block-south'], stateByElement: { cover: 'intro' } },
     { id: 'south-block', label: 'Bloque sur', cameraTargetId: 'block-south',
       visibleIds: ['block-south', 'slide-south'] },
-    { id: 'south-slide', label: 'Detalle sur', cameraTargetId: 'slide-south',
-      visibleIds: ['block-south', 'slide-south'] },
+    { id: 'south-slide', label: 'Tabla y gráfico', cameraTargetId: 'slide-south',
+      visibleIds: ['slide-south'] },
     { id: 'context', label: 'Volver al mapa', cameraTargetId: 'overview',
       visibleIds: ['cover', 'block-north', 'block-south'], stateByElement: { cover: 'intro' } },
     { id: 'north-block', label: 'Bloque norte', cameraTargetId: 'block-north',
       visibleIds: ['block-north', 'slide-north'] },
-    { id: 'north-slide', label: 'Detalle norte', cameraTargetId: 'slide-north',
-      visibleIds: ['block-north', 'slide-north'] },
+    { id: 'north-slide', label: 'Interacción', cameraTargetId: 'slide-north',
+      visibleIds: ['slide-north'] },
     { id: 'closing', label: 'Cierre', cameraTargetId: 'overview',
       visibleIds: ['cover', 'block-north', 'block-south'], stateByElement: { cover: 'closing' } },
   ],
@@ -55,8 +55,8 @@ export const diagonalPresentation: PresentationDefinition = {
   content: {
     cover: Cover,
     'block-north': Block,
-    'slide-north': Slide,
+    'slide-north': NorthSlide,
     'block-south': Block,
-    'slide-south': Slide,
+    'slide-south': SouthSlide,
   },
 };

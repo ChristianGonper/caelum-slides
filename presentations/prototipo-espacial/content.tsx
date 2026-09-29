@@ -1,4 +1,5 @@
 import type { ContentProps } from '../../system/src/definition';
+import routesImage from './assets/rutas-espaciales.png';
 
 export function Cover({ state }: ContentProps) {
   return state === 'closing' ? (
@@ -47,11 +48,25 @@ export function SlideA({ state }: ContentProps) {
 
 export function SlideB() {
   return (
-    <div className="slide-content">
-      <span className="eyebrow">BLOQUE B · DIAPOSITIVA</span>
-      <h2>El recorrido visita otra región.</h2>
-      <p>Su orden narrativo está definido aparte de las coordenadas.</p>
-      <span className="state-mark">02</span>
+    <div className="slide-content media-slide">
+      <figure className="media-figure">
+        <img src={routesImage} alt="Nodos luminosos unidos por varias trayectorias en un espacio oscuro"
+          width="1672" height="941" />
+        <figcaption>Ilustración conceptual para esta presentación de prueba.</figcaption>
+      </figure>
+      <div className="media-copy">
+        <span className="eyebrow">IMAGEN + SVG</span>
+        <h2>Contenido libre en una posición.</h2>
+        <p>El motor encuadra la diapositiva; su contenido puede mezclar recursos.</p>
+        <svg className="route-symbol" viewBox="0 0 220 52" role="img" aria-labelledby="route-symbol-title">
+          <title id="route-symbol-title">Dos rutas posibles entre tres puntos</title>
+          <path d="M 12 38 Q 82 4 110 26 T 208 14 M 12 38 Q 98 56 208 14"
+            fill="none" stroke="var(--accent)" strokeWidth="3" />
+          <circle cx="12" cy="38" r="6" fill="var(--accent)" />
+          <circle cx="110" cy="26" r="6" fill="var(--graphic)" />
+          <circle cx="208" cy="14" r="6" fill="var(--accent)" />
+        </svg>
+      </div>
     </div>
   );
 }

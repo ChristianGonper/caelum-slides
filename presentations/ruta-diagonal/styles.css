@@ -3,4 +3,20 @@
   [data-presentation-id="ruta-diagonal"] .block,
   [data-presentation-id="ruta-diagonal"] .slide { border-radius: 12px; }
   [data-presentation-id="ruta-diagonal"] .cover::after { border-radius: 18%; }
+  [data-presentation-id="ruta-diagonal"] .data-slide,
+  [data-presentation-id="ruta-diagonal"] .interactive-slide { padding: 28px 34px; }
+  [data-presentation-id="ruta-diagonal"] .data-slide h2,
+  [data-presentation-id="ruta-diagonal"] .interactive-slide h2 { margin: 10px 0 17px; font-size: 31px; }
+  .data-layout, .interactive-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: center; }
+  .sample-table-wrap { min-inline-size: 0; overflow: auto; }
+  .sample-table-wrap table { inline-size: 100%; border-collapse: collapse; font-size: 15px; }
+  .sample-table-wrap caption { margin-block-end: 7px; text-align: start; color: var(--muted); font-size: 13px; }
+  .sample-table-wrap th, .sample-table-wrap td { padding: 7px 9px; border-block-end: 1px solid var(--line); text-align: start; }
+  .sample-table-wrap td { text-align: end; font-variant-numeric: tabular-nums; }
+  .sample-table-wrap thead { color: var(--accent); }
+  .sample-chart, .network-diagram { inline-size: 100%; block-size: 170px; }
+  .interactive-controls p { margin: 0 0 18px; font-size: 18px; }
+  .interactive-controls button { min-block-size: 44px; padding: 9px 15px; border: 1px solid var(--accent); border-radius: 8px; background: var(--surface); color: var(--ink); cursor: pointer; }
+  .interactive-controls button:hover, .interactive-controls button[data-active="true"] { background: var(--accent); color: var(--background-primary); }
+  .interactive-controls button:focus-visible { outline: 3px solid var(--highlight); outline-offset: 3px; }
 }

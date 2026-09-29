@@ -1,3 +1,4 @@
+import React from 'react';
 import type { ContentProps } from '../../system/src/definition';
 
 export function Cover({ state }: ContentProps) {
@@ -18,12 +19,62 @@ export function Block({ element }: ContentProps) {
   </div>;
 }
 
-export function Slide({ element }: ContentProps) {
-  const south = element.id === 'slide-south';
-  return <div className="slide-content">
-    <span className="eyebrow">{south ? 'PARADA 1 · SUR' : 'PARADA 2 · NORTE'}</span>
-    <h2>{south ? 'Primero viajamos hacia el sur.' : 'Después subimos al norte.'}</h2>
-    <p>La cámara se desplaza de forma animada entre posiciones del mismo lienzo.</p>
-    <span className="state-mark">{south ? 'S' : 'N'}</span>
+const sampleValues = [
+  { label: 'Ruta A', value: 32 },
+  { label: 'Ruta B', value: 58 },
+  { label: 'Ruta C', value: 84 },
+];
+
+export function SouthSlide() {
+  return <div className="slide-content data-slide">
+    <span className="eyebrow">TABLA + GRÁFICO</span>
+    <h2>Datos en la diapositiva.</h2>
+    <div className="data-layout">
+      <div className="sample-table-wrap">
+        <table>
+          <caption>Valores ilustrativos, sin unidad</caption>
+          <thead><tr><th scope="col">Ruta</th><th scope="col">Valor</th></tr></thead>
+          <tbody>{sampleValues.map(({ label, value }) => <tr key={label}>
+            <th scope="row">{label}</th><td>{value}</td>
+          </tr>)}</tbody>
+        </table>
+      </div>
+      <svg className="sample-chart" viewBox="0 0 240 170" role="img" aria-labelledby="sample-chart-title sample-chart-desc">
+        <title id="sample-chart-title">Comparación de tres rutas</title>
+        <desc id="sample-chart-desc">Ruta A 32, ruta B 58 y ruta C 84; los mismos valores aparecen en la tabla.</desc>
+        {sampleValues.map(({ label, value }, index) => <g key={label}>
+          <text x="0" y={33 + index * 49} fill="var(--ink)" fontSize="16">{label}</text>
+          <rect x="74" y={16 + index * 49} width="154" height="22" rx="5" fill="var(--surface)" />
+          <rect x="74" y={16 + index * 49} width={value * 1.54} height="22" rx="5"
+            fill={index === 2 ? 'var(--graphic)' : 'var(--accent)'} />
+        </g>)}
+      </svg>
+    </div>
+  </div>;
+}
+
+export function NorthSlide() {
+  const [showConnections, setShowConnections] = React.useState(false);
+  return <div className="slide-content interactive-slide">
+    <span className="eyebrow">COMPONENTE INTERACTIVO</span>
+    <h2>Una capa que se puede explorar.</h2>
+    <div className="interactive-layout">
+      <svg className="network-diagram" viewBox="0 0 270 170" role="img" aria-labelledby="network-title network-desc">
+        <title id="network-title">Diagrama de tres nodos</title>
+        <desc id="network-desc">{showConnections
+          ? 'Tres nodos conectados por dos líneas.' : 'Tres nodos sin conexiones visibles.'}</desc>
+        {showConnections && <path d="M 34 130 L 135 35 L 238 130" fill="none"
+          stroke="var(--accent)" strokeWidth="5" />}
+        {[[34, 130], [135, 35], [238, 130]].map(([cx, cy]) => <circle key={cx}
+          cx={cx} cy={cy} r="15" fill="var(--graphic)" stroke="var(--ink)" strokeWidth="2" />)}
+      </svg>
+      <div className="interactive-controls">
+        <p>{showConnections ? 'Las conexiones están visibles.' : 'Los nodos se muestran por separado.'}</p>
+        <button type="button" data-active={showConnections}
+          onClick={() => setShowConnections((current) => !current)}>
+          {showConnections ? 'Ocultar conexiones' : 'Mostrar conexiones'}
+        </button>
+      </div>
+    </div>
   </div>;
 }
