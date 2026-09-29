@@ -1,0 +1,10 @@
+@layer components {
+  [data-presentation-id="prototipo-espacial"] [data-element-id="block-b"] {
+    border-color: #b7a2f47c;
+    background: linear-gradient(140deg, #2b2d49db, #171f32cf);
+  }
+  [data-presentation-id="prototipo-espacial"] [data-element-id="slide-b"] {
+    border-color: #c1a9f3;
+    background: linear-gradient(130deg, #373451, #171e34 70%);
+  }
+}
