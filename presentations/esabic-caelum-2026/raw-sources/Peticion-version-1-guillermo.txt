@@ -1,0 +1,37 @@
+Vale, a ver, no sé muy bien a qué te refieres. ¿Quieres que te diga específico
+para la presentación del TFG o quieres que te diga en general para tener una
+plantilla o cómo quieres? Hoy es que estuve trabajando y estuve con lo de
+prototipos y no me he podido poner. Mi idea es ponerme el jueves me voy a poner
+con el guion, que mañana tengo cohete y tengo que currar por la tarde. Pero mi
+idea es tener antes del viernes ya lo de o el jueves mismo ya lo del TFG guion
+acabado y tener las diapositivas hechas y todo. Pero bueno, si te refieres a lo
+de las diapositivas para el TFG, pues mi idea es simplemente tener, vamos a
+decir, un menú principal en el que se vean todas las diapositivas que estén
+haciendo una especie de círculo y ir en el sentido de las agujas del reloj de
+diapositiva en diapositiva, de una en una. Que el fondo estaría guay que el
+fondo fuese una imagen o algo así. Bueno, no sé, eso hay que pensarlo. Pueden
+ser, a ver, pueden ser mil cosas, pueden ser unas antenas de la ESA, puede ser
+un render de nuestro sistema, pueden ser mil cosas, una imagen guapa, ¿sabes? Y
+después la idea pues sería que fuese haciendo zoom in, zoom out cuando paso de
+diapositiva. Esa es una opción. Y que fuese haciendo pues todo el recorrido de
+las agujas del reloj hasta dar la vuelta completa. Otra opción es coger y
+agruparlo por secciones. Por ejemplo, agrupar primero una introducción. Si son
+tres diapositivas, pues que se ponga todo como las diapositivas agrupadas en un
+lado del menú general y de ahí ya se va zoom in a la primera diapositiva de
+introducción y de ahí se va a la segunda y la tercera que pone ahí. Y que se
+acaba la introducción, pues zoom out y vamos al siguiente grupo que están otras
+agrupadas, que es, yo qué sé, funcionamiento o diseño. Y así zoom in, pasa,
+pasa, zoom out otra vez al general y de ahí ya, por ejemplo, yo qué sé,
+implementación económica o algo así, ¿sabes? Porque igual es menos menos mareo,
+¿sabes? Que con cada diapositiva haga zoom out, zoom in, zoom out, zoom in,
+igual es menos mareo agruparlo en secciones. Y ya está. Bueno, esto es un poco
+las Estoy soltando ideas, ¿eh? Y esto son ideas que tengo. Después también tú me
+dices qué crees que es mejor. A mí igual lo de agruparlo en secciones yo creo
+que está mejor y de hecho es como como yo he visto que se suele hacer. Si
+necesitas más detalles, me dices. No obstante, ya te digo que para jueves,
+viernes yo tendré ya un PowerPoint con Perdón. Tendría un PowerPoint en blanco
+con los títulos exactos y todo y la información que quiero poner en cada
+diapositiva. Esa la revisáis vosotros o la refinamos y entonces ya después la
+metes al final. Y también me gustaría tener para lo de la paleta de colores que
+nos pasases el código que utilices o algo así, ¿sabes? Para yo jugar con los
+colores y sacar igual las dos paletas y que elijas la que prefieras.
