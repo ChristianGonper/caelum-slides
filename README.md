@@ -31,3 +31,21 @@ caelum-slides/
 
 - **`system/`**: Diseñado de forma agnóstica al contenido. Contiene los requisitos del motor espacial (recorrido no lineal, transiciones de cámara, vistas generales/bloques) y los temas de estilo reutilizables.
 - **`presentations/`**: Aloja presentaciones individuales aisladas con sus propios recursos, fuentes y configuraciones.
+
+## Prototipo mínimo
+
+La primera prueba del núcleo espacial está en `system/src/` y su contenido de ejemplo en `presentations/prototipo-espacial/`. No utiliza los materiales de la presentación ESA-BIC.
+
+```powershell
+npm install
+npm run dev
+```
+
+Abre la dirección local que indique Vite. El recorrido incluye vista general, dos bloques, dos estados en una misma posición, regreso al contexto y cierre sobre la posición inicial. Usa los botones o las flechas izquierda/derecha para avanzar; arrastra el lienzo y usa la rueda para cambiar el encuadre manualmente. El panel muestra el transform de la cámara para comprobar que no cambia entre «Pregunta» y «Respuesta».
+
+```powershell
+npm test
+npm run build
+```
+
+Este prototipo valida el modelo, el recorrido y la cámara 2D. Temas, capas persistentes, exportación PDF y contenido de producción quedan para los siguientes incrementos. La decisión técnica y sus límites están en `system/docs/decision-reutilizacion-sistema-diapositivas.md`.
