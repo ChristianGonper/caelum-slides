@@ -1,5 +1,7 @@
 import type { PresentationDefinition } from '../../system/src/definition';
+import { deepTeal, monochromeBlue, primarySpace } from '../../system/src/palettes';
 import { Block, Cover, SlideA, SlideB } from './content';
+import { ClosingMark, Decoration, Progress } from './visual';
 import './styles.css';
 
 const model: PresentationDefinition['model'] = {
@@ -55,6 +57,16 @@ const model: PresentationDefinition['model'] = {
 export const prototypePresentation: PresentationDefinition = {
   id: 'prototipo-espacial',
   model,
+  themes: [deepTeal, primarySpace, monochromeBlue],
+  defaultThemeId: 'deep-teal',
+  visual: {
+    decoration: Decoration,
+    elementBackgrounds: {
+      'block-b': 'linear-gradient(145deg, color-mix(in srgb, var(--graphic) 30%, var(--surface)), var(--background-secondary))',
+      'slide-b': 'linear-gradient(135deg, color-mix(in srgb, var(--graphic) 38%, var(--surface)), var(--background-secondary))',
+    },
+    persistent: { default: Progress, byStop: { intro: null, closing: ClosingMark } },
+  },
   content: {
     cover: Cover,
     'block-a': Block,

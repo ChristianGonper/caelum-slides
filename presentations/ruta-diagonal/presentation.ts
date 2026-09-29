@@ -1,5 +1,7 @@
 import type { PresentationDefinition } from '../../system/src/definition';
+import { deepTeal, monochromeBlue, primarySpace } from '../../system/src/palettes';
 import { Block, Cover, Slide } from './content';
+import { Decoration, FinalMark, RouteMark } from './visual';
 import './styles.css';
 
 const model: PresentationDefinition['model'] = {
@@ -40,6 +42,16 @@ const model: PresentationDefinition['model'] = {
 export const diagonalPresentation: PresentationDefinition = {
   id: 'ruta-diagonal',
   model,
+  themes: [primarySpace, monochromeBlue, deepTeal],
+  defaultThemeId: 'primary-space',
+  visual: {
+    canvasBackground: 'linear-gradient(160deg, var(--background-primary), color-mix(in srgb, var(--accent-secondary) 16%, var(--background-secondary)) 70%, var(--background-primary))',
+    decoration: Decoration,
+    elementBackgrounds: {
+      'slide-south': 'radial-gradient(circle at 75% 18%, color-mix(in srgb, var(--accent) 38%, var(--surface)), var(--background-secondary) 72%)',
+    },
+    persistent: { default: RouteMark, byStop: { intro: null, closing: FinalMark } },
+  },
   content: {
     cover: Cover,
     'block-north': Block,

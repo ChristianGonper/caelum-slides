@@ -1,10 +1,6 @@
 @layer components {
-  [data-presentation-id="ruta-diagonal"] .cover { border-color: #f1bc90; background: radial-gradient(circle at 85% 12%, #694838, #302d3f 56%, #171f30); }
-  [data-presentation-id="ruta-diagonal"] .cover::after { border-color: #f1bc906b; box-shadow: 0 0 0 43px #f1bc9010, 0 0 0 87px #f1bc900a; }
-  [data-presentation-id="ruta-diagonal"] .eyebrow { color: #ffd6af; }
-  [data-presentation-id="ruta-diagonal"] .block { border-color: #d8a4bb8c; background: linear-gradient(140deg, #3a3045df, #202638d0); }
-  [data-presentation-id="ruta-diagonal"] .slide { border-color: #f1bc90; background: linear-gradient(130deg, #4a3944, #191f32 70%); }
-  [data-presentation-id="ruta-diagonal"] .state-mark { color: #f1bc902b; }
-  [data-presentation-id="ruta-diagonal"] .stop-number,
-  [data-presentation-id="ruta-diagonal"] .camera-readout code { color: #ffd6af; }
+  [data-presentation-id="ruta-diagonal"] .cover,
+  [data-presentation-id="ruta-diagonal"] .block,
+  [data-presentation-id="ruta-diagonal"] .slide { border-radius: 12px; }
+  [data-presentation-id="ruta-diagonal"] .cover::after { border-radius: 18%; }
 }
