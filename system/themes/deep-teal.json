@@ -1,0 +1,64 @@
+{
+  "name": "Deep Teal",
+  "version": "1.0",
+  "tokens": {
+    "background": {
+      "primary": "#021118",
+      "secondary": "#041F26",
+      "surface": "#062B33",
+      "panel": "#083D46",
+      "gradientStart": "#14B8A6",
+      "gradientEnd": "#06B6D4",
+      "gradientOpacity": 0.18,
+      "gradientAngle": 135,
+      "gradientType": "radial",
+      "gradientRadialPosition": {
+        "x": 65,
+        "y": 40
+      },
+      "gradientEnabled": true,
+      "grid": "#064E56"
+    },
+    "typography": {
+      "title": "#F0FDFA",
+      "heading": "#CCFBF1",
+      "subtitle": "#5EEAD4",
+      "body": "#99F6E4",
+      "muted": "#2DD4BF",
+      "disabled": "#0D9488",
+      "onDark": "#FFFFFF"
+    },
+    "accent": {
+      "primary": "#14B8A6",
+      "secondary": "#06B6D4",
+      "highlight": "#F43F5E",
+      "warning": "#FBBF24",
+      "success": "#4ADE80",
+      "info": "#22D3EE",
+      "button": "#4DA3FF",
+      "buttonText": "#080B14"
+    },
+    "graphics": {
+      "line": "#0F766E",
+      "grid": "#064E56",
+      "border": "#0F766E",
+      "icon": "#2DD4BF",
+      "signal": "#14B8A6",
+      "chart": "#06B6D4",
+      "dataPoint": "#F43F5E",
+      "progress": "#4ADE80"
+    },
+    "fonts": {
+      "titleFamily": "Space Grotesk",
+      "bodyFamily": "Inter",
+      "monoFamily": "JetBrains Mono",
+      "titleWeight": 600,
+      "titleSize": "3rem",
+      "lineHeight": 1.4,
+      "letterSpacing": "-0.02em",
+      "badgeTransform": "uppercase"
+    }
+  },
+  "createdAt": "2026-09-23T23:39:21.089Z",
+  "updatedAt": "2026-09-23T23:59:11.126Z"
+}
