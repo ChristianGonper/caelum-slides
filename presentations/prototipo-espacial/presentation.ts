@@ -5,6 +5,7 @@ import './styles.css';
 const model: PresentationDefinition['model'] = {
   title: 'Prototipo espacial',
   cameraTransitionMs: 850,
+  contextStopId: 'return',
   overview: { x: -1140, y: -570, width: 2280, height: 1140 },
   elements: [
     {

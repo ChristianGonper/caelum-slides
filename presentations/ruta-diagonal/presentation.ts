@@ -5,6 +5,7 @@ import './styles.css';
 const model: PresentationDefinition['model'] = {
   title: 'Ruta diagonal',
   cameraTransitionMs: 1100,
+  contextStopId: 'context',
   overview: { x: -900, y: -680, width: 1950, height: 1820 },
   elements: [
     { id: 'cover', kind: 'cover', label: 'Inicio y cierre',

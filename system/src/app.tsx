@@ -5,6 +5,7 @@ import { zoom, zoomIdentity, type ZoomBehavior } from 'd3-zoom';
 import { fitRect, type CameraTransform } from './camera';
 import type { PresentationDefinition } from './definition';
 import { boundsOf } from './model';
+import { changesContentInPlace, contextIndex, navigateTo, type Navigation } from './navigation';
 import './styles.css';
 
 export function App({ definition, available }: {
@@ -12,7 +13,8 @@ export function App({ definition, available }: {
   available: readonly Pick<PresentationDefinition, 'id' | 'model'>[];
 }) {
   const presentation = definition.model;
-  const [index, setIndex] = React.useState(0);
+  const [navigation, setNavigation] = React.useState<Navigation>({ index: 0, previousIndex: null });
+  const [refitCount, setRefitCount] = React.useState(0);
   const [viewport, setViewport] = React.useState({ width: 0, height: 0 });
   const [camera, setCamera] = React.useState<CameraTransform>({ x: 0, y: 0, k: 1 });
   const [reducedMotion, setReducedMotion] = React.useState(false);
@@ -22,8 +24,17 @@ export function App({ definition, available }: {
   const viewportRef = React.useRef<HTMLDivElement>(null);
   const zoomRef = React.useRef<ZoomBehavior<HTMLDivElement, unknown> | null>(null);
   const cameraTargetRef = React.useRef<string | null>(null);
+  const fittedViewportRef = React.useRef<{ width: number; height: number } | null>(null);
   const lastFitRef = React.useRef<string | null>(null);
+  const index = navigation.index;
   const stop = presentation.stops[index];
+  const context = contextIndex(presentation);
+  const goTo = React.useCallback((next: number) => {
+    setNavigation((current) => navigateTo(current, next, presentation.stops.length));
+  }, [presentation]);
+  const step = React.useCallback((delta: number) => {
+    setNavigation((current) => navigateTo(current, current.index + delta, presentation.stops.length));
+  }, [presentation]);
 
   React.useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -68,42 +79,46 @@ export function App({ definition, available }: {
     const element = viewportRef.current;
     const behavior = zoomRef.current;
     if (!element || !behavior || !viewport.width || !viewport.height) return;
-    const fitKey = `${stop.cameraTargetId}:${viewport.width}:${viewport.height}`;
+    const fitKey = `${stop.cameraTargetId}:${viewport.width}:${viewport.height}:${refitCount}`;
     if (lastFitRef.current === fitKey) return;
     const target = fitRect(boundsOf(presentation, stop.cameraTargetId), viewport,
       Math.min(64, viewport.width * 0.06));
     const transform = zoomIdentity.translate(target.x, target.y).scale(target.k);
     const selection = select(element);
     selection.interrupt();
-    if (cameraTargetRef.current === null || (reducedMotion && !previewFullMotion)) {
+    const sameViewport = fittedViewportRef.current?.width === viewport.width &&
+      fittedViewportRef.current?.height === viewport.height;
+    if (cameraTargetRef.current === null || !sameViewport || (reducedMotion && !previewFullMotion)) {
       selection.call(behavior.transform, transform);
     } else {
       selection.transition().duration(presentation.cameraTransitionMs ?? 850).call(behavior.transform, transform);
     }
     cameraTargetRef.current = stop.cameraTargetId;
+    fittedViewportRef.current = viewport;
     lastFitRef.current = fitKey;
-  }, [stop.cameraTargetId, viewport.width, viewport.height, reducedMotion, previewFullMotion]);
+  }, [stop.cameraTargetId, viewport.width, viewport.height, refitCount, reducedMotion, previewFullMotion, presentation]);
 
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
       const target = event.composedPath()[0];
-      if (target instanceof Element && target.matches('input, textarea, select, [contenteditable], [role="slider"]')) return;
+      if (target instanceof Element && target.closest('input, textarea, select, [contenteditable], [role="slider"]')) return;
+      if (event.key === ' ' && target instanceof Element && target.closest('button, a')) return;
       if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
-        if (index < presentation.stops.length - 1) {
+        if (navigation.index < presentation.stops.length - 1) {
           event.preventDefault();
-          setIndex(index + 1);
+          step(1);
         }
       } else if (['ArrowLeft', 'PageUp'].includes(event.key)) {
-        if (index > 0) {
+        if (navigation.index > 0) {
           event.preventDefault();
-          setIndex(index - 1);
+          step(-1);
         }
       }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [index]);
+  }, [navigation.index, presentation, step]);
 
   const visible = new Set(stop.visibleIds);
   const formatCamera = `${camera.x.toFixed(1)}, ${camera.y.toFixed(1)}, ${camera.k.toFixed(4)}`;
@@ -116,7 +131,7 @@ export function App({ definition, available }: {
       </header>
       <main className="workspace">
         <section className="viewer" aria-label="Presentación espacial">
-          <div className="viewport" ref={viewportRef} tabIndex={0}
+          <div className="viewport" ref={viewportRef} tabIndex={0} role="group"
             aria-label="Lienzo espacial. Arrastra para desplazar y usa la rueda para ampliar."
             data-camera-target={stop.cameraTargetId} data-camera={formatCamera}>
             <div className="world" style={{ transform: `translate(${camera.x}px, ${camera.y}px) scale(${camera.k})` }}>
@@ -129,21 +144,24 @@ export function App({ definition, available }: {
                   style={{ left: element.bounds.x, top: element.bounds.y,
                     width: element.bounds.width, height: element.bounds.height }}
                   data-element-id={element.id} data-state={stop.stateByElement?.[element.id] ?? ''}>
-                  <Content element={element} state={stop.stateByElement?.[element.id]} />
+                  <div key={stop.stateByElement?.[element.id] ?? 'default'}
+                    className={`state-content${changesContentInPlace(presentation, navigation.previousIndex, index, element.id) ? ' content-changing' : ''}`}>
+                    <Content element={element} state={stop.stateByElement?.[element.id]} />
+                  </div>
                 </div>;
               })}
             </div>
           </div>
-          <div className="viewer-badge">{stop.label}<span>{index + 1} / {presentation.stops.length}</span></div>
+          <div className="viewer-badge" aria-live="polite" aria-atomic="true">{stop.label}<span>{index + 1} / {presentation.stops.length}</span></div>
           <div className="viewer-controls">
-            <button type="button" onClick={() => setIndex(Math.max(0, index - 1))} disabled={index === 0}>← Anterior</button>
-            <button type="button" onClick={() => {
-              const overviewIndex = presentation.stops.findIndex((item, i) =>
-                i >= index && item.cameraTargetId === 'overview');
-              setIndex(overviewIndex >= 0 ? overviewIndex :
-                presentation.stops.findIndex((item) => item.cameraTargetId === 'overview'));
+            <button type="button" onClick={() => step(-1)} disabled={index === 0}>← Anterior</button>
+            <button type="button" disabled={context < 0} onClick={() => {
+              if (context === index) setRefitCount((count) => count + 1);
+              else goTo(context);
             }}>Vista general</button>
-            <button type="button" onClick={() => setIndex(Math.min(presentation.stops.length - 1, index + 1))}
+            <button type="button" onClick={() => setRefitCount((count) => count + 1)}
+              aria-label="Reencuadrar la vista actual">Centrar</button>
+            <button type="button" onClick={() => step(1)}
               disabled={index === presentation.stops.length - 1}>Siguiente →</button>
           </div>
         </section>
@@ -151,7 +169,7 @@ export function App({ definition, available }: {
           <div className="sidebar-intro">
             <span className="eyebrow">PRUEBA DE CONCEPTO</span>
             <h1>{presentation.title}</h1>
-            <p>Selecciona una parada o avanza con las flechas. Puedes mover y ampliar el lienzo con ratón o tacto.</p>
+            <p>Selecciona una parada o avanza con las flechas. Arrastra con ratón o dedo, pellizca para ampliar y usa Centrar para recuperar el encuadre.</p>
           </div>
           <nav className="deck-picker" aria-label="Presentaciones de prueba">
             {available.map((item) => (
@@ -163,7 +181,7 @@ export function App({ definition, available }: {
             {presentation.stops.map((item, i) => (
               <li key={item.id}>
                 <button type="button" className={i === index ? 'active' : ''}
-                  aria-current={i === index ? 'step' : undefined} onClick={() => setIndex(i)}>
+                  aria-current={i === index ? 'step' : undefined} onClick={() => goTo(i)}>
                   <span className="stop-number">{String(i + 1).padStart(2, '0')}</span>
                   <span>{item.label}</span>
                   <small>{item.cameraTargetId === 'overview' ? 'general' : item.cameraTargetId}</small>

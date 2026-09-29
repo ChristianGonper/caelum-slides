@@ -23,6 +23,7 @@ export type Presentation = {
   elements: readonly SpatialElement[];
   stops: readonly NarrativeStop[];
   overview: Rect;
+  contextStopId?: string;
   cameraTransitionMs?: number;
 };
 
@@ -62,6 +63,12 @@ export function validatePresentation(presentation: Presentation): void {
       if (!visible.has(id) || !element?.states?.includes(state)) {
         throw new Error(`Estado inválido: ${stop.id}/${id}/${state}`);
       }
+    }
+  }
+  if (presentation.contextStopId) {
+    const context = presentation.stops.find((stop) => stop.id === presentation.contextStopId);
+    if (!context || context.cameraTargetId !== 'overview') {
+      throw new Error(`Parada de contexto inválida: ${presentation.contextStopId}`);
     }
   }
 }
