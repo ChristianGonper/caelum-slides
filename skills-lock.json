@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "git-atomic-commits": {
+      "source": "../Shoes-moda-zapatos",
+      "sourceType": "local",
+      "computedHash": "f0d1cc9704b1a5d1ae20176c101d052b384c29f5777f7bd5db4c1cbbbe9177cb"
+    }
+  }
+}
