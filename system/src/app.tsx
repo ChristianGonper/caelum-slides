@@ -55,6 +55,15 @@ export function App({ definition, available }: {
   const step = React.useCallback((delta: number) => {
     setNavigation((current) => navigateTo(current, current.index + delta, presentation.stops.length));
   }, [presentation]);
+  const toggleMode = React.useCallback(() => {
+    const next = mode === 'present' ? 'review' : 'present';
+    setMode(next);
+    const url = new URL(window.location.href);
+    if (next === 'present') url.searchParams.set('mode', 'present');
+    else url.searchParams.delete('mode');
+    window.history.replaceState(null, '', url.toString());
+    viewportRef.current?.focus({ preventScroll: true });
+  }, [mode]);
 
   React.useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -127,21 +136,7 @@ export function App({ definition, available }: {
       if (event.key === ' ' && target instanceof Element && target.closest('button, a')) return;
       if (event.key.toLowerCase() === 'p') {
         event.preventDefault();
-        setMode((current) => {
-          const next = current === 'present' ? 'review' : 'present';
-          try {
-            const url = new URL(window.location.href);
-            if (next === 'present') {
-              url.searchParams.set('mode', 'present');
-            } else {
-              url.searchParams.delete('mode');
-            }
-            window.history.replaceState(null, '', url.toString());
-          } catch {
-            // Ignored if window/history URL manipulation is restricted
-          }
-          return next;
-        });
+        toggleMode();
         return;
       }
       if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
@@ -158,13 +153,13 @@ export function App({ definition, available }: {
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [navigation.index, presentation, step]);
+  }, [navigation.index, presentation, step, toggleMode]);
 
   const formatCamera = `${camera.x.toFixed(1)}, ${camera.y.toFixed(1)}, ${camera.k.toFixed(4)}`;
   const changingIds = new Set(presentation.elements.filter((element) =>
     changesContentInPlace(presentation, navigation.previousIndex, index, element.id)).map((element) => element.id));
   const showBadge = mode !== 'present' && !stop.hideBadge;
-  const showControls = !stop.hideControls;
+  const showControls = mode !== 'present' && !stop.hideControls;
 
   return (
     <div className="app-shell" data-presentation-id={definition.id} data-theme-id={theme.id}
@@ -187,7 +182,7 @@ export function App({ definition, available }: {
           {showBadge && <div className="viewer-badge" aria-live="polite" aria-atomic="true">
             {stop.label}<span>{index + 1} / {presentation.stops.length}</span>
           </div>}
-          {Persistent && <div className="presentation-overlay" data-persistent="true">
+          {mode !== 'present' && Persistent && <div className="presentation-overlay" data-persistent="true">
             <Persistent stop={stop} index={index} total={presentation.stops.length} />
           </div>}
           {showControls && <div className="viewer-controls">
@@ -208,6 +203,9 @@ export function App({ definition, available }: {
             <h1>{presentation.title}</h1>
             <p>Selecciona una parada o avanza con las flechas. Arrastra con ratón o dedo, pellizca para ampliar y usa Centrar para recuperar el encuadre.</p>
           </div>
+          <button className="presentation-mode-button" type="button" onClick={toggleMode}
+            aria-keyshortcuts="P">Ocultar HUD · P</button>
+          <p className="presentation-mode-hint">Pulsa P para mostrar u ocultar el HUD. Con el HUD oculto, avanza con las flechas.</p>
           <nav className="deck-picker" aria-label="Presentaciones de prueba">
             {available.map((item) => (
               <a key={item.id} href={`?deck=${encodeURIComponent(item.id)}`}

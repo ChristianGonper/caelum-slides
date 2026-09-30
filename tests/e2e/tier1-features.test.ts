@@ -400,13 +400,14 @@ describe('Tier 1: Feature Coverage (F1 - F21)', () => {
     });
   });
 
-  // F17: Headless 16:9 PDF Export (10 pages)
-  describe('F17: Headless 16:9 PDF Export (10 pages)', () => {
-    it('el contrato estático de Caelum especifica exactamente 10 páginas de contenido', () => {
+  // F17: Headless 16:9 PDF Export (11 pages)
+  describe('F17: Headless 16:9 PDF Export (11 pages)', () => {
+    it('el contrato estático de Caelum especifica exactamente 11 páginas de contenido', () => {
       const staticStops = EXPECTED_NOMINAL_STOPS.filter((s) => s.includeInStatic !== false);
-      expect(staticStops).toHaveLength(10);
+      expect(staticStops).toHaveLength(11);
       expect(staticStops[0].id).toBe('opening-nuclear');
       expect(staticStops[9].id).toBe('closing');
+      expect(staticStops[10].id).toBe('contacts');
     });
   });
 

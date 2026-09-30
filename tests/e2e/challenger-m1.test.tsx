@@ -200,9 +200,8 @@ describe('Empirical Verification: Milestone 1 Generic Core Engine Extensions', (
       expect(html).toContain('data-mode="present"');
     });
 
-    it('verifies that in present mode, controls ARE rendered unless hideControls: true is explicitly set', () => {
+    it('hides controls and duplicate presentation overlays in present mode even without hideControls', () => {
       setupMockWindow('?mode=present');
-      // If hideControls is false, controls still render in present mode!
       const deckWithControls: PresentationDefinition = {
         ...cleanBlackDeck,
         model: {
@@ -210,13 +209,14 @@ describe('Empirical Verification: Milestone 1 Generic Core Engine Extensions', (
           stops: [
             {
               ...cleanBlackStop,
-              hideControls: false, // Controls NOT hidden
+              hideControls: false,
             },
           ],
         },
       };
       const html = renderToStaticMarkup(<App definition={deckWithControls} available={[deckWithControls]} />);
-      expect(html).toContain('viewer-controls');
+      expect(html).not.toContain('viewer-controls');
+      expect(html).not.toContain('presentation-overlay');
     });
 
     it('verifies that in review mode, badge IS rendered unless hideBadge: true is explicitly set', () => {

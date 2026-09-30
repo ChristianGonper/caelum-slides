@@ -11,25 +11,26 @@ import {
   PersistentFooter,
 } from './content';
 import { CaelumVectorSchema } from './schema';
+import './styles.css';
 
 const model: PresentationDefinition['model'] = {
   title: 'Caelum Systems — ESA BIC Castilla y León 2026',
   cameraTransitionMs: 1000,
   contextStopId: 'overview',
-  overview: { x: -2100, y: -1600, width: 4200, height: 3200 },
+  overview: { x: -2100, y: -1880, width: 4200, height: 3480 },
   elements: [
     {
       id: 'center',
       kind: 'cover',
       label: 'Centro',
       bounds: { x: -480, y: -270, width: 960, height: 540 },
-      states: ['intro', 'closing'],
+      states: ['intro', 'closing', 'contacts'],
     },
     {
       id: 'block-a',
       kind: 'block',
       label: 'Contexto',
-      bounds: { x: -640, y: -1460, width: 1280, height: 720 },
+      bounds: { x: -640, y: -1720, width: 1280, height: 720 },
       states: ['nuclear', 'space'],
     },
     {
@@ -146,10 +147,18 @@ const model: PresentationDefinition['model'] = {
     },
     {
       id: 'closing',
-      label: 'Cierre y contactos',
+      label: 'Cierre',
       cameraTargetId: 'center',
       visibleIds: ['center'],
       stateByElement: { center: 'closing' },
+      includeInStatic: true,
+    },
+    {
+      id: 'contacts',
+      label: 'Contactos',
+      cameraTargetId: 'center',
+      visibleIds: ['center'],
+      stateByElement: { center: 'contacts' },
       includeInStatic: true,
     },
   ],
@@ -174,6 +183,7 @@ export const esabicCaelum2026Presentation: PresentationDefinition = {
       team: true,
       network: true,
       closing: true,
+      contacts: true,
     },
     canvasByStop: {
       black: '#000000',

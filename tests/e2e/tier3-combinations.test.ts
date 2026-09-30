@@ -59,7 +59,7 @@ describe('Tier 3: Cross-Feature Combinations', () => {
     it('la exportación estática preserva todas las paradas exportables sin controles interactivos de avance', () => {
       const stops = EXPECTED_NOMINAL_STOPS;
       const exportable = stops.filter((s) => s.includeInStatic !== false);
-      expect(exportable).toHaveLength(10);
+      expect(exportable).toHaveLength(11);
       // Ninguna página estática contiene botones de control de navegación interactiva
       for (const stop of exportable) {
         expect(stop.id).not.toBe('black');

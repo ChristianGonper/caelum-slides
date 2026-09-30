@@ -42,6 +42,9 @@
     .workspace { grid-template-columns: 1fr; overflow: visible; }
     .viewer { min-block-size: min(68dvh, 42rem); }
     .sidebar { overflow-y: visible; border-inline-start: 0; border-block-start: 1px solid var(--line); }
+    .app-shell[data-mode="present"] { block-size: 100dvh; min-block-size: 0; }
+    .app-shell[data-mode="present"] .workspace { overflow: hidden; }
+    .app-shell[data-mode="present"] .viewer { min-block-size: 0; }
   }
 }
 
@@ -90,6 +93,8 @@
   .deck-picker a:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
   .static-link { display: block; padding: .7rem .8rem; border: 1px solid var(--accent); border-radius: .5rem; color: var(--ink); text-align: center; text-decoration: none; font-size: .83rem; }
   .static-link:hover { background: var(--surface); }
+  .presentation-mode-button { padding: .8rem; border: 1px solid var(--accent); border-radius: .5rem; color: var(--ink); background: var(--surface); cursor: pointer; }
+  .presentation-mode-hint { margin: -.7rem 0 0; color: var(--muted); font-size: .76rem; line-height: 1.5; }
   .static-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .palette-picker { display: grid; gap: .4rem; color: var(--muted); font-size: .76rem; }
   .palette-picker select { inline-size: 100%; min-block-size: 2.7rem; padding: .55rem .65rem; border: 1px solid var(--line); border-radius: .5rem; background: var(--surface); color: var(--ink); font: inherit; }

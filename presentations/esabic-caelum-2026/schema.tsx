@@ -16,7 +16,7 @@ export function CaelumVectorSchema(): React.JSX.Element {
 
   // Coordenadas canónicas de los 6 bloques periféricos (centros)
   const targets = [
-    { id: 'A', x: 0, y: -1100, label: '12H · CONTEXT' },
+    { id: 'A', x: 0, y: -1360, label: '12H · CONTEXT' },
     { id: 'B', x: 1150, y: -580, label: '02H · RESPONSE GAP' },
     { id: 'C', x: 1150, y: 580, label: '04H · R.A.R.' },
     { id: 'D', x: 0, y: 1100, label: '06H · SPACE MARKET' },
@@ -227,20 +227,6 @@ export function CaelumVectorSchema(): React.JSX.Element {
               strokeWidth="1"
               opacity="0.4"
             />
-
-            {/* Etiqueta técnica minimalista */}
-            <text
-              x={target.x + (target.x === 0 ? 18 : target.x > 0 ? 25 : -25)}
-              y={target.y + (target.y === 0 ? -18 : target.y > 0 ? 25 : -25)}
-              fill="var(--accent)"
-              fontSize="11"
-              fontFamily="var(--font-mono, monospace)"
-              letterSpacing="1.5"
-              opacity="0.65"
-              textAnchor={target.x < 0 ? 'end' : 'start'}
-            >
-              ARM-{target.id} // {target.label}
-            </text>
           </g>
         );
       })}
@@ -255,67 +241,6 @@ export function CaelumVectorSchema(): React.JSX.Element {
           strokeWidth="2"
           opacity="0.8"
         />
-        <circle
-          cx="0"
-          cy="0"
-          r="165"
-          fill="none"
-          stroke="var(--border)"
-          strokeWidth="1.5"
-          strokeDasharray="5 5"
-          opacity="0.5"
-        />
-        <circle
-          cx="0"
-          cy="0"
-          r="95"
-          fill="none"
-          stroke="var(--accent)"
-          strokeWidth="1.5"
-          opacity="0.7"
-        />
-        <circle
-          cx="0"
-          cy="0"
-          r="45"
-          fill="none"
-          stroke="var(--graphic)"
-          strokeWidth="2"
-          opacity="0.85"
-        />
-        <circle cx="0" cy="0" r="6" fill="var(--accent)" />
-
-        {/* Retículas y marcadores de orientación */}
-        <line x1="-70" y1="0" x2="-20" y2="0" stroke="var(--accent)" strokeWidth="1.5" />
-        <line x1="20" y1="0" x2="70" y2="0" stroke="var(--accent)" strokeWidth="1.5" />
-        <line x1="0" y1="-70" x2="0" y2="-20" stroke="var(--accent)" strokeWidth="1.5" />
-        <line x1="0" y1="20" x2="0" y2="70" stroke="var(--accent)" strokeWidth="1.5" />
-
-        {/* Metadatos técnicos de aeronavegabilidad */}
-        <text
-          x="0"
-          y="-115"
-          fill="var(--accent)"
-          fontSize="10"
-          fontFamily="var(--font-mono, monospace)"
-          letterSpacing="2.5"
-          opacity="0.7"
-          textAnchor="middle"
-        >
-          CAELUM · HEX-AIRFRAME SCHEMA
-        </text>
-        <text
-          x="0"
-          y="130"
-          fill="var(--muted, #9ab7b8)"
-          fontSize="9"
-          fontFamily="var(--font-mono, monospace)"
-          letterSpacing="1.5"
-          opacity="0.6"
-          textAnchor="middle"
-        >
-          ROTATIONAL RADIUS: 1288 PX · 60° CHORDS
-        </text>
       </g>
     </svg>
   );

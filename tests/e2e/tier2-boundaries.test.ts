@@ -130,15 +130,15 @@ describe('Tier 2: Boundary & Corner Cases', () => {
     });
   });
 
-  // 5. Static export page count edge cases (10 vs 11 pages)
+  // 5. Static export page count edge cases (11 vs 12 pages)
   describe('Casos límite de conteo de páginas estáticas (10 vs 11 páginas)', () => {
-    it('el recorrido nominal genera exactamente 10 páginas estáticas excluyendo el negro inicial', () => {
+    it('el recorrido nominal genera exactamente 11 páginas estáticas excluyendo el negro inicial', () => {
       const staticStops = EXPECTED_NOMINAL_STOPS.filter((s) => s.includeInStatic !== false);
-      expect(staticStops).toHaveLength(10);
+      expect(staticStops).toHaveLength(11);
       expect(staticStops.some((s) => s.id === 'black')).toBe(false);
     });
 
-    it('soporta desdoble justificado de Bloque E generando exactamente 11 páginas', () => {
+    it('soporta desdoble justificado de Bloque E generando exactamente 12 páginas', () => {
       const splitStops = EXPECTED_NOMINAL_STOPS.flatMap((stop) => {
         if (stop.id === 'business') {
           return [
@@ -150,7 +150,7 @@ describe('Tier 2: Boundary & Corner Cases', () => {
       });
 
       const staticSplit = splitStops.filter((s) => s.includeInStatic !== false);
-      expect(staticSplit).toHaveLength(11);
+      expect(staticSplit).toHaveLength(12);
       expect(staticSplit.map((s) => s.id)).toContain('business-feasibility');
       expect(staticSplit.map((s) => s.id)).toContain('business-production');
     });

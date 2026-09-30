@@ -16,9 +16,7 @@ import uleLogo from './assets/images/logotipo-universidad-de-leon-01.jpg';
 import intaLogo from './assets/images/intaa.jpg';
 import aeeLogo from './assets/images/aee.jpg';
 import esaLogo from './assets/images/ESA_Logo_pillars.jpg';
-import systemViewsImg from './assets/images/system-views.png';
 import multiDroneImg from './assets/images/multi-drone-mounting.png';
-import cdtiLogo from './assets/images/Centro_para_el_Desarrollo_Tecnologico_Industrial_CDTI_pillars.jpg';
 
 // Importación de los 3 códigos QR vectoriales ópticos locales
 import qrChristianSvg from './qr/qr-christian-gonzalez.svg';
@@ -67,14 +65,27 @@ function CardFooter({ number }: { number?: string }) {
 /**
  * Componente del Centro (Center Hub):
  * - Estado 'intro': Portada identificativa del proyecto en la revelación del mapa.
- * - Estado 'closing': Cierre con eslogan, integrantes, enlaces y códigos QR ópticos vectoriales.
+ * - Estado 'closing': Cierre con el claim.
+ * - Estado 'contacts': Contactos y códigos QR en la misma posición.
  */
 export function CenterContent({ state }: ContentProps): React.JSX.Element {
   if (state === 'closing') {
     return (
+      <div className="cover-content closing-claim">
+        <div className="closing-background" style={{ backgroundImage: `url(${droneDefendingImg})` }} aria-hidden="true" />
+        <div className="closing-message">
+          <h2>Caelum Systems</h2>
+          <p className="mission-claim">{MISSION_SLOGAN}</p>
+        </div>
+        <div className="closing-footer"><CardFooter number="09" /></div>
+      </div>
+    );
+  }
+  if (state === 'contacts') {
+    return (
       <div
         className="cover-content closing-hub"
-        key="closing"
+        key="contacts"
         style={{
           height: '100%',
           boxSizing: 'border-box',
@@ -97,16 +108,13 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
             backgroundImage: `url(${droneDefendingImg})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            opacity: 0.12,
+            opacity: 0.45,
             pointerEvents: 'none',
           }}
           aria-hidden="true"
         />
 
         <div style={{ position: 'relative', zIndex: 1 }}>
-          <span className="eyebrow" style={{ color: 'var(--accent)', letterSpacing: '0.2em' }}>
-            CIERRE Y CONTACTO
-          </span>
           <h2
             style={{
               margin: '4px 0 4px',
@@ -118,17 +126,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
           >
             Caelum Systems
           </h2>
-          <p
-            style={{
-              margin: 0,
-              fontSize: '14px',
-              lineHeight: 1.35,
-              color: 'var(--ink, #e8f5f4)',
-              maxWidth: '820px',
-            }}
-          >
-            {MISSION_SLOGAN}
-          </p>
+
         </div>
 
         {/* Tarjetas de contacto con códigos QR vectoriales legibles ópticamente */}
@@ -157,8 +155,8 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
           >
             <div
               style={{
-                width: '88px',
-                height: '88px',
+                width: '128px',
+                height: '128px',
                 padding: '4px',
                 background: '#ffffff',
                 borderRadius: '8px',
@@ -187,7 +185,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
                 lineHeight: 1.25,
               }}
             >
-              Project Management & Business
+              Project management · Systems architecture · Business development
             </span>
             <a
               href="https://www.linkedin.com/in/guillermo-alba-buitr%C3%B3n-07366b254/"
@@ -221,8 +219,8 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
           >
             <div
               style={{
-                width: '88px',
-                height: '88px',
+                width: '128px',
+                height: '128px',
                 padding: '4px',
                 background: '#ffffff',
                 borderRadius: '8px',
@@ -251,7 +249,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
                 lineHeight: 1.25,
               }}
             >
-              Electronics, Avionics & Control
+              Electronics · Avionics · Power systems · Control and software
             </span>
             <a
               href="https://www.linkedin.com/in/alejandro-gil-getino/"
@@ -285,8 +283,8 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
           >
             <div
               style={{
-                width: '88px',
-                height: '88px',
+                width: '128px',
+                height: '128px',
                 padding: '4px',
                 background: '#ffffff',
                 borderRadius: '8px',
@@ -315,7 +313,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
                 lineHeight: 1.25,
               }}
             >
-              Acoustics & Simulation
+              Acoustics · Data analysis · Financing · Aeroelastic and structural modelling and simulation
             </span>
             <a
               href="https://www.linkedin.com/in/christiangonzalezp/"
@@ -336,7 +334,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
         </div>
 
         <div style={{ position: 'relative', zIndex: 1 }}>
-          <CardFooter number="09" />
+          <CardFooter number="10" />
         </div>
       </div>
     );
@@ -389,6 +387,9 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
       >
         Acoustic counter UAS defence System
       </p>
+      <p style={{ margin: "0 0 16px", fontSize: "18px", color: "var(--ink)" }}>
+        Guillermo Alba Buitrón · Alejandro Gil Getino · Christian González Pérez
+      </p>
       <span
         style={{
           fontSize: '14px',
@@ -408,7 +409,8 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
  * - Estado 'nuclear': Central nuclear (Slide 01)
  * - Estado 'space': Antenas de espacio profundo (Slide 02)
  */
-export function BlockAContent({ state }: ContentProps): React.JSX.Element {
+export function BlockAContent(props: ContentProps): React.JSX.Element {
+  const { state } = props;
   if (state === 'nuclear') {
     return (
       <div
@@ -513,35 +515,7 @@ export function BlockAContent({ state }: ContentProps): React.JSX.Element {
     );
   }
 
-  // Vista general del bloque (Overview preview)
-  return (
-    <div
-      className="block-content"
-      style={{
-        height: '100%',
-        boxSizing: 'border-box',
-        padding: '36px 44px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        background: 'linear-gradient(140deg, var(--surface), var(--background-secondary))',
-        borderRadius: '24px',
-        border: '2px solid color-mix(in srgb, var(--accent) 50%, transparent)',
-      }}
-    >
-      <span className="eyebrow" style={{ color: 'var(--accent)' }}>
-        BLOQUE A · 12:00
-      </span>
-      <strong style={{ fontSize: '32px', color: 'var(--heading)', margin: '12px 0 8px' }}>
-        Context
-      </strong>
-      <span style={{ color: 'var(--muted)', fontSize: '18px' }}>
-        2 escenas apiladas · Central nuclear & Antenas
-      </span>
-    </div>
-  );
+  return <BlockAContent {...props} state="nuclear" />;
 }
 
 /**
@@ -563,9 +537,6 @@ export function BlockBContent(): React.JSX.Element {
         border: '2px solid var(--accent)',
       }}
     >
-      <span className="eyebrow" style={{ color: 'var(--accent)', letterSpacing: '0.18em' }}>
-        BLOQUE B · THE RESPONSE GAP
-      </span>
       <h2
         style={{
           margin: '10px 0 6px',
@@ -649,9 +620,6 @@ export function BlockCContent(): React.JSX.Element {
         border: '2px solid var(--accent)',
       }}
     >
-      <span className="eyebrow" style={{ color: 'var(--accent)', letterSpacing: '0.18em' }}>
-        BLOQUE C · OUR SOLUTION
-      </span>
       <h2
         style={{
           margin: '10px 0 6px',
@@ -692,38 +660,11 @@ export function BlockCContent(): React.JSX.Element {
           <li>Reusability.</li>
         </ul>
 
-        {/* Imágenes vinculadas: Efector montado e ingeniería de vistas del sistema */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <div
-            style={{
-              borderRadius: '12px',
-              overflow: 'hidden',
-              border: '1px solid var(--line)',
-              boxShadow: '0 8px 20px rgba(0,0,0,0.25)',
-              background: 'rgba(0,0,0,0.2)',
-            }}
-          >
-            <img
-              src={droneMountingImg}
-              alt="Esquema del efector R.A.R. montado en dron"
-              style={{ width: '100%', height: '140px', objectFit: 'contain', display: 'block' }}
-            />
-          </div>
-          <div
-            style={{
-              borderRadius: '10px',
-              overflow: 'hidden',
-              border: '1px solid var(--line)',
-              background: 'rgba(0,0,0,0.3)',
-            }}
-          >
-            <img
-              src={systemViewsImg}
-              alt="Vistas técnicas del sistema R.A.R."
-              style={{ width: '100%', height: '80px', objectFit: 'contain', display: 'block' }}
-            />
-          </div>
-        </div>
+        <img
+          className="solution-image"
+          src={droneMountingImg}
+          alt="Esquema del efector R.A.R. montado en dron"
+        />
       </div>
 
       <CardFooter number="04" />
@@ -750,9 +691,6 @@ export function BlockDContent(): React.JSX.Element {
         border: '2px solid var(--accent)',
       }}
     >
-      <span className="eyebrow" style={{ color: 'var(--accent)', letterSpacing: '0.18em' }}>
-        BLOQUE D · SPACE APPLICATION & MARKET
-      </span>
       <h2
         style={{
           margin: '10px 0 6px',
@@ -841,9 +779,6 @@ export function BlockEContent(): React.JSX.Element {
         overflow: 'hidden',
       }}
     >
-      <span className="eyebrow" style={{ color: 'var(--accent)', letterSpacing: '0.18em' }}>
-        BLOQUE E · BUSINESS & FEASIBILITY
-      </span>
       <h2
         style={{
           margin: '6px 0 12px',
@@ -929,11 +864,11 @@ export function BlockEContent(): React.JSX.Element {
         </div>
       </div>
 
-      {/* Sección de Financiación con apoyo institucional CDTI */}
+      {/* Sección de Financiación */}
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '1.5fr 1fr',
+          gridTemplateColumns: '1fr',
           gap: '12px',
           alignItems: 'center',
           padding: '10px 14px',
@@ -954,24 +889,6 @@ export function BlockEContent(): React.JSX.Element {
           </ol>
         </div>
 
-        <div
-          style={{
-            borderRadius: '8px',
-            overflow: 'hidden',
-            border: '1px solid var(--line)',
-            background: '#ffffff',
-            padding: '4px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <img
-            src={cdtiLogo}
-            alt="Centro para el Desarrollo Tecnológico y la Innovación (CDTI)"
-            style={{ maxHeight: '42px', width: 'auto', objectFit: 'contain', display: 'block' }}
-          />
-        </div>
       </div>
 
       {/* Cita científica verificada */}
@@ -990,7 +907,8 @@ export function BlockEContent(): React.JSX.Element {
  * - Estado 'team': Tres ingenieros y responsabilidades (Slide 08)
  * - Estado 'network': Red de apoyo institucional (Slide 09)
  */
-export function BlockFContent({ state }: ContentProps): React.JSX.Element {
+export function BlockFContent(props: ContentProps): React.JSX.Element {
+  const { state } = props;
   if (state === 'team') {
     return (
       <div
@@ -1015,7 +933,7 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
             backgroundImage: `url(${teamBolasImg})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            opacity: 0.08,
+            opacity: 0.4,
             pointerEvents: 'none',
             borderRadius: '24px',
           }}
@@ -1023,9 +941,6 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
         />
 
         <div style={{ position: 'relative', zIndex: 1 }}>
-          <span className="eyebrow" style={{ color: 'var(--accent)', letterSpacing: '0.18em' }}>
-            BLOQUE F · TEAM
-          </span>
           <h2
             style={{
               margin: '6px 0 2px',
@@ -1122,7 +1037,7 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
           </div>
         </div>
 
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ position: 'relative', zIndex: 1, marginTop: 'auto' }}>
           <CardFooter number="07" />
         </div>
       </div>
@@ -1145,9 +1060,6 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
           border: '2px solid var(--accent)',
         }}
       >
-        <span className="eyebrow" style={{ color: 'var(--accent)', letterSpacing: '0.18em' }}>
-          BLOQUE F · NETWORK
-        </span>
         <h2
           style={{
             margin: '6px 0 2px',
@@ -1247,35 +1159,7 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
     );
   }
 
-  // Vista general del bloque (Overview preview)
-  return (
-    <div
-      className="block-content"
-      style={{
-        height: '100%',
-        boxSizing: 'border-box',
-        padding: '36px 44px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        background: 'linear-gradient(140deg, var(--surface), var(--background-secondary))',
-        borderRadius: '24px',
-        border: '2px solid color-mix(in srgb, var(--accent) 50%, transparent)',
-      }}
-    >
-      <span className="eyebrow" style={{ color: 'var(--accent)' }}>
-        BLOQUE F · 10:00
-      </span>
-      <strong style={{ fontSize: '32px', color: 'var(--heading)', margin: '12px 0 8px' }}>
-        Team
-      </strong>
-      <span style={{ color: 'var(--muted)', fontSize: '18px' }}>
-        2 escenas apiladas · Equipo & Red institucional
-      </span>
-    </div>
-  );
+  return <BlockFContent {...props} state="team" />;
 }
 
 /**
@@ -1292,6 +1176,7 @@ export function PersistentFooter({ stop }: PersistentProps): React.JSX.Element |
     team: '07',
     network: '08',
     closing: '09',
+    contacts: '10',
   };
   const num = numbers[stop.id];
   if (!num) return null;

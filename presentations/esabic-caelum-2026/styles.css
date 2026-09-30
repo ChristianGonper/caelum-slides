@@ -1,0 +1,80 @@
+/* Keep the prototype's block-heading typography out of slide body emphasis. */
+@layer components {
+  [data-presentation-id="esabic-caelum-2026"] .block strong {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: 700;
+  }
+  [data-presentation-id="esabic-caelum-2026"] .cover {
+    padding: 0;
+  }
+  [data-presentation-id="esabic-caelum-2026"] .cover::after {
+    content: none;
+  }
+  [data-presentation-id="esabic-caelum-2026"] .cover-content {
+    max-inline-size: none;
+  }
+  .solution-image {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    border-radius: 12px;
+  }
+  .closing-claim {
+    position: relative;
+    box-sizing: border-box;
+    block-size: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 28px 36px;
+    overflow: hidden;
+    border-radius: 24px;
+    background: var(--background-secondary);
+    border: 2px solid var(--accent);
+  }
+  .closing-background {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: .5;
+  }
+  .closing-claim::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent, #0006 65%, #0009);
+  }
+  .closing-message {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-shadow: 0 2px 16px #000a;
+  }
+  [data-presentation-id="esabic-caelum-2026"] .closing-message h2 {
+    margin: 0 0 24px;
+    font-size: 32px;
+    color: #fff;
+  }
+  [data-presentation-id="esabic-caelum-2026"] .mission-claim {
+    max-inline-size: 780px;
+    margin: 0;
+    font-family: var(--font-title);
+    font-size: 40px;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.22;
+    color: #fff;
+    text-wrap: balance;
+  }
+  .closing-footer {
+    position: relative;
+    z-index: 1;
+  }
+}

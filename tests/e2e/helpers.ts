@@ -100,10 +100,18 @@ export const EXPECTED_NOMINAL_STOPS: readonly ExpectedStopSpec[] = [
   },
   {
     id: 'closing',
-    label: 'Cierre y contactos',
+    label: 'Cierre',
     cameraTargetId: 'center',
     stateByElement: { center: 'closing' },
     contentNumber: '09',
+    includeInStatic: true,
+  },
+  {
+    id: 'contacts',
+    label: 'Contactos',
+    cameraTargetId: 'center',
+    stateByElement: { center: 'contacts' },
+    contentNumber: '10',
     includeInStatic: true,
   },
 ];
