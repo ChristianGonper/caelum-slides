@@ -1,5 +1,5 @@
 import { build } from 'vite';
-import { copyFile, mkdir, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, stat, writeFile } from 'node:fs/promises';
 
 // Bundle the same app as localhost, including its media, into one portable file.
 const result = await build({
@@ -25,7 +25,10 @@ const html = String(htmlAsset.source)
     `<style>${String(css.source).replace(/<\/style/gi, '<\\/style')}</style>`);
 await mkdir('output/html', { recursive: true });
 try {
-  await copyFile('output/html/caelum-slides.html', 'output/html/caelum-slides_original.html');
+  const originalExists = await stat('output/html/caelum-slides_original.html').then(() => true).catch(() => false);
+  if (!originalExists) {
+    await copyFile('output/html/caelum-slides.html', 'output/html/caelum-slides_original.html');
+  }
 } catch (error) {
   if (error.code !== 'ENOENT') throw error;
 }
