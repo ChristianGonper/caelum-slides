@@ -1,7 +1,7 @@
 import React from 'react';
 import type { ContentProps, PersistentProps } from '../../system/src/definition';
 
-// Importación directa de imágenes locales
+// Importación directa de todas las 16 imágenes locales
 import nuclearStationImg from './assets/images/nuclear-station.jpeg';
 import twoAntennasImg from './assets/images/two-antennas-deep.jpg';
 import cebrerosImg from './assets/images/Cebreros_station_pillars.jpg';
@@ -16,6 +16,14 @@ import uleLogo from './assets/images/logotipo-universidad-de-leon-01.jpg';
 import intaLogo from './assets/images/intaa.jpg';
 import aeeLogo from './assets/images/aee.jpg';
 import esaLogo from './assets/images/ESA_Logo_pillars.jpg';
+import systemViewsImg from './assets/images/system-views.png';
+import multiDroneImg from './assets/images/multi-drone-mounting.png';
+import cdtiLogo from './assets/images/Centro_para_el_Desarrollo_Tecnologico_Industrial_CDTI_pillars.jpg';
+
+// Importación de los 3 códigos QR vectoriales ópticos locales
+import qrChristianSvg from './qr/qr-christian-gonzalez.svg';
+import qrAlejandroSvg from './qr/qr-alejandro-gil.svg';
+import qrGuillermoSvg from './qr/qr-guillermo-alba.svg';
 
 export const PERSISTENT_FOOTER_TEXT = 'Caelum Systems · ESA BIC CYL 2026';
 export const MISSION_SLOGAN =
@@ -35,7 +43,7 @@ function CardFooter({ number }: { number?: string }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingTop: '16px',
+        paddingTop: '14px',
         borderTop: '1px solid color-mix(in srgb, var(--border, #25474e) 60%, transparent)',
         fontSize: '13px',
         letterSpacing: '0.08em',
@@ -59,7 +67,7 @@ function CardFooter({ number }: { number?: string }) {
 /**
  * Componente del Centro (Center Hub):
  * - Estado 'intro': Portada identificativa del proyecto en la revelación del mapa.
- * - Estado 'closing': Cierre con eslogan, integrantes y contactos profesionales.
+ * - Estado 'closing': Cierre con eslogan, integrantes, enlaces y códigos QR ópticos vectoriales.
  */
 export function CenterContent({ state }: ContentProps): React.JSX.Element {
   if (state === 'closing') {
@@ -73,7 +81,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          padding: '36px 44px',
+          padding: '28px 36px',
           position: 'relative',
           overflow: 'hidden',
           borderRadius: '24px',
@@ -81,7 +89,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
           border: '2px solid var(--accent)',
         }}
       >
-        {/* Fondo sutil con imagen del dron defendiendo */}
+        {/* Fondo con imagen del dron defendiendo */}
         <div
           style={{
             position: 'absolute',
@@ -101,10 +109,10 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
           </span>
           <h2
             style={{
-              margin: '8px 0 6px',
+              margin: '4px 0 4px',
               fontFamily: 'var(--font-title)',
               color: 'var(--heading, #e8f5f4)',
-              fontSize: '32px',
+              fontSize: '28px',
               lineHeight: 1.1,
             }}
           >
@@ -113,8 +121,8 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
           <p
             style={{
               margin: 0,
-              fontSize: '16px',
-              lineHeight: 1.4,
+              fontSize: '14px',
+              lineHeight: 1.35,
               color: 'var(--ink, #e8f5f4)',
               maxWidth: '820px',
             }}
@@ -123,47 +131,73 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
           </p>
         </div>
 
-        {/* Tarjetas de contacto de los 3 integrantes */}
+        {/* Tarjetas de contacto con códigos QR vectoriales legibles ópticamente */}
         <div
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '16px',
+            gap: '14px',
             position: 'relative',
             zIndex: 1,
-            margin: '18px 0',
+            margin: '10px 0',
           }}
         >
           {/* Guillermo Alba Buitrón */}
           <div
             style={{
-              padding: '14px',
+              padding: '12px',
               borderRadius: '12px',
-              background: 'color-mix(in srgb, var(--surface) 80%, black)',
+              background: 'color-mix(in srgb, var(--surface) 88%, black)',
               border: '1px solid var(--line, #25474e)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              textAlign: 'center',
             }}
           >
-            <strong style={{ display: 'block', fontSize: '15px', color: 'var(--heading)' }}>
+            <div
+              style={{
+                width: '88px',
+                height: '88px',
+                padding: '4px',
+                background: '#ffffff',
+                borderRadius: '8px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.25)',
+                marginBottom: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <img
+                src={qrGuillermoSvg}
+                alt="QR LinkedIn Guillermo Alba Buitrón"
+                style={{ width: '100%', height: '100%', display: 'block' }}
+              />
+            </div>
+            <strong style={{ display: 'block', fontSize: '14px', color: 'var(--heading)', lineHeight: 1.2 }}>
               Guillermo Alba Buitrón
             </strong>
             <span
               style={{
                 display: 'block',
-                fontSize: '12px',
+                fontSize: '11px',
                 color: 'var(--muted)',
-                margin: '4px 0 8px',
+                margin: '3px 0 6px',
+                lineHeight: 1.25,
               }}
             >
               Project Management & Business
             </span>
             <a
-              href="https://www.linkedin.com/in/guillermo-alba-buitrón-07366b254/"
+              href="https://www.linkedin.com/in/guillermo-alba-buitr%C3%B3n-07366b254/"
               target="_blank"
               rel="noopener noreferrer"
               style={{
                 display: 'inline-block',
                 color: 'var(--accent)',
                 fontSize: '11px',
+                fontWeight: 600,
                 textDecoration: 'none',
                 wordBreak: 'break-all',
               }}
@@ -175,33 +209,59 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
           {/* Alejandro Gil Getino */}
           <div
             style={{
-              padding: '14px',
+              padding: '12px',
               borderRadius: '12px',
-              background: 'color-mix(in srgb, var(--surface) 80%, black)',
+              background: 'color-mix(in srgb, var(--surface) 88%, black)',
               border: '1px solid var(--line, #25474e)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              textAlign: 'center',
             }}
           >
-            <strong style={{ display: 'block', fontSize: '15px', color: 'var(--heading)' }}>
+            <div
+              style={{
+                width: '88px',
+                height: '88px',
+                padding: '4px',
+                background: '#ffffff',
+                borderRadius: '8px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.25)',
+                marginBottom: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <img
+                src={qrAlejandroSvg}
+                alt="QR LinkedIn Alejandro Gil Getino"
+                style={{ width: '100%', height: '100%', display: 'block' }}
+              />
+            </div>
+            <strong style={{ display: 'block', fontSize: '14px', color: 'var(--heading)', lineHeight: 1.2 }}>
               Alejandro Gil Getino
             </strong>
             <span
               style={{
                 display: 'block',
-                fontSize: '12px',
+                fontSize: '11px',
                 color: 'var(--muted)',
-                margin: '4px 0 8px',
+                margin: '3px 0 6px',
+                lineHeight: 1.25,
               }}
             >
               Electronics, Avionics & Control
             </span>
             <a
-              href="https://www.linkedin.com/in/alejandro-gil-getino-6b94733b8/?isSelfProfile=false"
+              href="https://www.linkedin.com/in/alejandro-gil-getino/"
               target="_blank"
               rel="noopener noreferrer"
               style={{
                 display: 'inline-block',
                 color: 'var(--accent)',
                 fontSize: '11px',
+                fontWeight: 600,
                 textDecoration: 'none',
                 wordBreak: 'break-all',
               }}
@@ -213,33 +273,59 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
           {/* Christian González Pérez */}
           <div
             style={{
-              padding: '14px',
+              padding: '12px',
               borderRadius: '12px',
-              background: 'color-mix(in srgb, var(--surface) 80%, black)',
+              background: 'color-mix(in srgb, var(--surface) 88%, black)',
               border: '1px solid var(--line, #25474e)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              textAlign: 'center',
             }}
           >
-            <strong style={{ display: 'block', fontSize: '15px', color: 'var(--heading)' }}>
+            <div
+              style={{
+                width: '88px',
+                height: '88px',
+                padding: '4px',
+                background: '#ffffff',
+                borderRadius: '8px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.25)',
+                marginBottom: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <img
+                src={qrChristianSvg}
+                alt="QR LinkedIn Christian González Pérez"
+                style={{ width: '100%', height: '100%', display: 'block' }}
+              />
+            </div>
+            <strong style={{ display: 'block', fontSize: '14px', color: 'var(--heading)', lineHeight: 1.2 }}>
               Christian González Pérez
             </strong>
             <span
               style={{
                 display: 'block',
-                fontSize: '12px',
+                fontSize: '11px',
                 color: 'var(--muted)',
-                margin: '4px 0 8px',
+                margin: '3px 0 6px',
+                lineHeight: 1.25,
               }}
             >
               Acoustics & Simulation
             </span>
             <a
-              href="https://www.linkedin.com/in/christiangonzalezperez/?isSelfProfile=true"
+              href="https://www.linkedin.com/in/christiangonzalezp/"
               target="_blank"
               rel="noopener noreferrer"
               style={{
                 display: 'inline-block',
                 color: 'var(--accent)',
                 fontSize: '11px',
+                fontWeight: 600,
                 textDecoration: 'none',
                 wordBreak: 'break-all',
               }}
@@ -271,7 +357,8 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
         textAlign: 'center',
         padding: '36px 44px',
         borderRadius: '24px',
-        background: 'radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 18%, var(--surface)), var(--background-secondary))',
+        background:
+          'radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 18%, var(--surface)), var(--background-secondary))',
         border: '2px solid color-mix(in srgb, var(--accent) 70%, transparent)',
         boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)',
       }}
@@ -468,7 +555,7 @@ export function BlockBContent(): React.JSX.Element {
       style={{
         height: '100%',
         boxSizing: 'border-box',
-        padding: '40px 48px',
+        padding: '38px 46px',
         display: 'flex',
         flexDirection: 'column',
         borderRadius: '24px',
@@ -481,9 +568,9 @@ export function BlockBContent(): React.JSX.Element {
       </span>
       <h2
         style={{
-          margin: '12px 0 8px',
+          margin: '10px 0 6px',
           fontFamily: 'var(--font-title)',
-          fontSize: '36px',
+          fontSize: '34px',
           color: 'var(--heading)',
         }}
       >
@@ -491,8 +578,8 @@ export function BlockBContent(): React.JSX.Element {
       </h2>
       <p
         style={{
-          margin: '0 0 24px',
-          fontSize: '20px',
+          margin: '0 0 20px',
+          fontSize: '19px',
           color: 'var(--ink)',
           fontWeight: 500,
         }}
@@ -500,13 +587,13 @@ export function BlockBContent(): React.JSX.Element {
         Detecting a drone is not the same as stopping it safely.
       </p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '28px', alignItems: 'center' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1.25fr 1fr', gap: '26px', alignItems: 'center' }}>
         <ul
           style={{
             margin: 0,
-            paddingLeft: '24px',
-            fontSize: '18px',
-            lineHeight: 1.7,
+            paddingLeft: '22px',
+            fontSize: '17px',
+            lineHeight: 1.65,
             color: 'var(--ink)',
             display: 'flex',
             flexDirection: 'column',
@@ -554,7 +641,7 @@ export function BlockCContent(): React.JSX.Element {
       style={{
         height: '100%',
         boxSizing: 'border-box',
-        padding: '40px 48px',
+        padding: '38px 46px',
         display: 'flex',
         flexDirection: 'column',
         borderRadius: '24px',
@@ -567,9 +654,9 @@ export function BlockCContent(): React.JSX.Element {
       </span>
       <h2
         style={{
-          margin: '12px 0 8px',
+          margin: '10px 0 6px',
           fontFamily: 'var(--font-title)',
-          fontSize: '36px',
+          fontSize: '34px',
           color: 'var(--heading)',
         }}
       >
@@ -577,8 +664,8 @@ export function BlockCContent(): React.JSX.Element {
       </h2>
       <p
         style={{
-          margin: '0 0 24px',
-          fontSize: '20px',
+          margin: '0 0 20px',
+          fontSize: '19px',
           color: 'var(--ink)',
           fontWeight: 500,
         }}
@@ -586,17 +673,17 @@ export function BlockCContent(): React.JSX.Element {
         R.A.R.: an acoustic effector for propeller-driven UAS
       </p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '28px', alignItems: 'center' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '24px', alignItems: 'center' }}>
         <ul
           style={{
             margin: 0,
-            paddingLeft: '24px',
-            fontSize: '18px',
-            lineHeight: 1.7,
+            paddingLeft: '22px',
+            fontSize: '17px',
+            lineHeight: 1.65,
             color: 'var(--ink)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '12px',
+            gap: '10px',
           }}
         >
           <li>External track, targeted response.</li>
@@ -605,19 +692,37 @@ export function BlockCContent(): React.JSX.Element {
           <li>Reusability.</li>
         </ul>
 
-        <div
-          style={{
-            borderRadius: '16px',
-            overflow: 'hidden',
-            border: '1px solid var(--line)',
-            boxShadow: '0 12px 30px rgba(0,0,0,0.3)',
-          }}
-        >
-          <img
-            src={droneMountingImg}
-            alt="Esquema del efector R.A.R. montado en dron"
-            style={{ width: '100%', height: '240px', objectFit: 'contain', background: 'rgba(0,0,0,0.2)', display: 'block' }}
-          />
+        {/* Imágenes vinculadas: Efector montado e ingeniería de vistas del sistema */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <div
+            style={{
+              borderRadius: '12px',
+              overflow: 'hidden',
+              border: '1px solid var(--line)',
+              boxShadow: '0 8px 20px rgba(0,0,0,0.25)',
+              background: 'rgba(0,0,0,0.2)',
+            }}
+          >
+            <img
+              src={droneMountingImg}
+              alt="Esquema del efector R.A.R. montado en dron"
+              style={{ width: '100%', height: '140px', objectFit: 'contain', display: 'block' }}
+            />
+          </div>
+          <div
+            style={{
+              borderRadius: '10px',
+              overflow: 'hidden',
+              border: '1px solid var(--line)',
+              background: 'rgba(0,0,0,0.3)',
+            }}
+          >
+            <img
+              src={systemViewsImg}
+              alt="Vistas técnicas del sistema R.A.R."
+              style={{ width: '100%', height: '80px', objectFit: 'contain', display: 'block' }}
+            />
+          </div>
         </div>
       </div>
 
@@ -637,7 +742,7 @@ export function BlockDContent(): React.JSX.Element {
       style={{
         height: '100%',
         boxSizing: 'border-box',
-        padding: '40px 48px',
+        padding: '38px 46px',
         display: 'flex',
         flexDirection: 'column',
         borderRadius: '24px',
@@ -650,9 +755,9 @@ export function BlockDContent(): React.JSX.Element {
       </span>
       <h2
         style={{
-          margin: '12px 0 8px',
+          margin: '10px 0 6px',
           fontFamily: 'var(--font-title)',
-          fontSize: '36px',
+          fontSize: '34px',
           color: 'var(--heading)',
         }}
       >
@@ -660,8 +765,8 @@ export function BlockDContent(): React.JSX.Element {
       </h2>
       <p
         style={{
-          margin: '0 0 28px',
-          fontSize: '20px',
+          margin: '0 0 20px',
+          fontSize: '19px',
           color: 'var(--ink)',
           fontWeight: 500,
         }}
@@ -669,29 +774,47 @@ export function BlockDContent(): React.JSX.Element {
         An additional response option for sensitive sites
       </p>
 
-      <ul
-        style={{
-          margin: 0,
-          paddingLeft: '24px',
-          fontSize: '19px',
-          lineHeight: 1.8,
-          color: 'var(--ink)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '18px',
-          maxWidth: '920px',
-        }}
-      >
-        <li>
-          <strong>Space connection:</strong> upstream, ground systems.
-        </li>
-        <li>
-          <strong>Market:</strong> space ground facilities, airports, energy infrastructure… and other critical environments.
-        </li>
-        <li>
-          <strong>Competition:</strong> RF/GNSS countermeasures, interceptors, kinetic systems, lasers and high-power microwaves are alternative responses.
-        </li>
-      </ul>
+      <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', alignItems: 'center' }}>
+        <ul
+          style={{
+            margin: 0,
+            paddingLeft: '22px',
+            fontSize: '16px',
+            lineHeight: 1.6,
+            color: 'var(--ink)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '14px',
+          }}
+        >
+          <li>
+            <strong>Space connection:</strong> upstream, ground systems.
+          </li>
+          <li>
+            <strong>Market:</strong> space ground facilities, airports, energy infrastructure… and other critical environments.
+          </li>
+          <li>
+            <strong>Competition:</strong> RF/GNSS countermeasures, interceptors, kinetic systems, lasers and high-power microwaves are alternative responses.
+          </li>
+        </ul>
+
+        {/* Imagen vinculada: Montaje multi-dron en infraestructura sensible */}
+        <div
+          style={{
+            borderRadius: '14px',
+            overflow: 'hidden',
+            border: '1px solid var(--line)',
+            boxShadow: '0 10px 24px rgba(0,0,0,0.3)',
+            background: 'rgba(0,0,0,0.2)',
+          }}
+        >
+          <img
+            src={multiDroneImg}
+            alt="Configuración multi-drone para protección de instalaciones críticas"
+            style={{ width: '100%', height: '210px', objectFit: 'contain', display: 'block' }}
+          />
+        </div>
+      </div>
 
       <CardFooter number="05" />
     </div>
@@ -709,7 +832,7 @@ export function BlockEContent(): React.JSX.Element {
       style={{
         height: '100%',
         boxSizing: 'border-box',
-        padding: '36px 44px',
+        padding: '30px 40px',
         display: 'flex',
         flexDirection: 'column',
         borderRadius: '24px',
@@ -723,9 +846,9 @@ export function BlockEContent(): React.JSX.Element {
       </span>
       <h2
         style={{
-          margin: '8px 0 16px',
+          margin: '6px 0 12px',
           fontFamily: 'var(--font-title)',
-          fontSize: '32px',
+          fontSize: '30px',
           color: 'var(--heading)',
         }}
       >
@@ -737,97 +860,122 @@ export function BlockEContent(): React.JSX.Element {
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '14px',
-          marginBottom: '16px',
+          gap: '10px',
+          marginBottom: '10px',
         }}
       >
         <div
           style={{
-            padding: '12px 16px',
+            padding: '10px 14px',
             borderRadius: '10px',
             background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
             border: '1px solid var(--line)',
           }}
         >
-          <strong style={{ display: 'block', fontSize: '15px', color: 'var(--accent)', marginBottom: '4px' }}>
+          <strong style={{ display: 'block', fontSize: '14px', color: 'var(--accent)', marginBottom: '3px' }}>
             Technical feasibility
           </strong>
-          <span style={{ fontSize: '13px', lineHeight: 1.4, color: 'var(--ink)' }}>
+          <span style={{ fontSize: '12px', lineHeight: 1.35, color: 'var(--ink)' }}>
             The physical principle is supported by our analytical and simulation work and by published research*.
           </span>
         </div>
 
         <div
           style={{
-            padding: '12px 16px',
+            padding: '10px 14px',
             borderRadius: '10px',
             background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
             border: '1px solid var(--line)',
           }}
         >
-          <strong style={{ display: 'block', fontSize: '15px', color: 'var(--accent)', marginBottom: '4px' }}>
+          <strong style={{ display: 'block', fontSize: '14px', color: 'var(--accent)', marginBottom: '3px' }}>
             Revenue model
           </strong>
-          <span style={{ fontSize: '13px', lineHeight: 1.4, color: 'var(--ink)' }}>
+          <span style={{ fontSize: '12px', lineHeight: 1.35, color: 'var(--ink)' }}>
             Start with an evaluation or pilot. Later, sell the product, offer maintenance or specifically required solution.
           </span>
         </div>
 
         <div
           style={{
-            padding: '12px 16px',
+            padding: '10px 14px',
             borderRadius: '10px',
             background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
             border: '1px solid var(--line)',
           }}
         >
-          <strong style={{ display: 'block', fontSize: '15px', color: 'var(--accent)', marginBottom: '4px' }}>
+          <strong style={{ display: 'block', fontSize: '14px', color: 'var(--accent)', marginBottom: '3px' }}>
             Production strategy
           </strong>
-          <span style={{ fontSize: '13px', lineHeight: 1.4, color: 'var(--ink)' }}>
+          <span style={{ fontSize: '12px', lineHeight: 1.35, color: 'var(--ink)' }}>
             Keep knowledge and technology in-house; subcontract initial manufacturing.
           </span>
         </div>
 
         <div
           style={{
-            padding: '12px 16px',
+            padding: '10px 14px',
             borderRadius: '10px',
             background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
             border: '1px solid var(--line)',
           }}
         >
-          <strong style={{ display: 'block', fontSize: '15px', color: 'var(--accent)', marginBottom: '4px' }}>
+          <strong style={{ display: 'block', fontSize: '14px', color: 'var(--accent)', marginBottom: '3px' }}>
             Intellectual property
           </strong>
-          <span style={{ fontSize: '13px', lineHeight: 1.4, color: 'var(--ink)' }}>
+          <span style={{ fontSize: '12px', lineHeight: 1.35, color: 'var(--ink)' }}>
             Protect current models and know-how confidentially (patents).
           </span>
         </div>
       </div>
 
-      {/* Sección de Financiación */}
+      {/* Sección de Financiación con apoyo institucional CDTI */}
       <div
         style={{
-          padding: '12px 16px',
+          display: 'grid',
+          gridTemplateColumns: '1.5fr 1fr',
+          gap: '12px',
+          alignItems: 'center',
+          padding: '10px 14px',
           borderRadius: '10px',
           background: 'color-mix(in srgb, var(--surface) 40%, transparent)',
           border: '1px solid var(--line)',
-          marginBottom: '10px',
+          marginBottom: '8px',
         }}
       >
-        <strong style={{ display: 'block', fontSize: '14px', color: 'var(--accent)', marginBottom: '4px' }}>
-          Financing
-        </strong>
-        <ol style={{ margin: 0, paddingLeft: '20px', fontSize: '13px', lineHeight: 1.5, color: 'var(--ink)' }}>
-          <li>ESA BIC incentive.</li>
-          <li>Accelerators: EUDIS, NATO DIANA.</li>
-          <li>Additional sources: private equity, private / public loans (NEOTEC, ENISA / SODICAL).</li>
-        </ol>
+        <div>
+          <strong style={{ display: 'block', fontSize: '13px', color: 'var(--accent)', marginBottom: '3px' }}>
+            Financing
+          </strong>
+          <ol style={{ margin: 0, paddingLeft: '18px', fontSize: '12px', lineHeight: 1.4, color: 'var(--ink)' }}>
+            <li>ESA BIC incentive.</li>
+            <li>Accelerators: EUDIS, NATO DIANA.</li>
+            <li>Additional sources: private equity, private / public loans (NEOTEC, ENISA / SODICAL).</li>
+          </ol>
+        </div>
+
+        <div
+          style={{
+            borderRadius: '8px',
+            overflow: 'hidden',
+            border: '1px solid var(--line)',
+            background: '#ffffff',
+            padding: '4px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <img
+            src={cdtiLogo}
+            alt="Centro para el Desarrollo Tecnológico y la Innovación (CDTI)"
+            style={{ maxHeight: '42px', width: 'auto', objectFit: 'contain', display: 'block' }}
+          />
+        </div>
       </div>
 
       {/* Cita científica verificada */}
-      <p style={{ margin: '4px 0 0', fontSize: '11px', color: 'var(--muted)', fontStyle: 'italic' }}>
+      <p style={{ margin: '2px 0 0', fontSize: '11px', color: 'var(--muted)', fontStyle: 'italic', lineHeight: 1.3 }}>
         {SCIENTIFIC_CITATION}
       </p>
 
@@ -851,7 +999,7 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
         style={{
           height: '100%',
           boxSizing: 'border-box',
-          padding: '36px 44px',
+          padding: '32px 42px',
           display: 'flex',
           flexDirection: 'column',
           borderRadius: '24px',
@@ -880,9 +1028,9 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
           </span>
           <h2
             style={{
-              margin: '8px 0 4px',
+              margin: '6px 0 2px',
               fontFamily: 'var(--font-title)',
-              fontSize: '32px',
+              fontSize: '30px',
               color: 'var(--heading)',
             }}
           >
@@ -890,8 +1038,8 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
           </h2>
           <p
             style={{
-              margin: '0 0 20px',
-              fontSize: '18px',
+              margin: '0 0 16px',
+              fontSize: '17px',
               color: 'var(--ink)',
               fontWeight: 500,
             }}
@@ -899,11 +1047,11 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
             Three aerospace engineers with a vision
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '18px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
             {/* Guillermo Alba Buitrón */}
             <div
               style={{
-                padding: '16px',
+                padding: '14px',
                 borderRadius: '12px',
                 background: 'color-mix(in srgb, var(--surface) 80%, black)',
                 border: '1px solid var(--line)',
@@ -916,10 +1064,10 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
               <img
                 src={guillermoImg}
                 alt="Guillermo Alba Buitrón"
-                style={{ width: '90px', height: '90px', borderRadius: '50%', objectFit: 'cover', marginBottom: '12px' }}
+                style={{ width: '84px', height: '84px', borderRadius: '50%', objectFit: 'cover', marginBottom: '10px' }}
               />
-              <strong style={{ fontSize: '16px', color: 'var(--heading)' }}>Guillermo Alba Buitrón</strong>
-              <span style={{ fontSize: '13px', color: 'var(--muted)', marginTop: '6px', lineHeight: 1.4 }}>
+              <strong style={{ fontSize: '15px', color: 'var(--heading)' }}>Guillermo Alba Buitrón</strong>
+              <span style={{ fontSize: '12px', color: 'var(--muted)', marginTop: '4px', lineHeight: 1.35 }}>
                 Project management · Systems architecture · Business development
               </span>
             </div>
@@ -927,7 +1075,7 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
             {/* Alejandro Gil Getino */}
             <div
               style={{
-                padding: '16px',
+                padding: '14px',
                 borderRadius: '12px',
                 background: 'color-mix(in srgb, var(--surface) 80%, black)',
                 border: '1px solid var(--line)',
@@ -940,10 +1088,10 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
               <img
                 src={alejandroImg}
                 alt="Alejandro Gil Getino"
-                style={{ width: '90px', height: '90px', borderRadius: '50%', objectFit: 'cover', marginBottom: '12px' }}
+                style={{ width: '84px', height: '84px', borderRadius: '50%', objectFit: 'cover', marginBottom: '10px' }}
               />
-              <strong style={{ fontSize: '16px', color: 'var(--heading)' }}>Alejandro Gil Getino</strong>
-              <span style={{ fontSize: '13px', color: 'var(--muted)', marginTop: '6px', lineHeight: 1.4 }}>
+              <strong style={{ fontSize: '15px', color: 'var(--heading)' }}>Alejandro Gil Getino</strong>
+              <span style={{ fontSize: '12px', color: 'var(--muted)', marginTop: '4px', lineHeight: 1.35 }}>
                 Electronics · Avionics · Power systems · Control and software
               </span>
             </div>
@@ -951,7 +1099,7 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
             {/* Christian González Pérez */}
             <div
               style={{
-                padding: '16px',
+                padding: '14px',
                 borderRadius: '12px',
                 background: 'color-mix(in srgb, var(--surface) 80%, black)',
                 border: '1px solid var(--line)',
@@ -964,10 +1112,10 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
               <img
                 src={christianImg}
                 alt="Christian González Pérez"
-                style={{ width: '90px', height: '90px', borderRadius: '50%', objectFit: 'cover', marginBottom: '12px' }}
+                style={{ width: '84px', height: '84px', borderRadius: '50%', objectFit: 'cover', marginBottom: '10px' }}
               />
-              <strong style={{ fontSize: '16px', color: 'var(--heading)' }}>Christian González Pérez</strong>
-              <span style={{ fontSize: '13px', color: 'var(--muted)', marginTop: '6px', lineHeight: 1.4 }}>
+              <strong style={{ fontSize: '15px', color: 'var(--heading)' }}>Christian González Pérez</strong>
+              <span style={{ fontSize: '12px', color: 'var(--muted)', marginTop: '4px', lineHeight: 1.35 }}>
                 Acoustics · Data analysis · Financing · Aeroelastic and structural modelling and simulation
               </span>
             </div>
@@ -989,7 +1137,7 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
         style={{
           height: '100%',
           boxSizing: 'border-box',
-          padding: '36px 44px',
+          padding: '32px 42px',
           display: 'flex',
           flexDirection: 'column',
           borderRadius: '24px',
@@ -1002,9 +1150,9 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
         </span>
         <h2
           style={{
-            margin: '8px 0 4px',
+            margin: '6px 0 2px',
             fontFamily: 'var(--font-title)',
-            fontSize: '32px',
+            fontSize: '30px',
             color: 'var(--heading)',
           }}
         >
@@ -1012,8 +1160,8 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
         </h2>
         <p
           style={{
-            margin: '0 0 24px',
-            fontSize: '18px',
+            margin: '0 0 20px',
+            fontSize: '17px',
             color: 'var(--ink)',
             fontWeight: 500,
           }}
@@ -1021,14 +1169,14 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
           Support and institutional network
         </p>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           {/* University of León */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '20px',
-              padding: '14px 20px',
+              gap: '18px',
+              padding: '12px 18px',
               borderRadius: '12px',
               background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
               border: '1px solid var(--line)',
@@ -1037,9 +1185,9 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
             <img
               src={uleLogo}
               alt="Logotipo Universidad de León"
-              style={{ width: '140px', height: '50px', objectFit: 'contain', background: '#ffffff', padding: '4px', borderRadius: '6px' }}
+              style={{ width: '130px', height: '46px', objectFit: 'contain', background: '#ffffff', padding: '4px', borderRadius: '6px' }}
             />
-            <span style={{ fontSize: '18px', fontWeight: 600, color: 'var(--ink)' }}>University of León.</span>
+            <span style={{ fontSize: '17px', fontWeight: 600, color: 'var(--ink)' }}>University of León.</span>
           </div>
 
           {/* INTA */}
@@ -1047,8 +1195,8 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '20px',
-              padding: '14px 20px',
+              gap: '18px',
+              padding: '12px 18px',
               borderRadius: '12px',
               background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
               border: '1px solid var(--line)',
@@ -1057,9 +1205,9 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
             <img
               src={intaLogo}
               alt="Logotipo INTA"
-              style={{ width: '140px', height: '50px', objectFit: 'contain', background: '#ffffff', padding: '4px', borderRadius: '6px' }}
+              style={{ width: '130px', height: '46px', objectFit: 'contain', background: '#ffffff', padding: '4px', borderRadius: '6px' }}
             />
-            <span style={{ fontSize: '18px', fontWeight: 600, color: 'var(--ink)' }}>
+            <span style={{ fontSize: '17px', fontWeight: 600, color: 'var(--ink)' }}>
               INTA (National Institute of Aerospace Technology): CEAES center (Cuadros, León).
             </span>
           </div>
@@ -1069,8 +1217,8 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '20px',
-              padding: '14px 20px',
+              gap: '18px',
+              padding: '12px 18px',
               borderRadius: '12px',
               background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
               border: '1px solid var(--line)',
@@ -1080,15 +1228,15 @@ export function BlockFContent({ state }: ContentProps): React.JSX.Element {
               <img
                 src={aeeLogo}
                 alt="Agencia Espacial Española"
-                style={{ width: '90px', height: '50px', objectFit: 'contain', background: '#ffffff', padding: '4px', borderRadius: '6px' }}
+                style={{ width: '85px', height: '46px', objectFit: 'contain', background: '#ffffff', padding: '4px', borderRadius: '6px' }}
               />
               <img
                 src={esaLogo}
                 alt="European Space Agency"
-                style={{ width: '90px', height: '50px', objectFit: 'contain', background: '#ffffff', padding: '4px', borderRadius: '6px' }}
+                style={{ width: '85px', height: '46px', objectFit: 'contain', background: '#ffffff', padding: '4px', borderRadius: '6px' }}
               />
             </div>
-            <span style={{ fontSize: '18px', fontWeight: 600, color: 'var(--ink)' }}>
+            <span style={{ fontSize: '17px', fontWeight: 600, color: 'var(--ink)' }}>
               ESA and Spanish Space Agency.
             </span>
           </div>
