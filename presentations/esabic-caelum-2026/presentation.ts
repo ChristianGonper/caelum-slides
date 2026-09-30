@@ -10,14 +10,16 @@ import {
   CenterContent,
   PersistentFooter,
 } from './content';
-import { CaelumVectorSchema } from './schema';
+import { ExperimentalSchema } from './illustrated-schema';
+import { introFraming } from './experiments';
+import { ExperimentControls } from './experiment-controls';
 import './styles.css';
 
 const model: PresentationDefinition['model'] = {
   title: 'Caelum Systems — ESA BIC Castilla y León 2026',
   cameraTransitionMs: 1000,
   contextStopId: 'overview',
-  overview: { x: -2100, y: -1880, width: 4200, height: 3480 },
+  overview: introFraming,
   elements: [
     {
       id: 'center',
@@ -170,7 +172,8 @@ export const esabicCaelum2026Presentation: PresentationDefinition = {
   themes: [primarySpace, deepTeal, monochromeBlue],
   defaultThemeId: 'primary-space',
   visual: {
-    decoration: CaelumVectorSchema,
+    reviewControls: ExperimentControls,
+    decoration: ExperimentalSchema,
     decorationByStop: {
       black: false,
       'opening-nuclear': false,

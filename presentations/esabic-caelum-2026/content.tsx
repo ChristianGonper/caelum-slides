@@ -252,7 +252,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
               Electronics · Avionics · Power systems · Control and software
             </span>
             <a
-              href="https://www.linkedin.com/in/alejandro-gil-getino/"
+              href="https://www.linkedin.com/in/alejandro-gil-getino-6b94733b8"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -361,14 +361,12 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
         boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)',
       }}
     >
-      <span className="eyebrow" style={{ color: 'var(--accent)', letterSpacing: '0.22em', marginBottom: '8px' }}>
-        ESA BIC 2026 · CASTILLA Y LEÓN
-      </span>
+
       <h2
         style={{
           margin: '4px 0 12px',
           fontFamily: 'var(--font-title)',
-          fontSize: '44px',
+          fontSize: '64px',
           fontWeight: 800,
           color: 'var(--heading, #e8f5f4)',
           letterSpacing: '-0.02em',
@@ -379,7 +377,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
       <p
         style={{
           margin: '0 0 16px',
-          fontSize: '22px',
+          fontSize: '28px',
           fontWeight: 500,
           color: 'var(--ink, #e8f5f4)',
           maxWidth: '640px',
@@ -387,12 +385,10 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
       >
         Acoustic counter UAS defence System
       </p>
-      <p style={{ margin: "0 0 16px", fontSize: "18px", color: "var(--ink)" }}>
-        Guillermo Alba Buitrón · Alejandro Gil Getino · Christian González Pérez
-      </p>
+
       <span
         style={{
-          fontSize: '14px',
+          fontSize: '20px',
           color: 'var(--muted, #9ab7b8)',
           letterSpacing: '0.08em',
         }}

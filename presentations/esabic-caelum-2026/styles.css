@@ -1,5 +1,8 @@
 /* Keep the prototype's block-heading typography out of slide body emphasis. */
 @layer components {
+  .static-shell[data-presentation-id="esabic-caelum-2026"] .caelum-persistent-badge {
+    display: none !important;
+  }
   [data-presentation-id="esabic-caelum-2026"] .block strong {
     font-family: inherit;
     font-size: inherit;
@@ -77,4 +80,33 @@
     position: relative;
     z-index: 1;
   }
+  .illustrated-diagram .drone-hub {
+    display: none;
+  }
+  .illustrated-airframe {
+    position: absolute;
+    left: -1100px;
+    top: -941px;
+    width: 2200px;
+    height: auto;
+    opacity: .32;
+    filter: invert(.8) sepia(.2) saturate(.7);
+  }
+  .diagram-credit {
+    position: absolute;
+    left: -380px;
+    top: 310px;
+    width: 760px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    text-decoration: none;
+    pointer-events: auto;
+  }
+  [data-presentation-id="esabic-caelum-2026"] .intro-hub h2 { font-size: 64px; }
+  [data-presentation-id="esabic-caelum-2026"] .intro-hub p { font-size: 28px; }
+  [data-presentation-id="esabic-caelum-2026"] .intro-hub > span { font-size: 20px; }
+  .experiment-controls { display: grid; gap: .8rem; }
+  .experiment-controls label { display: grid; gap: .4rem; font-size: .76rem; color: var(--muted); }
+  .experiment-controls select { padding: .6rem; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: .5rem; font: inherit; }
 }
