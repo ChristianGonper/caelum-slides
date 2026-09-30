@@ -18,11 +18,13 @@ export function App({ definition, available }: {
 }) {
   const presentation = definition.model;
   const [mode, setMode] = React.useState<AppMode>(() => {
+    if (typeof window === 'undefined') return 'review';
     const requested = new URLSearchParams(window.location.search).get('mode');
     return requested === 'present' ? 'present' : 'review';
   });
   const [navigation, setNavigation] = React.useState<Navigation>({ index: 0, previousIndex: null });
   const [themeId, setThemeId] = React.useState(() => {
+    if (typeof window === 'undefined') return definition.defaultThemeId;
     const requested = new URLSearchParams(window.location.search).get('theme');
     return definition.themes.some((item) => item.id === requested)
       ? requested! : definition.defaultThemeId;
@@ -33,6 +35,7 @@ export function App({ definition, available }: {
   const [reducedMotion, setReducedMotion] = React.useState(false);
   // Local preview can opt into animation even when the host OS requests less motion.
   const previewFullMotion = import.meta.env.DEV &&
+    typeof window !== 'undefined' &&
     new URLSearchParams(window.location.search).get('motion') === 'full';
   const viewportRef = React.useRef<HTMLDivElement>(null);
   const zoomRef = React.useRef<ZoomBehavior<HTMLDivElement, unknown> | null>(null);
