@@ -63,7 +63,8 @@ describe('Caelum: fidelidad a las diapositivas originales', () => {
       camera={{ x: 0, y: 0, k: 1 }} output="interactive" />);
     expect(html).not.toMatch(/BLOQUE [A-F]|escenas apiladas|HEX-AIRFRAME|ROTATIONAL RADIUS|ARM-[A-F]/);
     expect(html).toContain('The team behind Caelum Systems');
-    expect(html).toContain('Guillermo Alba Buitrón · Alejandro Gil Getino · Christian González Pérez');
+    expect(html).not.toContain('Guillermo Alba Buitrón · Alejandro Gil Getino · Christian González Pérez');
+    expect(html).toContain('Acoustic counter UAS defence System');
     expect(html).not.toContain('r="45"');
   });
 });
