@@ -16,6 +16,10 @@ export type NarrativeStop = {
   cameraTargetId: string;
   visibleIds: readonly string[];
   stateByElement?: Readonly<Record<string, string>>;
+  padding?: number;
+  includeInStatic?: boolean;
+  hideBadge?: boolean;
+  hideControls?: boolean;
 };
 
 export type Presentation = {
@@ -63,6 +67,18 @@ export function validatePresentation(presentation: Presentation): void {
       if (!visible.has(id) || !element?.states?.includes(state)) {
         throw new Error(`Estado inválido: ${stop.id}/${id}/${state}`);
       }
+    }
+    if (stop.padding !== undefined && (!Number.isFinite(stop.padding) || stop.padding < 0)) {
+      throw new Error(`Margen de encuadre inválido en parada: ${stop.id}`);
+    }
+    if (stop.includeInStatic !== undefined && typeof stop.includeInStatic !== 'boolean') {
+      throw new Error(`Configuración estática inválida en parada: ${stop.id}`);
+    }
+    if (stop.hideBadge !== undefined && typeof stop.hideBadge !== 'boolean') {
+      throw new Error(`Configuración de indicador inválida en parada: ${stop.id}`);
+    }
+    if (stop.hideControls !== undefined && typeof stop.hideControls !== 'boolean') {
+      throw new Error(`Configuración de controles inválida en parada: ${stop.id}`);
     }
   }
   if (presentation.contextStopId) {

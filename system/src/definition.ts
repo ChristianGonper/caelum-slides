@@ -9,21 +9,25 @@ export type ContentProps = {
 };
 export type PersistentProps = { stop: NarrativeStop; index: number; total: number };
 
+export type PresentationVisual = {
+  canvasBackground?: string;
+  canvasByStop?: Readonly<Record<string, string | null>>;
+  elementBackgrounds?: Readonly<Record<string, string>>;
+  decoration?: ComponentType;
+  decorationByStop?: Readonly<Record<string, boolean>>;
+  persistent?: {
+    default?: ComponentType<PersistentProps>;
+    byStop?: Readonly<Record<string, ComponentType<PersistentProps> | null>>;
+  };
+};
+
 export type PresentationDefinition = {
   id: string;
   model: Presentation;
   content: Readonly<Record<string, ComponentType<ContentProps>>>;
   themes: readonly Theme[];
   defaultThemeId: string;
-  visual?: {
-    canvasBackground?: string;
-    elementBackgrounds?: Readonly<Record<string, string>>;
-    decoration?: ComponentType;
-    persistent?: {
-      default?: ComponentType<PersistentProps>;
-      byStop?: Readonly<Record<string, ComponentType<PersistentProps> | null>>;
-    };
-  };
+  visual?: PresentationVisual;
 };
 
 export function validateDefinition(definition: PresentationDefinition): void {
@@ -49,6 +53,16 @@ export function validateDefinition(definition: PresentationDefinition): void {
     }
   }
   const stopIds = new Set(definition.model.stops.map((stop) => stop.id));
+  for (const [id, value] of Object.entries(definition.visual?.decorationByStop ?? {})) {
+    if (!stopIds.has(id)) throw new Error(`Decoración para parada inexistente: ${id}`);
+    if (typeof value !== 'boolean') throw new Error(`Valor de decoración inválido: ${id}`);
+  }
+  for (const [id, value] of Object.entries(definition.visual?.canvasByStop ?? {})) {
+    if (!stopIds.has(id)) throw new Error(`Fondo para parada inexistente: ${id}`);
+    if (value !== null && (typeof value !== 'string' || !value.trim())) {
+      throw new Error(`Fondo de lienzo inválido para parada: ${id}`);
+    }
+  }
   for (const id of Object.keys(definition.visual?.persistent?.byStop ?? {})) {
     if (!stopIds.has(id)) throw new Error(`Elemento persistente para parada inexistente: ${id}`);
   }
