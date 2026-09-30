@@ -37,11 +37,25 @@ function findBrowser() {
   throw new Error('No se encontró un navegador Chromium compatible (Google Chrome o Microsoft Edge) para la exportación PDF.');
 }
 
-const htmlPath = path.resolve('output/html/caelum-slides.html');
-if (!existsSync(htmlPath)) {
-  console.log('No se encontró output/html/caelum-slides.html. Generándolo previamente...');
-  execSync('npm run export:html', { stdio: 'inherit' });
+const options = { diagram: 'blueprint', intro: 'focus' };
+const allowed = { diagram: ['blueprint', 'illustrated'], intro: ['focus', 'map'] };
+const args = process.argv.slice(2);
+for (let index = 0; index < args.length; index++) {
+  const [flag, inlineValue] = args[index].split('=');
+  const name = flag.replace(/^--/, '');
+  if (!flag.startsWith('--') || !Object.hasOwn(allowed, name)) {
+    throw new Error(`Opción desconocida: ${flag}. Usa --diagram blueprint|illustrated y --intro focus|map.`);
+  }
+  const value = inlineValue ?? args[++index];
+  if (!allowed[name].includes(value)) {
+    throw new Error(`Valor inválido para ${flag}: ${value}. Valores admitidos: ${allowed[name].join(', ')}.`);
+  }
+  options[name] = value;
 }
+
+const htmlPath = path.resolve('output/html/caelum-slides.html');
+// Print the current source rather than a potentially outdated HTML export.
+execSync('npm run export:html', { stdio: 'inherit' });
 
 const outputDir = path.resolve('output/pdf');
 const targetPdf = path.join(outputDir, 'esabic-caelum-2026.pdf');
@@ -65,7 +79,8 @@ const browser = findBrowser();
 console.log(`Usando navegador: ${browser}`);
 
 const tempProfileDir = mkdtempSync(path.join(os.tmpdir(), 'caelum-pdf-'));
-const fileUrl = `file:///${htmlPath.replace(/\\/g, '/')}?view=static&deck=esabic-caelum-2026`;
+const params = new URLSearchParams({ view: 'static', deck: 'esabic-caelum-2026', ...options });
+const fileUrl = `file:///${htmlPath.replace(/\\/g, '/')}?${params}`;
 
 console.log(`Generando PDF desde: ${fileUrl}`);
 try {
@@ -114,6 +129,6 @@ console.log(`PDF exportado correctamente: ${targetPdf}`);
 console.log(`Tamaño: ${(pdfBuffer.length / (1024 * 1024)).toFixed(2)} MB`);
 console.log(`Páginas detectadas: ${pageCount}`);
 
-if (pageCount !== 10) {
-  throw new Error(`Se esperaban exactamente 10 páginas en el PDF estático de Caelum, pero se detectaron ${pageCount}.`);
+if (pageCount !== 11) {
+  throw new Error(`Se esperaban exactamente 11 páginas en el PDF estático de Caelum, pero se detectaron ${pageCount}.`);
 }

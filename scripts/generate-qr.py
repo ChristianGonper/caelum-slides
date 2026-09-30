@@ -20,7 +20,7 @@ PROFILES = [
     {
         "id": "alejandro-gil",
         "name": "Alejandro Gil Getino",
-        "url": "https://www.linkedin.com/in/alejandro-gil-getino/",
+        "url": "https://www.linkedin.com/in/alejandro-gil-getino-6b94733b8",
     },
     {
         "id": "guillermo-alba",

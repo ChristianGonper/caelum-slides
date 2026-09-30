@@ -19,6 +19,7 @@ if (!htmlAsset || !script || !css || output.filter((item) => item.type === 'chun
   throw new Error('La exportación requiere una entrada HTML, un único script y sus estilos.');
 }
 const html = String(htmlAsset.source)
+  .replace('<head>', '<head><script>window.__CAELUM_EXPORT__ = true;</script>')
   .replace(/<script\b[^>]*src="[^"]+"[^>]*><\/script>/, () =>
     `<script type="module">${script.code.replace(/<\/script/gi, '<\\/script')}</script>`)
   .replace(/<link\b[^>]*rel="stylesheet"[^>]*>/, () =>
