@@ -7,6 +7,9 @@ export function fitRect(bounds: Rect, viewport: Viewport, padding = 48): CameraT
   if (bounds.width <= 0 || bounds.height <= 0 || viewport.width <= 0 || viewport.height <= 0) {
     throw new Error('El encuadre requiere dimensiones positivas');
   }
+  if (!Number.isFinite(padding) || padding < 0) {
+    throw new Error('El margen de encuadre debe ser no negativo');
+  }
   const availableWidth = Math.max(1, viewport.width - padding * 2);
   const availableHeight = Math.max(1, viewport.height - padding * 2);
   const k = Math.min(availableWidth / bounds.width, availableHeight / bounds.height);
