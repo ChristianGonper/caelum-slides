@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import type { ContentProps } from '../../system/src/definition';
 import routesImage from './assets/rutas-espaciales.png';
 
@@ -47,6 +48,7 @@ export function SlideA({ state }: ContentProps) {
 }
 
 export function SlideB() {
+  const symbolTitleId = useId();
   return (
     <div className="slide-content media-slide">
       <figure className="media-figure">
@@ -58,8 +60,8 @@ export function SlideB() {
         <span className="eyebrow">IMAGEN + SVG</span>
         <h2>Contenido libre en una posición.</h2>
         <p>El motor encuadra la diapositiva; su contenido puede mezclar recursos.</p>
-        <svg className="route-symbol" viewBox="0 0 220 52" role="img" aria-labelledby="route-symbol-title">
-          <title id="route-symbol-title">Dos rutas posibles entre tres puntos</title>
+        <svg className="route-symbol" viewBox="0 0 220 52" role="img" aria-labelledby={symbolTitleId}>
+          <title id={symbolTitleId}>Dos rutas posibles entre tres puntos</title>
           <path d="M 12 38 Q 82 4 110 26 T 208 14 M 12 38 Q 98 56 208 14"
             fill="none" stroke="var(--accent)" strokeWidth="3" />
           <circle cx="12" cy="38" r="6" fill="var(--accent)" />

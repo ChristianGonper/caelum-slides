@@ -4,13 +4,17 @@ import { prototypePresentation } from '../../presentations/prototipo-espacial/pr
 import { diagonalPresentation } from '../../presentations/ruta-diagonal/presentation';
 import { App } from './app';
 import { validateDefinition } from './definition';
+import { StaticDeck } from './static';
 
 const available = [prototypePresentation, diagonalPresentation];
 for (const definition of available) validateDefinition(definition);
-const requested = new URLSearchParams(window.location.search).get('deck');
+const query = new URLSearchParams(window.location.search);
+const requested = query.get('deck');
 const selected = available.find((definition) => definition.id === requested) ?? available[0];
-document.title = `${selected.model.title} · Caelum Slides`;
+const staticView = query.get('view') === 'static';
+document.title = `${selected.model.title}${staticView ? ' · Secuencia estática' : ''} · Caelum Slides`;
 
 createRoot(document.getElementById('root')!).render(
-  <App definition={selected} available={available} />,
+  staticView ? <StaticDeck definition={selected} initialThemeId={query.get('theme') ?? undefined} /> :
+    <App definition={selected} available={available} />,
 );

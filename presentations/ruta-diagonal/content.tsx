@@ -26,6 +26,8 @@ const sampleValues = [
 ];
 
 export function SouthSlide() {
+  const chartTitleId = React.useId();
+  const chartDescId = React.useId();
   return <div className="slide-content data-slide">
     <span className="eyebrow">TABLA + GRÁFICO</span>
     <h2>Datos en la diapositiva.</h2>
@@ -39,9 +41,9 @@ export function SouthSlide() {
           </tr>)}</tbody>
         </table>
       </div>
-      <svg className="sample-chart" viewBox="0 0 240 170" role="img" aria-labelledby="sample-chart-title sample-chart-desc">
-        <title id="sample-chart-title">Comparación de tres rutas</title>
-        <desc id="sample-chart-desc">Ruta A 32, ruta B 58 y ruta C 84; los mismos valores aparecen en la tabla.</desc>
+      <svg className="sample-chart" viewBox="0 0 240 170" role="img" aria-labelledby={`${chartTitleId} ${chartDescId}`}>
+        <title id={chartTitleId}>Comparación de tres rutas</title>
+        <desc id={chartDescId}>Ruta A 32, ruta B 58 y ruta C 84; los mismos valores aparecen en la tabla.</desc>
         {sampleValues.map(({ label, value }, index) => <g key={label}>
           <text x="0" y={33 + index * 49} fill="var(--ink)" fontSize="16">{label}</text>
           <rect x="74" y={16 + index * 49} width="154" height="22" rx="5" fill="var(--surface)" />
@@ -53,15 +55,18 @@ export function SouthSlide() {
   </div>;
 }
 
-export function NorthSlide() {
-  const [showConnections, setShowConnections] = React.useState(false);
+export function NorthSlide({ output }: ContentProps) {
+  const [interactiveConnections, setInteractiveConnections] = React.useState(false);
+  const showConnections = output === 'static' || interactiveConnections;
+  const networkTitleId = React.useId();
+  const networkDescId = React.useId();
   return <div className="slide-content interactive-slide">
     <span className="eyebrow">COMPONENTE INTERACTIVO</span>
     <h2>Una capa que se puede explorar.</h2>
     <div className="interactive-layout">
-      <svg className="network-diagram" viewBox="0 0 270 170" role="img" aria-labelledby="network-title network-desc">
-        <title id="network-title">Diagrama de tres nodos</title>
-        <desc id="network-desc">{showConnections
+      <svg className="network-diagram" viewBox="0 0 270 170" role="img" aria-labelledby={`${networkTitleId} ${networkDescId}`}>
+        <title id={networkTitleId}>Diagrama de tres nodos</title>
+        <desc id={networkDescId}>{showConnections
           ? 'Tres nodos conectados por dos líneas.' : 'Tres nodos sin conexiones visibles.'}</desc>
         {showConnections && <path d="M 34 130 L 135 35 L 238 130" fill="none"
           stroke="var(--accent)" strokeWidth="5" />}
@@ -70,10 +75,10 @@ export function NorthSlide() {
       </svg>
       <div className="interactive-controls">
         <p>{showConnections ? 'Las conexiones están visibles.' : 'Los nodos se muestran por separado.'}</p>
-        <button type="button" data-active={showConnections}
-          onClick={() => setShowConnections((current) => !current)}>
+        {output !== 'static' && <button type="button" data-active={showConnections}
+          onClick={() => setInteractiveConnections((current) => !current)}>
           {showConnections ? 'Ocultar conexiones' : 'Mostrar conexiones'}
-        </button>
+        </button>}
       </div>
     </div>
   </div>;

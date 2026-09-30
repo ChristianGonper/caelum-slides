@@ -1,0 +1,25 @@
+@layer layout {
+  .static-shell { min-block-size: 100dvh; box-sizing: border-box; background: var(--background-primary); color: var(--ink); font-family: var(--font-body); }
+  .static-toolbar { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem; padding: 1.5rem clamp(1rem, 3vw, 3rem); border-block-end: 1px solid var(--line); }
+  .static-toolbar h1 { margin: .4rem 0; font-family: var(--font-title); color: var(--heading); }
+  .static-toolbar p { margin: 0; color: var(--muted); }
+  .static-actions { display: flex; flex-wrap: wrap; align-items: end; gap: .7rem; }
+  .static-actions label { display: grid; gap: .3rem; color: var(--muted); font-size: .8rem; }
+  .static-actions select, .static-actions button, .static-actions a { box-sizing: border-box; min-block-size: 2.7rem; padding: .6rem .8rem; border: 1px solid var(--line); border-radius: .5rem; background: var(--surface); color: var(--ink); font: inherit; text-decoration: none; }
+  .static-actions button { cursor: pointer; border-color: var(--accent); }
+  .static-actions :is(a, button, select):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .static-deck { box-sizing: border-box; inline-size: min(100%, 1344px); margin-inline: auto; padding: 2rem clamp(.75rem, 3vw, 2rem); display: grid; justify-items: center; gap: 2rem; }
+  .static-page { position: relative; flex: none; box-shadow: 0 18px 52px #0008; }
+  .static-frame { position: absolute; inset: 0 auto auto 0; inline-size: 1280px; block-size: 720px; overflow: clip; transform-origin: 0 0; background: var(--background-primary); }
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html, body, #root { margin: 0; padding: 0; inline-size: 1280px; block-size: auto; background: var(--background-primary); }
+    .static-shell { min-block-size: 0; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .static-toolbar { display: none; }
+    .static-deck { display: block; inline-size: 1280px; margin: 0; padding: 0; }
+    /* Isolate the transformed spatial canvas so print pagination cannot fragment it. */
+    .static-page { inline-size: 1280px !important; block-size: 720px !important; margin: 0; overflow: hidden; contain: strict; box-shadow: none; break-after: page; page-break-after: always; }
+    .static-page:last-child { break-after: auto; page-break-after: auto; }
+    .static-frame { overflow: hidden; contain: strict; transform: none !important; }
+  }
+}

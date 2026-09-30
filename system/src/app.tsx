@@ -6,6 +6,7 @@ import { fitRect, type CameraTransform } from './camera';
 import type { PresentationDefinition } from './definition';
 import { boundsOf } from './model';
 import { changesContentInPlace, contextIndex, navigateTo, type Navigation } from './navigation';
+import { Scene } from './scene';
 import { themeVariables } from './theme';
 import './styles.css';
 
@@ -15,7 +16,11 @@ export function App({ definition, available }: {
 }) {
   const presentation = definition.model;
   const [navigation, setNavigation] = React.useState<Navigation>({ index: 0, previousIndex: null });
-  const [themeId, setThemeId] = React.useState(definition.defaultThemeId);
+  const [themeId, setThemeId] = React.useState(() => {
+    const requested = new URLSearchParams(window.location.search).get('theme');
+    return definition.themes.some((item) => item.id === requested)
+      ? requested! : definition.defaultThemeId;
+  });
   const [refitCount, setRefitCount] = React.useState(0);
   const [viewport, setViewport] = React.useState({ width: 0, height: 0 });
   const [camera, setCamera] = React.useState<CameraTransform>({ x: 0, y: 0, k: 1 });
@@ -31,11 +36,9 @@ export function App({ definition, available }: {
   const index = navigation.index;
   const stop = presentation.stops[index];
   const theme = definition.themes.find((item) => item.id === themeId) ?? definition.themes[0];
-  const visual = definition.visual;
-  const Decoration = visual?.decoration;
-  const persistentOverrides = visual?.persistent?.byStop;
+  const persistentOverrides = definition.visual?.persistent?.byStop;
   const Persistent = persistentOverrides && Object.prototype.hasOwnProperty.call(persistentOverrides, stop.id)
-    ? persistentOverrides[stop.id] : visual?.persistent?.default;
+    ? persistentOverrides[stop.id] : definition.visual?.persistent?.default;
   const context = contextIndex(presentation);
   const goTo = React.useCallback((next: number) => {
     setNavigation((current) => navigateTo(current, next, presentation.stops.length));
@@ -128,8 +131,9 @@ export function App({ definition, available }: {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [navigation.index, presentation, step]);
 
-  const visible = new Set(stop.visibleIds);
   const formatCamera = `${camera.x.toFixed(1)}, ${camera.y.toFixed(1)}, ${camera.k.toFixed(4)}`;
+  const changingIds = new Set(presentation.elements.filter((element) =>
+    changesContentInPlace(presentation, navigation.previousIndex, index, element.id)).map((element) => element.id));
 
   return (
     <div className="app-shell" data-presentation-id={definition.id} data-theme-id={theme.id}
@@ -143,27 +147,8 @@ export function App({ definition, available }: {
           <div className="viewport" ref={viewportRef} tabIndex={0} role="group"
             aria-label="Lienzo espacial. Arrastra para desplazar y usa la rueda para ampliar."
             data-camera-target={stop.cameraTargetId} data-camera={formatCamera}>
-            <div className="world" style={{ transform: `translate(${camera.x}px, ${camera.y}px) scale(${camera.k})` }}>
-              <div className="world-canvas" aria-hidden="true" style={{
-                left: presentation.overview.x - 1000, top: presentation.overview.y - 1000,
-                width: presentation.overview.width + 2000, height: presentation.overview.height + 2000,
-                background: visual?.canvasBackground ?? 'var(--canvas-bg)',
-              }} />
-              {Decoration && <div className="world-decoration" aria-hidden="true"><Decoration /></div>}
-              {presentation.elements.filter((element) => visible.has(element.id)).map((element) => {
-                const Content = definition.content[element.id];
-                return <div className={`spatial-element ${element.kind}`} key={element.id}
-                  style={{ left: element.bounds.x, top: element.bounds.y,
-                    width: element.bounds.width, height: element.bounds.height,
-                    background: visual?.elementBackgrounds?.[element.id] }}
-                  data-element-id={element.id} data-state={stop.stateByElement?.[element.id] ?? ''}>
-                  <div key={stop.stateByElement?.[element.id] ?? 'default'}
-                    className={`state-content${changesContentInPlace(presentation, navigation.previousIndex, index, element.id) ? ' content-changing' : ''}`}>
-                    <Content element={element} state={stop.stateByElement?.[element.id]} />
-                  </div>
-                </div>;
-              })}
-            </div>
+            <Scene definition={definition} stop={stop} camera={camera}
+              output="interactive" changingIds={changingIds} />
           </div>
           <div className="viewer-badge" aria-live="polite" aria-atomic="true">{stop.label}<span>{index + 1} / {presentation.stops.length}</span></div>
           {Persistent && <div className="presentation-overlay" data-persistent="true">
@@ -198,6 +183,9 @@ export function App({ definition, available }: {
               {definition.themes.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
             </select>
           </label>
+          <a className="static-link" href={`?deck=${encodeURIComponent(definition.id)}&view=static&theme=${encodeURIComponent(theme.id)}`}>
+            Ver secuencia estática / PDF
+          </a>
           <ol className="stop-list">
             {presentation.stops.map((item, i) => (
               <li key={item.id}>

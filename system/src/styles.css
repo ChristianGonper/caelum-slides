@@ -76,6 +76,9 @@
   .deck-picker a:hover { background: var(--surface); color: var(--ink); }
   .deck-picker a[aria-current="page"] { border-color: var(--accent); color: var(--ink); background: var(--surface); }
   .deck-picker a:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+  .static-link { display: block; padding: .7rem .8rem; border: 1px solid var(--accent); border-radius: .5rem; color: var(--ink); text-align: center; text-decoration: none; font-size: .83rem; }
+  .static-link:hover { background: var(--surface); }
+  .static-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .palette-picker { display: grid; gap: .4rem; color: var(--muted); font-size: .76rem; }
   .palette-picker select { inline-size: 100%; min-block-size: 2.7rem; padding: .55rem .65rem; border: 1px solid var(--line); border-radius: .5rem; background: var(--surface); color: var(--ink); font: inherit; }
   .palette-picker select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }

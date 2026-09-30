@@ -2,7 +2,11 @@ import type { ComponentType } from 'react';
 import { validatePresentation, type NarrativeStop, type Presentation, type SpatialElement } from './model';
 import { validateThemes, type Theme } from './theme';
 
-export type ContentProps = { element: SpatialElement; state?: string };
+export type ContentProps = {
+  element: SpatialElement;
+  state?: string;
+  output?: 'interactive' | 'static';
+};
 export type PersistentProps = { stop: NarrativeStop; index: number; total: number };
 
 export type PresentationDefinition = {
