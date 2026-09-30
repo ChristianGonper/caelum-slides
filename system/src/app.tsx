@@ -10,11 +10,17 @@ import { Scene } from './scene';
 import { themeVariables } from './theme';
 import './styles.css';
 
+export type AppMode = 'review' | 'present';
+
 export function App({ definition, available }: {
   definition: PresentationDefinition;
   available: readonly Pick<PresentationDefinition, 'id' | 'model'>[];
 }) {
   const presentation = definition.model;
+  const [mode, setMode] = React.useState<AppMode>(() => {
+    const requested = new URLSearchParams(window.location.search).get('mode');
+    return requested === 'present' ? 'present' : 'review';
+  });
   const [navigation, setNavigation] = React.useState<Navigation>({ index: 0, previousIndex: null });
   const [themeId, setThemeId] = React.useState(() => {
     const requested = new URLSearchParams(window.location.search).get('theme');
@@ -90,10 +96,11 @@ export function App({ definition, available }: {
     const element = viewportRef.current;
     const behavior = zoomRef.current;
     if (!element || !behavior || !viewport.width || !viewport.height) return;
-    const fitKey = `${stop.cameraTargetId}:${viewport.width}:${viewport.height}:${refitCount}`;
+    const defaultPadding = Math.min(64, viewport.width * 0.06);
+    const padding = stop.padding !== undefined ? stop.padding : defaultPadding;
+    const fitKey = `${stop.cameraTargetId}:${viewport.width}:${viewport.height}:${refitCount}:${padding}`;
     if (lastFitRef.current === fitKey) return;
-    const target = fitRect(boundsOf(presentation, stop.cameraTargetId), viewport,
-      Math.min(64, viewport.width * 0.06));
+    const target = fitRect(boundsOf(presentation, stop.cameraTargetId), viewport, padding);
     const transform = zoomIdentity.translate(target.x, target.y).scale(target.k);
     const selection = select(element);
     selection.interrupt();
@@ -107,7 +114,7 @@ export function App({ definition, available }: {
     cameraTargetRef.current = stop.cameraTargetId;
     fittedViewportRef.current = viewport;
     lastFitRef.current = fitKey;
-  }, [stop.cameraTargetId, viewport.width, viewport.height, refitCount, reducedMotion, previewFullMotion, presentation]);
+  }, [stop.cameraTargetId, stop.padding, viewport.width, viewport.height, refitCount, reducedMotion, previewFullMotion, presentation]);
 
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -115,6 +122,25 @@ export function App({ definition, available }: {
       const target = event.composedPath()[0];
       if (target instanceof Element && target.closest('input, textarea, select, [contenteditable], [role="slider"]')) return;
       if (event.key === ' ' && target instanceof Element && target.closest('button, a')) return;
+      if (event.key.toLowerCase() === 'p') {
+        event.preventDefault();
+        setMode((current) => {
+          const next = current === 'present' ? 'review' : 'present';
+          try {
+            const url = new URL(window.location.href);
+            if (next === 'present') {
+              url.searchParams.set('mode', 'present');
+            } else {
+              url.searchParams.delete('mode');
+            }
+            window.history.replaceState(null, '', url.toString());
+          } catch {
+            // Ignored if window/history URL manipulation is restricted
+          }
+          return next;
+        });
+        return;
+      }
       if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
         if (navigation.index < presentation.stops.length - 1) {
           event.preventDefault();
@@ -134,27 +160,34 @@ export function App({ definition, available }: {
   const formatCamera = `${camera.x.toFixed(1)}, ${camera.y.toFixed(1)}, ${camera.k.toFixed(4)}`;
   const changingIds = new Set(presentation.elements.filter((element) =>
     changesContentInPlace(presentation, navigation.previousIndex, index, element.id)).map((element) => element.id));
+  const showBadge = mode !== 'present' && !stop.hideBadge;
+  const showControls = !stop.hideControls;
 
   return (
     <div className="app-shell" data-presentation-id={definition.id} data-theme-id={theme.id}
+      data-mode={mode}
       style={themeVariables(theme)}>
       <header className="app-header">
         <div className="brand"><span className="brand-symbol">✦</span><span>CAELUM <b>SLIDES</b></span></div>
         <span className="header-note">Prototipo del núcleo espacial</span>
       </header>
       <main className="workspace">
-        <section className="viewer" aria-label="Presentación espacial">
+        <section className="viewer" aria-label="Presentación espacial"
+          data-camera-target={stop.cameraTargetId}
+          data-stop-id={stop.id}>
           <div className="viewport" ref={viewportRef} tabIndex={0} role="group"
             aria-label="Lienzo espacial. Arrastra para desplazar y usa la rueda para ampliar."
             data-camera-target={stop.cameraTargetId} data-camera={formatCamera}>
             <Scene definition={definition} stop={stop} camera={camera}
               output="interactive" changingIds={changingIds} />
           </div>
-          <div className="viewer-badge" aria-live="polite" aria-atomic="true">{stop.label}<span>{index + 1} / {presentation.stops.length}</span></div>
+          {showBadge && <div className="viewer-badge" aria-live="polite" aria-atomic="true">
+            {stop.label}<span>{index + 1} / {presentation.stops.length}</span>
+          </div>}
           {Persistent && <div className="presentation-overlay" data-persistent="true">
             <Persistent stop={stop} index={index} total={presentation.stops.length} />
           </div>}
-          <div className="viewer-controls">
+          {showControls && <div className="viewer-controls">
             <button type="button" onClick={() => step(-1)} disabled={index === 0}>← Anterior</button>
             <button type="button" disabled={context < 0} onClick={() => {
               if (context === index) setRefitCount((count) => count + 1);
@@ -164,7 +197,7 @@ export function App({ definition, available }: {
               aria-label="Reencuadrar la vista actual">Centrar</button>
             <button type="button" onClick={() => step(1)}
               disabled={index === presentation.stops.length - 1}>Siguiente →</button>
-          </div>
+          </div>}
         </section>
         <aside className="sidebar" aria-label="Recorrido narrativo">
           <div className="sidebar-intro">

@@ -32,13 +32,15 @@ export function StaticDeck({ definition, initialThemeId }: {
     return () => observer.disconnect();
   }, []);
 
+  const exportStops = presentation.stops.filter((stop) => stop.includeInStatic !== false);
+
   return <div className="static-shell" data-presentation-id={definition.id}
     data-theme-id={theme.id} style={themeVariables(theme)}>
     <header className="static-toolbar">
       <div>
         <span className="eyebrow">SECUENCIA ESTÁTICA</span>
         <h1>{presentation.title}</h1>
-        <p>{presentation.stops.length} páginas en el orden narrativo. Usa Imprimir para guardar un PDF.</p>
+        <p>{exportStops.length} páginas en el orden narrativo. Usa Imprimir para guardar un PDF.</p>
       </div>
       <div className="static-actions">
         <label>Paleta
@@ -53,8 +55,9 @@ export function StaticDeck({ definition, initialThemeId }: {
       </div>
     </header>
     <main className="static-deck" ref={listRef} aria-label="Presentación en orden narrativo">
-      {presentation.stops.map((stop, index) => {
-        const camera = fitRect(boundsOf(presentation, stop.cameraTargetId), PAGE, 64);
+      {exportStops.map((stop, index) => {
+        const padding = stop.padding !== undefined ? stop.padding : 64;
+        const camera = fitRect(boundsOf(presentation, stop.cameraTargetId), PAGE, padding);
         const overrides = visual?.persistent?.byStop;
         const Persistent = overrides && Object.prototype.hasOwnProperty.call(overrides, stop.id)
           ? overrides[stop.id] : visual?.persistent?.default;
@@ -64,7 +67,7 @@ export function StaticDeck({ definition, initialThemeId }: {
           <div className="static-frame" style={{ transform: `scale(${scale})` }}>
             <Scene definition={definition} stop={stop} camera={camera} output="static" />
             {Persistent && <div className="presentation-overlay" data-persistent="true">
-              <Persistent stop={stop} index={index} total={presentation.stops.length} />
+              <Persistent stop={stop} index={index} total={exportStops.length} />
             </div>}
           </div>
         </article>;

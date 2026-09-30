@@ -13,13 +13,20 @@ export function Scene({ definition, stop, camera, output, changingIds }: {
   const Decoration = visual?.decoration;
   const visible = new Set(stop.visibleIds);
 
+  const showDecoration = Boolean(Decoration && (visual?.decorationByStop?.[stop.id] ?? true));
+  const stopCanvas = visual?.canvasByStop?.[stop.id];
+  const showCanvas = stopCanvas !== null;
+  const canvasBackground = typeof stopCanvas === 'string'
+    ? stopCanvas
+    : (visual?.canvasBackground ?? 'var(--canvas-bg)');
+
   return <div className="world" style={{ transform: `translate(${camera.x}px, ${camera.y}px) scale(${camera.k})` }}>
-    <div className="world-canvas" aria-hidden="true" style={{
+    {showCanvas && <div className="world-canvas" aria-hidden="true" style={{
       left: presentation.overview.x - 1000, top: presentation.overview.y - 1000,
       width: presentation.overview.width + 2000, height: presentation.overview.height + 2000,
-      background: visual?.canvasBackground ?? 'var(--canvas-bg)',
-    }} />
-    {Decoration && <div className="world-decoration" aria-hidden="true"><Decoration /></div>}
+      background: canvasBackground,
+    }} />}
+    {showDecoration && Decoration && <div className="world-decoration" aria-hidden="true"><Decoration /></div>}
     {presentation.elements.filter((element) => visible.has(element.id)).map((element) => {
       const Content = definition.content[element.id];
       const state = stop.stateByElement?.[element.id];
