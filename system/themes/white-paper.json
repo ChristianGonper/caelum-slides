@@ -1,0 +1,64 @@
+{
+  "name": "White Paper",
+  "version": "1.0",
+  "tokens": {
+    "background": {
+      "primary": "#F8FAFC",
+      "secondary": "#F1F5F9",
+      "surface": "#E2E8F0",
+      "panel": "#CBD5E1",
+      "gradientStart": "#E0E7FF",
+      "gradientEnd": "#DBEAFE",
+      "gradientOpacity": 0.12,
+      "gradientAngle": 135,
+      "gradientType": "linear",
+      "gradientRadialPosition": {
+        "x": 50,
+        "y": 50
+      },
+      "gradientEnabled": false,
+      "grid": "#CBD5E1"
+    },
+    "typography": {
+      "title": "#0F172A",
+      "heading": "#1E293B",
+      "subtitle": "#475569",
+      "body": "#334155",
+      "muted": "#64748B",
+      "disabled": "#94A3B8",
+      "onDark": "#FFFFFF"
+    },
+    "accent": {
+      "primary": "#0284C7",
+      "secondary": "#4F46E5",
+      "highlight": "#E11D48",
+      "warning": "#D97706",
+      "success": "#16A34A",
+      "info": "#0891B2",
+      "button": "#0284C7",
+      "buttonText": "#FFFFFF"
+    },
+    "graphics": {
+      "line": "#CBD5E1",
+      "grid": "#E2E8F0",
+      "border": "#CBD5E1",
+      "icon": "#64748B",
+      "signal": "#0284C7",
+      "chart": "#4F46E5",
+      "dataPoint": "#E11D48",
+      "progress": "#16A34A"
+    },
+    "fonts": {
+      "titleFamily": "Space Grotesk",
+      "bodyFamily": "Inter",
+      "monoFamily": "JetBrains Mono",
+      "titleWeight": 600,
+      "titleSize": "3rem",
+      "lineHeight": 1.4,
+      "letterSpacing": "-0.02em",
+      "badgeTransform": "uppercase"
+    }
+  },
+  "createdAt": "2026-09-30T15:20:00.000Z",
+  "updatedAt": "2026-09-30T15:20:00.000Z"
+}
