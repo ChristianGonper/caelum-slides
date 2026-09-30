@@ -7,7 +7,8 @@
     "build": "tsc --noEmit && vite build",
     "export:html": "tsc --noEmit && node scripts/export-html.mjs",
     "preview": "vite preview",
-    "test": "vitest run system/src"
+    "test": "vitest run system/src",
+    "test:e2e": "vitest run tests/e2e"
   },
   "dependencies": {
     "d3-selection": "^3.0.0",

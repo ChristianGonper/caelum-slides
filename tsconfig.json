@@ -10,5 +10,5 @@
     "skipLibCheck": true,
     "types": ["vite/client", "vitest/globals"]
   },
-  "include": ["system/src", "presentations/prototipo-espacial", "vite.config.ts"]
+  "include": ["system/src", "presentations/prototipo-espacial", "vite.config.ts", "tests"]
 }
