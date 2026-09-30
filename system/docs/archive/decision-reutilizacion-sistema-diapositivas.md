@@ -1,5 +1,7 @@
 # Decisión de reutilización para el sistema de diapositivas espaciales
 
+**Antecedente técnico del 29 de septiembre de 2026.** Se conserva la evaluación de partida y sus referencias; las expresiones «candidato», «pendiente» y «todavía no» describen aquel momento. La implementación posterior usa React/TypeScript/Vite, D3 y CSS, HTML inline y Chromium headless mediante CLI para PDF, sin dependencia de Playwright en el proyecto. El comportamiento vigente se documenta en la [referencia del sistema](../referencia-sistema.md) y la [guía de trabajo](../guia-de-trabajo.md).
+
 Fecha de revisión: 29 de septiembre de 2026. Alcance: auditoría de código y documentación; todavía no se ha construido un prototipo ni ejecutado una exportación de una presentación espacial propia.
 
 ## Decisión

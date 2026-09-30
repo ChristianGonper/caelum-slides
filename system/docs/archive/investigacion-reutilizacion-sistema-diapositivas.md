@@ -1,5 +1,7 @@
 # Investigación inicial de reutilización — sistema de diapositivas espaciales
 
+**Investigación histórica, anterior a la implementación.** Sus hipótesis no son instrucciones de uso ni un inventario actual de dependencias. Consulta la [decisión posterior](decision-reutilizacion-sistema-diapositivas.md) como antecedente y la [referencia del sistema](../referencia-sistema.md) para la arquitectura implementada.
+
 ## Objetivo del documento
 
 Este documento recoge la investigación inicial sobre proyectos y frameworks existentes que podrían reutilizarse para construir el nuevo sistema de diapositivas espaciales.

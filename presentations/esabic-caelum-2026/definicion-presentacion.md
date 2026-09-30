@@ -1,6 +1,6 @@
 # Presentación Caelum Systems · ESA BIC 2026
 
-Estado: **primer borrador para discutir**, 30 de septiembre de 2026. Define la presentación que queremos conseguir; todavía no autoriza un plan de implementación, código ni producción de imágenes.
+Estado: **definición de partida**, 30 de septiembre de 2026. Conserva el diseño, las condiciones y propuestas del primer borrador; posteriormente se implementó la presentación. La [referencia del deck](README.md) describe el resultado actual, incluidos cierre/contactos separados y doce paradas con once páginas estáticas. Las propuestas y pendientes de este documento mantienen su contexto original; no deben interpretarse como un bloqueo de los trabajos autorizados posteriormente.
 
 Condiciones confirmadas por el usuario en esta conversación: **10 minutos de exposición, Guillermo como presentador y preguntas aparte; conservación literal de los textos visibles; disponibilidad inicial de las tres paletas existentes en el sistema**.
 
@@ -10,7 +10,7 @@ Presentar Caelum Systems ante la audiencia de ESA BIC Castilla y León 2026, tom
 
 La experiencia empieza con una situación concreta, descubre después una organización espacial y termina recuperando su centro como lugar de identidad y contacto. El mapa debe ayudar a entender el recorrido. Las escenas ampliadas deben funcionar como diapositivas legibles durante una exposición oral.
 
-El documento se mantendrá como definición de esta presentación. Las decisiones sobre el sistema general siguen perteneciendo a `system/`. Al aceptar esta definición, el siguiente paso será convertirla en un plan separado para construir y revisar el deck.
+El documento conserva la definición de esta presentación. Las decisiones sobre el sistema general siguen perteneciendo a `system/`. El [plan de implementación](plan-implementacion.md) registra la primera construcción; el [README del deck](README.md) documenta el funcionamiento vigente.
 
 ## 2. Fuentes y estado de las decisiones
 

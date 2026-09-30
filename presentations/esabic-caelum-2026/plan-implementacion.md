@@ -1,6 +1,12 @@
 # Plan de implementación · Caelum Systems · ESA BIC 2026
 
-Estado: **completado e implementado**, 30 de septiembre de 2026. Todas las fases (Fase 0 a Fase 7) han sido ejecutadas, validadas y documentadas con éxito.
+Estado: **registro histórico de la primera implementación**, 30 de septiembre de 2026. Las fases y métricas siguientes se conservan tal como se registraron al cerrar aquella versión; no son una certificación actual de todos los puntos marcados.
+
+## Cómo leer este registro
+
+La [referencia del deck](README.md) y la [guía de trabajo](../../system/docs/guia-de-trabajo.md) describen el funcionamiento vigente. Ahora Caelum tiene doce paradas y once páginas estáticas, con cierre y contactos separados; el PDF permite elegir diagrama y encuadre y oculta el cuadro superior derecho. Los decks actuales ofrecen tres paletas, aunque el sistema contiene cinco JSON. Las familias tipográficas declaradas no garantizan archivos de fuente locales incorporados.
+
+Las cifras de diez páginas, once paradas, tamaños de artefactos, cinco paletas disponibles, 53 tests o tiempos de build que aparecen más abajo corresponden al registro inicial y no deben usarse como contrato actual. Las afirmaciones históricas de contraste, decodificación QR, ensayo temporal y validación visual no se han vuelto a verificar en esta revisión documental. Consulta [TEST_READY](../../tests/TEST_READY.md) y [TEST_INFRA](../../tests/TEST_INFRA.md) para la evidencia actual y sus límites. La indicación histórica de commits o de tareas completadas tampoco autoriza ni obliga a hacer nuevos commits.
 
 ## Encargo y fuentes
 

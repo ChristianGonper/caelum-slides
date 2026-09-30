@@ -2,9 +2,17 @@
 
 Estado: viva · iniciada el 29 de septiembre de 2026.
 
+## Estado documental al 30 de septiembre de 2026
+
+Las evidencias y cierres siguientes conservan la evolución de los primeros incrementos. La descripción vigente está en la [referencia del sistema](referencia-sistema.md) y los procedimientos en la [guía de trabajo](guia-de-trabajo.md).
+
+Actualmente hay tres decks: los dos ejemplos y Caelum ESA BIC, que se abre por defecto. El HTML autónomo incorpora todos; el PDF directo de Caelum permite elegir diagrama y encuadre y genera once páginas a partir de doce paradas. Existen cinco JSON de temas, de los que los decks actuales habilitan tres. Las [comprobaciones actuales](../../tests/TEST_READY.md) incluyen tests, build y exportación real.
+
+El paso 6 continúa abierto en cuanto a auditoría completa R01–R26, revisión visual exhaustiva de las salidas y gestos en dispositivo táctil físico. Los resultados de Vitest no completan esa validación. Las cifras y referencias a dos presentaciones o tres archivos de paleta en los cierres fechados corresponden al estado de aquellos incrementos.
+
 ## Meta y fuentes
 
-Llegar a un sistema reutilizable con el que se puedan definir presentaciones espaciales distintas, recorrerlas en una salida interactiva y obtener una secuencia estática fiel. La referencia funcional es [R01–R26](requisitos-sistema-diapositivas.md); la [decisión de reutilización](decision-reutilizacion-sistema-diapositivas.md) orienta la base técnica y puede revisarse si una prueba la contradice.
+Llegar a un sistema reutilizable con el que se puedan definir presentaciones espaciales distintas, recorrerlas en una salida interactiva y obtener una secuencia estática fiel. La referencia funcional es [R01–R26](requisitos-sistema-diapositivas.md); la [decisión de reutilización](archive/decision-reutilizacion-sistema-diapositivas.md) orienta la base técnica y puede revisarse si una prueba la contradice.
 
 Las fuentes de la llamada están en `presentations/esabic-caelum-2026/raw-sources/`: la transcripción de la reunión y la petición de Guillermo. De ellas se recogen para **el sistema** los bloques, la visión general, los cambios de contenido en una misma posición, los movimientos de cámara con zoom y desplazamiento, la separación entre ambos tipos de transición, las paletas y la salida HTML/PDF. La disposición circular, el fondo, el estilo blueprint, los QR y el contenido ESA-BIC pertenecen a **presentaciones concretas**. Las fechas y acuerdos de entrega mencionados en la llamada no son un calendario para este sistema.
 

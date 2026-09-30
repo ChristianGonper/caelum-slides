@@ -1,5 +1,7 @@
 # Requisitos del sistema de diapositivas — primera definición
 
+Documento de intención funcional. Los requisitos siguientes no declaran que cada capacidad esté implementada o verificada. Para conocer el comportamiento actual y sus límites, consulta la [referencia del sistema](referencia-sistema.md); para trabajar en el repositorio, la [guía](guia-de-trabajo.md). Revisión documental: 30 de septiembre de 2026.
+
 ## Propósito
 
 Definir los requisitos funcionales iniciales de un sistema de presentaciones espaciales concebido desde cero.
