@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "export:html": "tsc --noEmit && node scripts/export-html.mjs",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run system/src"
   },
   "dependencies": {
     "d3-selection": "^3.0.0",
