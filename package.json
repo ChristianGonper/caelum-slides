@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "export": "npm run export:html && npm run export:pdf",
     "export:html": "tsc --noEmit && node scripts/export-html.mjs",
+    "export:pdf": "node scripts/export-pdf.mjs",
     "preview": "vite preview",
     "test": "vitest run system/src",
     "test:e2e": "vitest run tests/e2e"
