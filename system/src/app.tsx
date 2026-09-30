@@ -22,7 +22,11 @@ export function App({ definition, available }: {
     const requested = new URLSearchParams(window.location.search).get('mode');
     return requested === 'present' ? 'present' : 'review';
   });
-  const [navigation, setNavigation] = React.useState<Navigation>({ index: 0, previousIndex: null });
+  const [navigation, setNavigation] = React.useState<Navigation>(() => {
+    const requested = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('stop');
+    const index = presentation.stops.findIndex(item => item.id === requested);
+    return { index: Math.max(0, index), previousIndex: null };
+  });
   const [themeId, setThemeId] = React.useState(() => {
     if (typeof window === 'undefined') return definition.defaultThemeId;
     const requested = new URLSearchParams(window.location.search).get('theme');
@@ -49,6 +53,7 @@ export function App({ definition, available }: {
   const Persistent = persistentOverrides && Object.prototype.hasOwnProperty.call(persistentOverrides, stop.id)
     ? persistentOverrides[stop.id] : definition.visual?.persistent?.default;
   const context = contextIndex(presentation);
+  const ReviewControls = definition.visual?.reviewControls;
   const goTo = React.useCallback((next: number) => {
     setNavigation((current) => navigateTo(current, next, presentation.stops.length));
   }, [presentation]);
@@ -160,6 +165,12 @@ export function App({ definition, available }: {
     changesContentInPlace(presentation, navigation.previousIndex, index, element.id)).map((element) => element.id));
   const showBadge = mode !== 'present' && !stop.hideBadge;
   const showControls = mode !== 'present' && !stop.hideControls;
+  const staticParams = new URLSearchParams(typeof window === 'undefined' ? '' : window.location.search);
+  staticParams.set('deck', definition.id);
+  staticParams.set('view', 'static');
+  staticParams.set('theme', theme.id);
+  staticParams.delete('mode');
+  staticParams.delete('stop');
 
   return (
     <div className="app-shell" data-presentation-id={definition.id} data-theme-id={theme.id}
@@ -206,6 +217,7 @@ export function App({ definition, available }: {
           <button className="presentation-mode-button" type="button" onClick={toggleMode}
             aria-keyshortcuts="P">Ocultar HUD · P</button>
           <p className="presentation-mode-hint">Pulsa P para mostrar u ocultar el HUD. Con el HUD oculto, avanza con las flechas.</p>
+          {ReviewControls && <ReviewControls />}
           <nav className="deck-picker" aria-label="Presentaciones de prueba">
             {available.map((item) => (
               <a key={item.id} href={`?deck=${encodeURIComponent(item.id)}`}
@@ -217,7 +229,7 @@ export function App({ definition, available }: {
               {definition.themes.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
             </select>
           </label>
-          <a className="static-link" href={`?deck=${encodeURIComponent(definition.id)}&view=static&theme=${encodeURIComponent(theme.id)}`}>
+          <a className="static-link" href={`?${staticParams}`}>
             Ver secuencia estática / PDF
           </a>
           <ol className="stop-list">

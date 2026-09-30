@@ -10,6 +10,7 @@ export type ContentProps = {
 export type PersistentProps = { stop: NarrativeStop; index: number; total: number };
 
 export type PresentationVisual = {
+  reviewControls?: ComponentType;
   canvasBackground?: string;
   canvasByStop?: Readonly<Record<string, string | null>>;
   elementBackgrounds?: Readonly<Record<string, string>>;

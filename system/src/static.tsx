@@ -21,6 +21,7 @@ export function StaticDeck({ definition, initialThemeId }: {
   const listRef = React.useRef<HTMLElement>(null);
   const theme = definition.themes.find((item) => item.id === themeId) ?? definition.themes[0];
   const { model: presentation, visual } = definition;
+  const ExportControls = visual?.reviewControls;
 
   React.useEffect(() => {
     const element = listRef.current;
@@ -33,6 +34,10 @@ export function StaticDeck({ definition, initialThemeId }: {
   }, []);
 
   const exportStops = presentation.stops.filter((stop) => stop.includeInStatic !== false);
+  const returnParams = new URLSearchParams(typeof window === 'undefined' ? '' : window.location.search);
+  returnParams.set('deck', definition.id);
+  returnParams.set('theme', theme.id);
+  returnParams.delete('view');
 
   return <div className="static-shell" data-presentation-id={definition.id}
     data-theme-id={theme.id} style={themeVariables(theme)}>
@@ -43,12 +48,13 @@ export function StaticDeck({ definition, initialThemeId }: {
         <p>{exportStops.length} páginas en el orden narrativo. Usa Imprimir para guardar un PDF.</p>
       </div>
       <div className="static-actions">
+        {ExportControls && <ExportControls />}
         <label>Paleta
           <select value={theme.id} onChange={(event) => setThemeId(event.target.value)}>
             {definition.themes.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
           </select>
         </label>
-        <a href={`?deck=${encodeURIComponent(definition.id)}&theme=${encodeURIComponent(theme.id)}`}>
+        <a href={`?${returnParams}`}>
           Volver al recorrido
         </a>
         <button type="button" onClick={() => window.print()}>Imprimir / Guardar PDF</button>

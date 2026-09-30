@@ -1,4 +1,3 @@
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { esabicCaelum2026Presentation } from '../../presentations/esabic-caelum-2026/presentation';
 import { prototypePresentation } from '../../presentations/prototipo-espacial/presentation';
