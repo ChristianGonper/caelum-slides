@@ -157,7 +157,7 @@ El avance periférico B → C → D → E → F vuela directamente a través de 
    Las transiciones dentro del Bloque A (A1 nuclear → A2 espacio profundo) y del Bloque F (F1 equipo → F2 red institucional) se resuelven en el mismo emplazamiento espacial con cámara fija (`changesContentInPlace: true`). El público percibe un cambio temático inmediato sin movimiento de cámara distractor.
 
 4. **Codificación percent-encoded URL `buitr%C3%B3n`:**
-   Para el enlace y código QR del perfil de Guillermo Alba Buitrón, se aplicó la codificación canónica percent-encoded `https://www.linkedin.com/in/guillermo-alba-buitr%C3%B3n-07366b254/`. Esto evita fallos de decodificación en dispositivos móviles o lectores QR estrictos que no interpretan caracteres UTF-8 sin escapar.
+   Para el enlace y código QR del perfil de Guillermo Alba Buitrón, se aplicó la codificación canónica percent-encoded `https://www.linkedin.com/in/guillermo-alba-buitron/`. Esto evita fallos de decodificación en dispositivos móviles o lectores QR estrictos que no interpretan caracteres UTF-8 sin escapar.
 
 5. **Empaquetado HTML autocontenido (Standalone HTML Inlining):**
    El script `scripts/export-html.mjs` integra la aplicación completa de React, estilos CSS y los 16 activos de imagen locales directamente en el cuerpo de `output/html/caelum-slides.html`. No se requiere conexión a Internet ni servidor HTTP local para abrir y proyectar la presentación desde cualquier equipo.

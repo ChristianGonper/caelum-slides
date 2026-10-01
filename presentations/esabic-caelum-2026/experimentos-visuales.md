@@ -1,40 +1,15 @@
-# Variantes visuales de Caelum
+# Ajustes visuales de Caelum
 
-Estado revisado el 30 de septiembre de 2026. Las dos variantes se controlan de manera independiente; sus componentes pertenecen al deck, no al motor genérico.
+Revisado el 1 de octubre de 2026 tras las modificaciones de la reunión.
 
-| Opción | Valores | Desarrollo interactivo | HTML exportado / estático / PDF CLI |
-| --- | --- | --- | --- |
-| Encuadre de entrada | `focus`: portada ampliada; `map`: mapa completo | `focus` | `focus` |
-| Diagrama | `illustrated`: hexacóptero ilustrado; `blueprint`: esquema original | `illustrated` | `blueprint` |
+El panel lateral y la barra estática ofrecen **Color de resaltado**: azul (inicial, #4DA3FF), cian, ámbar y lavanda. Cambiarlo mantiene la parada y la paleta. El valor se conserva en la URL mediante `highlight=blue|cyan|amber|lavender` y en el enlace a estático/PDF. La impresión usa el color seleccionado.
 
-## Elegir y comparar
+La entrada al centro sale al mapa general durante 1000 ms y después amplía la identidad central en 480 ms. El avance siguiente permanece manual. Movimiento reducido, redimensionado y carga directa encuadran sin vuelo. Una nueva navegación interrumpe el recorrido pendiente.
 
-Los selectores están en el panel de revisión y en la barra estática. Cambiarlos recarga la URL; en el visor abre `stop=overview` para comparar la portada, y en estático conserva la secuencia completa. `mode=present` oculta el HUD.
+Se han retirado del menú los selectores de entrada y diagrama. La ilustración independiente del dron se ha retirado; el sketch vectorial original de `schema.tsx` permanece activo como decoración del mundo, salvo en la pantalla negra. El parámetro histórico `intro=map` sigue disponible para exportaciones anteriores. `diagram` ya no afecta a la presentación.
 
-```text
-?deck=esabic-caelum-2026&stop=overview&intro=map&diagram=illustrated
-?deck=esabic-caelum-2026&view=static&intro=focus&diagram=blueprint
-```
+Todos los bloques permanecen visibles durante los vuelos de cámara. Sus estados se resuelven según la posición del recorrido: inicial antes de visitarlos, actual en la parada activa y final al dejarlos atrás. Los cambios de estado sin vuelo desplazan verticalmente el contenido; el fondo compartido del cierre y contactos permanece fijo. Equipo mantiene título, subtítulo y tarjetas arriba para dejar visibles las caras del fondo. Cierre y contactos comparten el mismo tratamiento de luminosidad.
 
-Los valores explícitos válidos tienen prioridad. `experiments.ts` define los defaults y detecta el marcador `window.__CAELUM_EXPORT__` que incorpora el HTML autónomo: por ello el mismo código usa el esquema original al exportar. La vista estática también lo elige aunque se abra desde desarrollo.
+El primer estado central incluye RAR entre el nombre del proyecto y su descriptor. Las diapos numeradas 03–05 usan interlineado 1.95 y separación de 26 px entre puntos principales. Las imágenes se alinean con el margen derecho del footer; la solución mantiene altura de 280 px y ancho adaptable. HPM y Sting tienen ventanas de recorte de 150 px de alto: se elimina cielo y terreno derecho en HPM, y fondo alrededor del interceptor en Sting. Los recortes se aplican al renderizar, conservando las fotografías originales completas.
 
-La portada mantiene identidad y convocatoria; el encuadre cambia cuánto contexto periférico se ve, sin alterar el número de paradas. El dibujo se compone en `illustrated-schema.tsx`; su recurso, procedencia y licencia están en [assets/experiments/README.md](assets/experiments/README.md). El esquema original permanece en `schema.tsx`.
-
-## PDF y controles de salida
-
-Desde la raíz:
-
-```powershell
-npm run export:pdf
-npm run export:pdf -- --diagram illustrated --intro map
-```
-
-El primer comando usa `blueprint` y `focus`; el segundo elige ambas alternativas. Se regenera HTML y se escribe la misma ruta `output/pdf/esabic-caelum-2026.pdf` con once páginas. Para conservar varias salidas, copia la anterior antes de regenerar. No hay nombres distintos automáticos por variante.
-
-También puedes seleccionar diagrama, encuadre y paleta en la vista estática y usar **Imprimir / Guardar PDF**. Los selectores no se imprimen. El cuadro superior derecho de marca/número de Caelum se oculta mediante `.caelum-persistent-badge` en la vista estática, incluidos sus PDF, mientras se conservan los pies internos del contenido.
-
-Para cambiar defaults, revisa separadamente desarrollo (`experimentDefaults`), reglas de exportación en `experiments.ts` y opciones iniciales de `scripts/export-pdf.mjs`. Cambiar sólo el default interactivo no cambia necesariamente el PDF CLI.
-
-## Antecedente
-
-El commit `93e5c5f` se citó como punto anterior al ensayo visual. Es una referencia histórica, no una instrucción para restaurar el repositorio ni una afirmación sobre qué cambios están actualmente confirmados. Antes de editar o guardar cambios, consulta el estado real de Git y conserva modificaciones existentes.
+**Presentar** solicita pantalla completa con la API del navegador y activa el modo exposición. **P** sigue alternando el HUD; **Esc** permite salir de pantalla completa. El navegador puede denegar pantalla completa; F11 queda como alternativa manual.

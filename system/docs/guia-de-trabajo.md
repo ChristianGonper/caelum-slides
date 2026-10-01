@@ -1,6 +1,6 @@
 # Guía de trabajo del repositorio
 
-Revisada el 30 de septiembre de 2026. Complementa la [referencia del sistema](referencia-sistema.md) y el [README](../../README.md).
+Revisada el 1 de octubre de 2026. Complementa la [referencia del sistema](referencia-sistema.md) y el [README](../../README.md).
 
 ## Preparar y localizar un cambio
 
@@ -11,7 +11,7 @@ Ejecuta los comandos desde la raíz. Instala dependencias con `npm ci` y arranca
 | Texto, imagen, contacto o estado de una escena | `presentations/<deck>/content.tsx` y sus recursos |
 | Posición, orden, visibilidad o margen | `presentations/<deck>/presentation.ts` |
 | Identidad visual de un deck | Su `styles.css` y componentes visuales |
-| Diagrama o encuadre alternativo de Caelum | `experiments.ts`, `experiment-controls.tsx`, `illustrated-schema.tsx` |
+| Resaltado o encuadre histórico de Caelum | `experiments.ts`, `experiment-controls.tsx`, `illustrated-schema.tsx` |
 | Paleta compartida | `system/themes/`, registro en `palettes.ts` y oferta del deck |
 | Comportamiento genérico | `system/src/`; comprobar los tres decks |
 | HTML autónomo o generación PDF | `scripts/export-html.mjs`, `scripts/export-pdf.mjs` |
@@ -50,19 +50,19 @@ npm run export:html
 
 Verifica tipos y construye un único bundle sin escribir un build normal en `dist/`. El script sustituye referencias a JS/CSS por su contenido y fuerza recursos importados inline; escribe `output/html/caelum-slides.html`. Abre ese archivo directamente para comprobar su autonomía. Recursos remotos añadidos manualmente al contenido no se vuelven locales por esa configuración.
 
-El HTML marca `window.__CAELUM_EXPORT__ = true`, que Caelum usa para seleccionar esquema original por defecto. La URL explícita `?diagram=illustrated` permite mostrar el dibujo alternativo. No confundas este valor predeterminado con el de la vista interactiva de desarrollo.
+El HTML marca `window.__CAELUM_EXPORT__ = true`. Caelum mantiene desactivado el motivo de dron tanto en desarrollo como en exportación. El color inicial de resaltado es azul y se puede seleccionar mediante `highlight`.
 
 ## Exportación PDF directa
 
 ```powershell
 npm run export:pdf
-npm run export:pdf -- --diagram illustrated --intro map
-npm run export:pdf -- --diagram=blueprint --intro=focus
+npm run export:pdf -- --highlight amber --intro map
+npm run export:pdf -- --highlight=blue --intro=focus
 ```
 
 | Opción | Valores | Predeterminado |
 | --- | --- | --- |
-| `--diagram` | `blueprint` (original), `illustrated` (ilustrado) | `blueprint` |
+| `--highlight` | `blue`, `cyan`, `amber`, `lavender` | `blue` |
 | `--intro` | `focus` (portada ampliada), `map` (mapa completo) | `focus` |
 
 Las opciones inválidas fallan antes de exportar. El script regenera siempre HTML, imprime `?view=static&deck=esabic-caelum-2026` con las variantes seleccionadas y escribe `output/pdf/esabic-caelum-2026.pdf`. No tiene opciones para otro deck, tema o nombre de archivo. Guarda fuera de esa ruta las variantes que quieras conservar antes de generar otra.

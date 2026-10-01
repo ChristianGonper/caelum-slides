@@ -1,6 +1,6 @@
 # Referencia del sistema de presentaciones espaciales
 
-Estado implementado revisado el 30 de septiembre de 2026. Esta referencia describe el código actual; los [requisitos R01–R26](requisitos-sistema-diapositivas.md) expresan la intención funcional. Los procedimientos están en la [guía de trabajo](guia-de-trabajo.md).
+Estado implementado revisado el 1 de octubre de 2026. Esta referencia describe el código actual; los [requisitos R01–R26](requisitos-sistema-diapositivas.md) expresan la intención funcional. Los procedimientos están en la [guía de trabajo](guia-de-trabajo.md).
 
 ## Modelo mental
 
@@ -38,7 +38,8 @@ Los tipos completos están en `model.ts` y `definition.ts`. Sus campos tienen es
 | `states` | Nombres de estados que una parada puede asignar al elemento |
 | `NarrativeStop.id`, `label` | Identificador estable de la parada y etiqueta del visor |
 | `cameraTargetId` | ID de elemento o valor reservado `overview` |
-| `visibleIds` | Elementos que se montan en esa parada; no se deducen del objetivo de cámara |
+| `cameraVia` | Rectángulo intermedio opcional: salida amplia seguida de entrada en 480 ms, al cambiar de objetivo. En estático se usa sólo el destino final |
+| `visibleIds` | Elementos que se montan en esa parada; no se deducen del objetivo de cámara. `visual.keepElementsVisible` amplía esta selección, salvo una lista vacía explícita |
 | `stateByElement` | Estado para un elemento visible que lo tenga declarado en `states` |
 | `padding` | Margen de encuadre; `0` permite ajustar fotografías sin margen |
 | `includeInStatic` | Sólo `false` excluye la parada de la secuencia estática; omitido equivale a incluirla |
@@ -71,12 +72,13 @@ Flecha derecha, Av Pág y espacio avanzan; izquierda y Re Pág retroceden; `P` a
 
 ## Composición visual
 
-El mundo transformado contiene fondo, decoración y elementos visibles en su orden de declaración. Las marcas persistentes se dibujan fuera del mundo, superpuestas al visor o página.
+El fondo de lienzo cubre el viewport fuera del mundo transformado para evitar bordes o desapariciones durante los vuelos. El mundo contiene decoración y elementos visibles en su orden de declaración. Las marcas persistentes se dibujan fuera del mundo, superpuestas al visor o página.
 
 | Opción `visual` | Semántica |
 | --- | --- |
 | `canvasBackground` | Fondo del mundo; por defecto `var(--canvas-bg)` |
 | `canvasByStop` | Cadena sustituye fondo, `null` elimina capa de lienzo, ausencia conserva fondo general |
+| `keepElementsVisible` | Mantiene todos los elementos en el mundo. Resuelve el estado explícito actual, el último asignado hasta la parada activa o el primero del recorrido si aún no se ha visitado. Una parada con `visibleIds: []` permanece vacía |
 | `elementBackgrounds` | Fondo CSS por ID de elemento |
 | `decoration` | Componente situado en coordenadas del mundo |
 | `decorationByStop` | `false` suprime decoración; por defecto se muestra si existe |
@@ -85,6 +87,8 @@ El mundo transformado contiene fondo, decoración y elementos visibles en su ord
 | `reviewControls` | Controles del deck en el panel de revisión y en la barra de la vista estática |
 
 En exposición se ocultan HUD y marcas persistentes superpuestas. `hideBadge` no elimina por sí mismo un componente persistente. En estático, `index` y `total` de la marca corresponden a las paradas filtradas, no al recorrido interactivo completo. Caelum oculta además su cuadro superior derecho por CSS específico del deck en `.static-shell`; esto no altera la política genérica de las otras presentaciones.
+
+La visibilidad persistente se aplica tanto al visor como a la salida estática, sin alterar el objetivo de cámara. Los estados se calculan por posición narrativa, también al retroceder o cargar una parada directamente; no dependen de un historial de visitas. Si ningún paso asigna un estado al elemento, se usa el primero declarado en `states`.
 
 ## Temas
 
@@ -104,7 +108,7 @@ Declarar una familia tipográfica en los tokens no incorpora su archivo: las fue
 | `theme` | Paleta inicial, si está ofrecida por el deck |
 | `mode=present` | Inicia visor con HUD oculto |
 | `motion=full` | Excepción local de desarrollo para movimiento reducido |
-| `intro`, `diagram` | Variantes propias de Caelum; no forman parte del contrato genérico del motor |
+| `intro`, `highlight` | Encuadre histórico y color propios de Caelum; no forman parte del contrato genérico del motor |
 
 `stop` y `theme` inicializan el estado; avanzar o elegir otra paleta no actualiza continuamente esos parámetros en la URL. `P` sí actualiza `mode`. El enlace a estático transfiere la paleta actual y conserva las variantes de URL, eliminando `stop` y `mode`. Los enlaces de cambio de deck reinician los otros parámetros. Los selectores de variantes recargan la aplicación.
 
@@ -112,6 +116,8 @@ Declarar una familia tipográfica en los tokens no incorpora su archivo: las fue
 
 La hoja estática mide 1280×720 **píxeles CSS**, equivalente a 960×540 puntos PDF en Chromium. La impresión elimina barra y controles; el orden sigue `model.stops`, filtrando `includeInStatic === false`. Las paradas de contexto y las repeticiones de posición se imprimen si están incluidas.
 
-`export-html.mjs` empaqueta la aplicación con JS, CSS y recursos importados inline. `export-pdf.mjs` regenera ese HTML, abre su vista estática mediante Chromium headless y exige once páginas para Caelum. El PDF CLI tiene deck, ruta y paleta inicial fijados; sólo diagrama y entrada tienen opciones CLI. Véase la [guía](guia-de-trabajo.md) para comandos y diagnóstico.
+`export-html.mjs` empaqueta la aplicación con JS, CSS y recursos importados inline. `export-pdf.mjs` regenera ese HTML, abre su vista estática mediante Chromium headless y exige once páginas para Caelum. El PDF CLI tiene deck, ruta y paleta inicial fijados; entrada y color de resaltado tienen opciones CLI. Véase la [guía](guia-de-trabajo.md) para comandos y diagnóstico.
 
 El sistema es de autoría por código: no ofrece editor visual, autolayout, rotación 3D, exportación PPTX ni API pública `goTo` para integraciones externas. El soporte de interacción de D3 no equivale a haber verificado una pantalla táctil física. Las suites actuales no demuestran por sí solas fidelidad de impresión, contraste de todas las escenas o rendimiento con decks muy grandes.
+
+El botón **Presentar** solicita pantalla completa mediante la API del navegador y activa `mode=present`. El atajo P permanece independiente. Si la solicitud falla, se conserva la exposición y se informa de la alternativa F11 al volver al HUD.
