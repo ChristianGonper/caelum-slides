@@ -170,6 +170,33 @@
     line-height: 1.65;
   }
 
+  [data-presentation-id="esabic-caelum-2026"] .slide-content ul {
+    --rar-bullet: url('./assets/icons/rar-drone.svg');
+    list-style: none;
+    padding-left: 32px !important;
+  }
+
+  [data-presentation-id="esabic-caelum-2026"] .slide-content ul ul {
+    --rar-bullet: url('./assets/icons/rar-ground.svg');
+  }
+
+  [data-presentation-id="esabic-caelum-2026"] .slide-content ul > li {
+    position: relative;
+  }
+
+  [data-presentation-id="esabic-caelum-2026"] .slide-content ul > li::before {
+    content: '';
+    position: absolute;
+    left: -32px;
+    top: calc((1lh - 24px) / 2);
+    width: 24px;
+    height: 24px;
+    background-color: var(--accent);
+    mask: var(--rar-bullet) center / contain no-repeat;
+    -webkit-mask: var(--rar-bullet) center / contain no-repeat;
+    print-color-adjust: exact;
+  }
+
   [data-presentation-id="esabic-caelum-2026"] .slide-content .technical-layout>ul {
     line-height: 1.95 !important;
     gap: 26px !important;

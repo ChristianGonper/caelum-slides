@@ -553,7 +553,7 @@ export function BlockBContent(): React.JSX.Element {
       </p>
 
       <div className="technical-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 1.35fr', gap: '26px', alignItems: 'center' }}>
-        <ul
+        <ul role="list"
           style={{
             margin: 0,
             paddingLeft: '22px',
@@ -568,7 +568,7 @@ export function BlockBContent(): React.JSX.Element {
           <li><em className="keyword">Detection</em> is only the first step.</li>
           <li>
             Every other option has <em className="keyword">constraints</em>:
-            <ul className="technical-sublist"><li>RF / GNSS</li><li>HPM</li><li>Kinetic systems / interceptors</li></ul>
+            <ul role="list" className="technical-sublist"><li>RF / GNSS</li><li>HPM</li><li>Kinetic systems / interceptors</li></ul>
           </li>
           <li>Space infrastructure cannot simply <em className="keyword">stop operating</em>.</li>
         </ul>
@@ -635,7 +635,7 @@ export function BlockCContent(): React.JSX.Element {
       </p>
 
       <div className="technical-layout" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '24px', alignItems: 'center' }}>
-        <ul
+        <ul role="list"
           style={{
             margin: 0,
             paddingLeft: '22px',
@@ -706,7 +706,7 @@ export function BlockDContent(): React.JSX.Element {
       </p>
 
       <div className="technical-layout" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', alignItems: 'center' }}>
-        <ul
+        <ul role="list"
           style={{
             margin: 0,
             paddingLeft: '22px',
@@ -848,30 +848,6 @@ export function BlockFContent(props: ContentProps): React.JSX.Element {
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
-            {/* Guillermo Alba Buitrón */}
-            <div
-              style={{
-                padding: '14px',
-                borderRadius: '12px',
-                background: 'color-mix(in srgb, var(--surface) 80%, black)',
-                border: '1px solid var(--line)',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center',
-              }}
-            >
-              <img
-                src={guillermoImg}
-                alt="Guillermo Alba Buitrón"
-                style={{ width: '84px', height: '84px', borderRadius: '50%', objectFit: 'cover', marginBottom: '10px' }}
-              />
-              <strong style={{ fontSize: '15px', color: 'var(--heading)' }}>Guillermo Alba Buitrón</strong>
-              <span style={{ fontSize: '12px', color: 'var(--muted)', marginTop: '4px', lineHeight: 1.35 }}>
-                Project management · Systems architecture · Business development
-              </span>
-            </div>
-
             {/* Alejandro Gil Getino */}
             <div
               style={{
@@ -917,6 +893,30 @@ export function BlockFContent(props: ContentProps): React.JSX.Element {
               <strong style={{ fontSize: '15px', color: 'var(--heading)' }}>Christian González Pérez</strong>
               <span style={{ fontSize: '12px', color: 'var(--muted)', marginTop: '4px', lineHeight: 1.35 }}>
                 Acoustics · Data analysis · Financing · Aeroelastic and structural modelling and simulation
+              </span>
+            </div>
+
+            {/* Guillermo Alba Buitrón */}
+            <div
+              style={{
+                padding: '14px',
+                borderRadius: '12px',
+                background: 'color-mix(in srgb, var(--surface) 80%, black)',
+                border: '1px solid var(--line)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+              }}
+            >
+              <img
+                src={guillermoImg}
+                alt="Guillermo Alba Buitrón"
+                style={{ width: '84px', height: '84px', borderRadius: '50%', objectFit: 'cover', marginBottom: '10px' }}
+              />
+              <strong style={{ fontSize: '15px', color: 'var(--heading)' }}>Guillermo Alba Buitrón</strong>
+              <span style={{ fontSize: '12px', color: 'var(--muted)', marginTop: '4px', lineHeight: 1.35 }}>
+                Project management · Systems architecture · Business development
               </span>
             </div>
           </div>

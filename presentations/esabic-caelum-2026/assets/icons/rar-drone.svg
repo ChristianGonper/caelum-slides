@@ -1,0 +1,10 @@
+<!-- Caelum RAR: drone carrying an acoustic effector with directional sound. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M2 7h8m8 0h8M6 7v6m16-6v6M6 13h5m6 0h5"/>
+  <rect x="11" y="10" width="6" height="6" rx="2"/>
+  <path d="M14 16v3"/>
+  <rect x="9" y="19" width="10" height="8" rx="1.5"/>
+  <circle cx="12" cy="23" r="1" fill="currentColor" stroke="none"/>
+  <circle cx="16" cy="23" r="1" fill="currentColor" stroke="none"/>
+  <path d="M23 20a5 5 0 0 1 0 6m4-9a9 9 0 0 1 0 12"/>
+</svg>
