@@ -16,16 +16,17 @@ import uleLogo from './assets/images/logotipo-universidad-de-leon-01.jpg';
 import intaLogo from './assets/images/intaa.jpg';
 import aeeLogo from './assets/images/aee.jpg';
 import esaLogo from './assets/images/ESA_Logo_pillars.jpg';
-import multiDroneImg from './assets/images/multi-drone-mounting.png';
+import hpmImg from './assets/images/leonidas-hpm.jpg';
+import stingImg from './assets/images/sting-interceptor.jpg';
 
 // Importación de los 3 códigos QR vectoriales ópticos locales
 import qrChristianSvg from './qr/qr-christian-gonzalez.svg';
 import qrAlejandroSvg from './qr/qr-alejandro-gil.svg';
 import qrGuillermoSvg from './qr/qr-guillermo-alba.svg';
 
-export const PERSISTENT_FOOTER_TEXT = 'Caelum Systems · ESA BIC CYL 2026';
+export const PERSISTENT_FOOTER_TEXT = 'Caelum Systems · ESA BIC CYL 2026 · 9 October 2026';
 export const MISSION_SLOGAN =
-  'Protecting Europe’s space ground infrastructure with disruptive sound technologies.';
+  'Protecting Europe’s space ground infrastructure with disruptive sound technologies';
 export const SCIENTIFIC_CITATION =
   '* Scientific context, conceptual study : A. I. Toropov, “Acoustic Resonance Weapons for Drone Interdiction”, Drones and Autonomous Vehicles, 2026.';
 
@@ -102,14 +103,9 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
       >
         {/* Fondo con imagen del dron defendiendo */}
         <div
+          className="closing-background"
           style={{
-            position: 'absolute',
-            inset: 0,
             backgroundImage: `url(${droneDefendingImg})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.45,
-            pointerEvents: 'none',
           }}
           aria-hidden="true"
         />
@@ -188,7 +184,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
               Project management · Systems architecture · Business development
             </span>
             <a
-              href="https://www.linkedin.com/in/guillermo-alba-buitr%C3%B3n-07366b254/"
+              href="https://www.linkedin.com/in/guillermo-alba-buitron/"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -200,7 +196,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
                 wordBreak: 'break-all',
               }}
             >
-              LinkedIn Profile →
+              LinkedIn Profile
             </a>
           </div>
 
@@ -252,7 +248,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
               Electronics · Avionics · Power systems · Control and software
             </span>
             <a
-              href="https://www.linkedin.com/in/alejandro-gil-getino-6b94733b8"
+              href="https://www.linkedin.com/in/alejandro-gil-getino"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -264,7 +260,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
                 wordBreak: 'break-all',
               }}
             >
-              LinkedIn Profile →
+              LinkedIn Profile
             </a>
           </div>
 
@@ -328,7 +324,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
                 wordBreak: 'break-all',
               }}
             >
-              LinkedIn Profile →
+              LinkedIn Profile
             </a>
           </div>
         </div>
@@ -374,6 +370,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
       >
         Caelum Systems
       </h2>
+      <span className="intro-product">RAR</span>
       <p
         style={{
           margin: '0 0 16px',
@@ -383,7 +380,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
           maxWidth: '640px',
         }}
       >
-        Acoustic counter UAS defence System
+        Acoustic counter-UAS defence system
       </p>
 
       <span
@@ -395,6 +392,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
       >
         ESA BIC 2026 · Castilla y León
       </span>
+      <div className="intro-footer"><span>{PERSISTENT_FOOTER_TEXT}</span></div>
     </div>
   );
 }
@@ -551,10 +549,10 @@ export function BlockBContent(): React.JSX.Element {
           fontWeight: 500,
         }}
       >
-        Detecting a drone is not the same as stopping it safely.
+        Detecting a drone is not the same as stopping it safely
       </p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1.25fr 1fr', gap: '26px', alignItems: 'center' }}>
+      <div className="technical-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 1.35fr', gap: '26px', alignItems: 'center' }}>
         <ul
           style={{
             margin: 0,
@@ -567,13 +565,12 @@ export function BlockBContent(): React.JSX.Element {
             gap: '12px',
           }}
         >
-          <li>Detection is only the first step.</li>
+          <li><em className="keyword">Detection</em> is only the first step.</li>
           <li>
-            Every other option has constraints:
-            <br />
-            <span style={{ color: 'var(--muted)' }}>RF/GNSS, HPM, kinetic, interceptors.</span>
+            Every other option has <em className="keyword">constraints</em>:
+            <ul className="technical-sublist"><li>RF / GNSS</li><li>HPM</li><li>Kinetic systems / interceptors</li></ul>
           </li>
-          <li>Space infrastructure cannot simply stop operating.</li>
+          <li>Space infrastructure cannot simply <em className="keyword">stop operating</em>.</li>
         </ul>
 
         <div
@@ -587,7 +584,7 @@ export function BlockBContent(): React.JSX.Element {
           <img
             src={cebrerosImg}
             alt="Antena de la estación de Cebreros"
-            style={{ width: '100%', height: '240px', objectFit: 'cover', display: 'block' }}
+            style={{ width: '100%', height: '330px', objectFit: 'cover', display: 'block' }}
           />
         </div>
       </div>
@@ -599,7 +596,7 @@ export function BlockBContent(): React.JSX.Element {
 
 /**
  * Componente del Bloque C (04:00):
- * Our solution: R.A.R. (Slide 05)
+ * Our solution: RAR (Slide 05)
  */
 export function BlockCContent(): React.JSX.Element {
   return (
@@ -634,10 +631,10 @@ export function BlockCContent(): React.JSX.Element {
           fontWeight: 500,
         }}
       >
-        R.A.R.: an acoustic effector for propeller-driven UAS
+        RAR is an acoustic effector for propeller-driven UAS
       </p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '24px', alignItems: 'center' }}>
+      <div className="technical-layout" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '24px', alignItems: 'center' }}>
         <ul
           style={{
             margin: 0,
@@ -650,16 +647,16 @@ export function BlockCContent(): React.JSX.Element {
             gap: '10px',
           }}
         >
-          <li>External track, targeted response.</li>
+          <li>External track, <em className="keyword">targeted</em> response.</li>
           <li>Directional acoustic excitation to the propellers.</li>
           <li>Mission denial: loss of control margin or propeller damage.</li>
-          <li>Reusability.</li>
+          <li><em className="keyword">Reusability</em>.</li>
         </ul>
 
         <img
           className="solution-image"
           src={droneMountingImg}
-          alt="Esquema del efector R.A.R. montado en dron"
+          alt="Esquema del efector RAR montado en dron"
         />
       </div>
 
@@ -708,7 +705,7 @@ export function BlockDContent(): React.JSX.Element {
         An additional response option for sensitive sites
       </p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', alignItems: 'center' }}>
+      <div className="technical-layout" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', alignItems: 'center' }}>
         <ul
           style={{
             margin: 0,
@@ -722,31 +719,19 @@ export function BlockDContent(): React.JSX.Element {
           }}
         >
           <li>
-            <strong>Space connection:</strong> upstream, ground systems.
+            <em className="keyword">Space connection</em>: <em className="keyword">upstream, ground systems</em>.
           </li>
           <li>
-            <strong>Market:</strong> space ground facilities, airports, energy infrastructure… and other critical environments.
+            <em className="keyword">Market</em>: space ground facilities, airports, energy infrastructure… and other <em className="keyword">critical environments</em>.
           </li>
           <li>
-            <strong>Competition:</strong> RF/GNSS countermeasures, interceptors, kinetic systems, lasers and high-power microwaves are alternative responses.
+            <em className="keyword">Competition</em>: RF/GNSS countermeasures, interceptors, kinetic systems, lasers and high-power microwaves are alternative responses.
           </li>
         </ul>
 
-        {/* Imagen vinculada: Montaje multi-dron en infraestructura sensible */}
-        <div
-          style={{
-            borderRadius: '14px',
-            overflow: 'hidden',
-            border: '1px solid var(--line)',
-            boxShadow: '0 10px 24px rgba(0,0,0,0.3)',
-            background: 'rgba(0,0,0,0.2)',
-          }}
-        >
-          <img
-            src={multiDroneImg}
-            alt="Configuración multi-drone para protección de instalaciones críticas"
-            style={{ width: '100%', height: '210px', objectFit: 'contain', display: 'block' }}
-          />
+        <div className="competition-images">
+          <figure><div className="competition-crop hpm-crop"><img src={hpmImg} alt="Sistema HPM Leonidas de Epirus sobre remolque" /></div><figcaption>HPM · Epirus Leonidas</figcaption></figure>
+          <figure><div className="competition-crop sting-crop"><img src={stingImg} alt="Interceptor vertical Sting de Wild Hornets" /></div><figcaption>Interceptor · Wild Hornets Sting</figcaption></figure>
         </div>
       </div>
 
@@ -786,111 +771,15 @@ export function BlockEContent(): React.JSX.Element {
         A credible route from prototype to business
       </h2>
 
-      {/* Tabla de 4 cuadrantes */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '10px',
-          marginBottom: '10px',
-        }}
-      >
-        <div
-          style={{
-            padding: '10px 14px',
-            borderRadius: '10px',
-            background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
-            border: '1px solid var(--line)',
-          }}
-        >
-          <strong style={{ display: 'block', fontSize: '14px', color: 'var(--accent)', marginBottom: '3px' }}>
-            Technical feasibility
-          </strong>
-          <span style={{ fontSize: '12px', lineHeight: 1.35, color: 'var(--ink)' }}>
-            The physical principle is supported by our analytical and simulation work and by published research*.
-          </span>
-        </div>
-
-        <div
-          style={{
-            padding: '10px 14px',
-            borderRadius: '10px',
-            background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
-            border: '1px solid var(--line)',
-          }}
-        >
-          <strong style={{ display: 'block', fontSize: '14px', color: 'var(--accent)', marginBottom: '3px' }}>
-            Revenue model
-          </strong>
-          <span style={{ fontSize: '12px', lineHeight: 1.35, color: 'var(--ink)' }}>
-            Start with an evaluation or pilot. Later, sell the product, offer maintenance or specifically required solution.
-          </span>
-        </div>
-
-        <div
-          style={{
-            padding: '10px 14px',
-            borderRadius: '10px',
-            background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
-            border: '1px solid var(--line)',
-          }}
-        >
-          <strong style={{ display: 'block', fontSize: '14px', color: 'var(--accent)', marginBottom: '3px' }}>
-            Production strategy
-          </strong>
-          <span style={{ fontSize: '12px', lineHeight: 1.35, color: 'var(--ink)' }}>
-            Keep knowledge and technology in-house; subcontract initial manufacturing.
-          </span>
-        </div>
-
-        <div
-          style={{
-            padding: '10px 14px',
-            borderRadius: '10px',
-            background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
-            border: '1px solid var(--line)',
-          }}
-        >
-          <strong style={{ display: 'block', fontSize: '14px', color: 'var(--accent)', marginBottom: '3px' }}>
-            Intellectual property
-          </strong>
-          <span style={{ fontSize: '12px', lineHeight: 1.35, color: 'var(--ink)' }}>
-            Protect current models and know-how confidentially (patents).
-          </span>
-        </div>
+      <div className="business-grid">
+        <section><h3>Technical feasibility</h3><p>The physical principle is supported by our <em className="keyword">analytical and simulation work</em> and by published research*.</p></section>
+        <section><h3>Revenue model</h3><p>Start with an evaluation or pilot. Later, sell the product, offer <em className="keyword">product maintenance</em> or a <em className="keyword">customized</em> solution.</p></section>
+        <section><h3>Production strategy</h3><p>Keep knowledge and technology in-house; subcontract initial manufacturing.</p></section>
+        <section><h3>Intellectual property</h3><p>Protect current models and know-how confidentially (patents).</p></section>
+        <section className="risks"><h3>Risks → Solutions</h3><ol className="risk-list"><li>Unsafe acoustic exposure → Calibrated tests, exclusion zones</li><li>Unreliable target data → Measured targets, adaptive sweep</li><li aria-label="Further risks analysed">...</li></ol></section>
+        <section><h3>Financing</h3><ol><li>ESA BIC incentive.</li><li><em className="keyword">Accelerators</em>: EUDIS, NATO DIANA.</li><li>Additional sources: private equity, private / public loans (NEOTEC, ENISA / SODICAL).</li></ol></section>
       </div>
-
-      {/* Sección de Financiación */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr',
-          gap: '12px',
-          alignItems: 'center',
-          padding: '10px 14px',
-          borderRadius: '10px',
-          background: 'color-mix(in srgb, var(--surface) 40%, transparent)',
-          border: '1px solid var(--line)',
-          marginBottom: '8px',
-        }}
-      >
-        <div>
-          <strong style={{ display: 'block', fontSize: '13px', color: 'var(--accent)', marginBottom: '3px' }}>
-            Financing
-          </strong>
-          <ol style={{ margin: 0, paddingLeft: '18px', fontSize: '12px', lineHeight: 1.4, color: 'var(--ink)' }}>
-            <li>ESA BIC incentive.</li>
-            <li>Accelerators: EUDIS, NATO DIANA.</li>
-            <li>Additional sources: private equity, private / public loans (NEOTEC, ENISA / SODICAL).</li>
-          </ol>
-        </div>
-
-      </div>
-
-      {/* Cita científica verificada */}
-      <p style={{ margin: '2px 0 0', fontSize: '11px', color: 'var(--muted)', fontStyle: 'italic', lineHeight: 1.3 }}>
-        {SCIENTIFIC_CITATION}
-      </p>
+      <p className="scientific-note">{SCIENTIFIC_CITATION}</p>
 
       <CardFooter number="06" />
     </div>
@@ -1077,77 +966,11 @@ export function BlockFContent(props: ContentProps): React.JSX.Element {
           Support and institutional network
         </p>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-          {/* University of León */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '18px',
-              padding: '12px 18px',
-              borderRadius: '12px',
-              background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
-              border: '1px solid var(--line)',
-            }}
-          >
-            <img
-              src={uleLogo}
-              alt="Logotipo Universidad de León"
-              style={{ width: '130px', height: '46px', objectFit: 'contain', background: '#ffffff', padding: '4px', borderRadius: '6px' }}
-            />
-            <span style={{ fontSize: '17px', fontWeight: 600, color: 'var(--ink)' }}>University of León.</span>
-          </div>
-
-          {/* INTA */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '18px',
-              padding: '12px 18px',
-              borderRadius: '12px',
-              background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
-              border: '1px solid var(--line)',
-            }}
-          >
-            <img
-              src={intaLogo}
-              alt="Logotipo INTA"
-              style={{ width: '130px', height: '46px', objectFit: 'contain', background: '#ffffff', padding: '4px', borderRadius: '6px' }}
-            />
-            <span style={{ fontSize: '17px', fontWeight: 600, color: 'var(--ink)' }}>
-              INTA (National Institute of Aerospace Technology): CEAES center (Cuadros, León).
-            </span>
-          </div>
-
-          {/* ESA & Spanish Space Agency */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '18px',
-              padding: '12px 18px',
-              borderRadius: '12px',
-              background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
-              border: '1px solid var(--line)',
-            }}
-          >
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <img
-                src={aeeLogo}
-                alt="Agencia Espacial Española"
-                style={{ width: '85px', height: '46px', objectFit: 'contain', background: '#ffffff', padding: '4px', borderRadius: '6px' }}
-              />
-              <img
-                src={esaLogo}
-                alt="European Space Agency"
-                style={{ width: '85px', height: '46px', objectFit: 'contain', background: '#ffffff', padding: '4px', borderRadius: '6px' }}
-              />
-            </div>
-            <span style={{ fontSize: '17px', fontWeight: 600, color: 'var(--ink)' }}>
-              ESA and Spanish Space Agency.
-            </span>
-          </div>
+        <div className="institution-network">
+          <div><span>University of León</span><img src={uleLogo} alt="Logotipo Universidad de León" /></div>
+          <div><span>INTA (National Institute of Aerospace Technology): CEAES center (Cuadros, León)</span><img src={intaLogo} alt="Logotipo INTA" /></div>
+          <div><span>AEE · Spanish Space Agency</span><img src={aeeLogo} alt="Agencia Espacial Española" /></div>
+          <div><span>ESA · European Space Agency</span><img src={esaLogo} alt="European Space Agency" /></div>
         </div>
 
         <CardFooter number="08" />

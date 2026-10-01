@@ -3,27 +3,33 @@
   .static-shell[data-presentation-id="esabic-caelum-2026"] .caelum-persistent-badge {
     display: none !important;
   }
+
   [data-presentation-id="esabic-caelum-2026"] .block strong {
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
     font-weight: 700;
   }
+
   [data-presentation-id="esabic-caelum-2026"] .cover {
     padding: 0;
   }
+
   [data-presentation-id="esabic-caelum-2026"] .cover::after {
     content: none;
   }
+
   [data-presentation-id="esabic-caelum-2026"] .cover-content {
     max-inline-size: none;
   }
+
   .solution-image {
     display: block;
     inline-size: 100%;
     block-size: auto;
     border-radius: 12px;
   }
+
   .closing-claim {
     position: relative;
     box-sizing: border-box;
@@ -33,22 +39,19 @@
     padding: 28px 36px;
     overflow: hidden;
     border-radius: 24px;
-    background: var(--background-secondary);
+    background: linear-gradient(135deg, var(--surface), var(--background-secondary));
     border: 2px solid var(--accent);
   }
+
   .closing-background {
     position: absolute;
     inset: 0;
     background-size: cover;
     background-position: center;
-    opacity: .5;
+    opacity: .45;
+    pointer-events: none;
   }
-  .closing-claim::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent, #0006 65%, #0009);
-  }
+
   .closing-message {
     position: relative;
     z-index: 1;
@@ -60,11 +63,13 @@
     text-align: center;
     text-shadow: 0 2px 16px #000a;
   }
+
   [data-presentation-id="esabic-caelum-2026"] .closing-message h2 {
     margin: 0 0 24px;
     font-size: 32px;
     color: #fff;
   }
+
   [data-presentation-id="esabic-caelum-2026"] .mission-claim {
     max-inline-size: 780px;
     margin: 0;
@@ -76,37 +81,126 @@
     color: #fff;
     text-wrap: balance;
   }
+
   .closing-footer {
     position: relative;
     z-index: 1;
   }
-  .illustrated-diagram .drone-hub {
-    display: none;
+
+  [data-presentation-id="esabic-caelum-2026"] .intro-hub h2 {
+    font-size: 64px;
   }
-  .illustrated-airframe {
-    position: absolute;
-    left: -1100px;
-    top: -941px;
-    width: 2200px;
-    height: auto;
-    opacity: .32;
-    filter: invert(.8) sepia(.2) saturate(.7);
+
+  [data-presentation-id="esabic-caelum-2026"] .intro-hub p {
+    font-size: 28px;
   }
-  .diagram-credit {
-    position: absolute;
-    left: -380px;
-    top: 310px;
-    width: 760px;
-    text-align: center;
+
+  [data-presentation-id="esabic-caelum-2026"] .intro-hub>span {
+    font-size: 20px;
+  }
+  [data-presentation-id="esabic-caelum-2026"] .intro-hub > .intro-product {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--keyword-color, #4DA3FF);
+    margin-bottom: 12px;
+  }
+
+  .experiment-controls {
+    display: grid;
+    gap: .8rem;
+  }
+
+  .experiment-controls label {
+    display: grid;
+    gap: .4rem;
+    font-size: .76rem;
     color: var(--muted);
-    font-size: 12px;
-    text-decoration: none;
-    pointer-events: auto;
   }
-  [data-presentation-id="esabic-caelum-2026"] .intro-hub h2 { font-size: 64px; }
-  [data-presentation-id="esabic-caelum-2026"] .intro-hub p { font-size: 28px; }
-  [data-presentation-id="esabic-caelum-2026"] .intro-hub > span { font-size: 20px; }
-  .experiment-controls { display: grid; gap: .8rem; }
-  .experiment-controls label { display: grid; gap: .4rem; font-size: .76rem; color: var(--muted); }
-  .experiment-controls select { padding: .6rem; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: .5rem; font: inherit; }
+
+  .experiment-controls select {
+    padding: .6rem;
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: .5rem;
+    font: inherit;
+  }
+}
+/* Meeting adjustments, 1 October 2026. Scoped to this deck. */
+@layer components {
+  [data-presentation-id="esabic-caelum-2026"] .slide-content,
+  [data-presentation-id="esabic-caelum-2026"] .cover-content { --ink: #CBD5E1; --muted: #94A3B8; }
+  [data-presentation-id="esabic-caelum-2026"] .keyword {
+    color: var(--keyword-color, #4DA3FF); font-style: normal; font-weight: 500;
+  }
+  [data-presentation-id="esabic-caelum-2026"] .lead-word { color: var(--heading); }
+  [data-presentation-id="esabic-caelum-2026"] .slide-content:not(.full-bleed-slide) { padding: 38px 46px !important; }
+  [data-presentation-id="esabic-caelum-2026"] .slide-content > div:has(> ul),
+  [data-presentation-id="esabic-caelum-2026"] .business-grid,
+  [data-presentation-id="esabic-caelum-2026"] .institution-network { flex: 1; align-content: center; }
+  [data-presentation-id="esabic-caelum-2026"] .slide-content > div > ul { color: var(--ink) !important; gap: 20px !important; }
+  .technical-sublist { margin-top: 12px; padding-left: 24px; color: var(--muted); line-height: 1.65; }
+  [data-presentation-id="esabic-caelum-2026"] .slide-content .technical-layout > ul { line-height: 1.95 !important; gap: 26px !important; }
+  [data-presentation-id="esabic-caelum-2026"] .technical-layout .technical-sublist { line-height: 1.95; }
+  .technical-layout > :last-child { justify-self: end; }
+  [data-presentation-id="esabic-caelum-2026"] .solution-image { width: auto; height: 280px; max-width: 100%; object-fit: contain; object-position: right center; }
+  [data-presentation-id="esabic-caelum-2026"] .slide-content:has(.competition-images) { position: relative; }
+  .competition-images { --image-height: 430px; display: grid; gap: 20px; justify-items: center; position: absolute; top: 40px; right: 7%; }
+  .competition-images figure { margin: 0; width: max-content; }
+  /* Crop at render time so the original source photographs remain intact. */
+  .competition-crop { position: relative; overflow: hidden; height: calc(var(--image-height) / 2); margin-left: auto; border-radius: 10px; }
+  .hpm-crop { aspect-ratio: 700 / 600; }
+  .sting-crop { aspect-ratio: 240 / 230; }
+  .competition-images .competition-crop img { position: absolute; display: block; height: auto; max-width: none; border: 0; }
+  /* Original 1500 × 891: discard the sky and the empty terrain on the right. */
+  .competition-images .hpm-crop img { width: 214.2857%; left: -31.4286%; top: -48.3333%; }
+  /* Original 490 × 271: retain the complete interceptor, trim the surrounding background. */
+  .competition-images .sting-crop img { width: 204.1667%; left: -52.0833%; top: -8.6957%; }
+  .competition-images figcaption { font-size: 13px; color: var(--ink); text-align: center; margin-top: 6px; }
+  .business-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .business-grid section { border: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 60%, transparent); border-radius: 10px; padding: 14px 18px; display: flex; flex-direction: column; justify-content: center; }
+  [data-presentation-id="esabic-caelum-2026"] .business-grid h3 { font-size: 18px; font-weight: 500; color: color-mix(in srgb, var(--accent-secondary) 70%, white); margin: 0 0 8px; }
+  .business-grid p, .business-grid ol { font-size: 16px; line-height: 1.5; color: var(--ink); margin: 0; }
+  .business-grid ol { padding-left: 20px; }
+  .business-grid .risks .risk-list { list-style: none; counter-reset: risk; padding-left: 0; display: grid; gap: 2px; }
+  .business-grid .risks .risk-list li { counter-increment: risk; }
+  .business-grid .risks .risk-list li::before { content: counter(risk) ') '; }
+  .scientific-note { margin: 14px 0 8px; font-size: 11px; color: var(--ink); font-style: italic; line-height: 1.3; }
+  .institution-network { display: grid; gap: 12px; }
+  .institution-network > div { display: grid; grid-template-columns: 1fr 160px; align-items: center; gap: 28px; padding: 10px 18px; }
+  .institution-network span { font-size: 19px; color: var(--ink); }
+  .institution-network img { width: 150px; height: 62px; object-fit: contain; background: white; padding: 4px; border-radius: 6px; }
+  [data-presentation-id="esabic-caelum-2026"] .closing-message h2 { font-size: 52px; }
+  [data-presentation-id="esabic-caelum-2026"] .mission-claim { font-size: 32px; font-weight: 400; }
+  [data-presentation-id="esabic-caelum-2026"] .closing-hub > div:has(> div > a) { flex: 1; align-content: center; }
+  [data-presentation-id="esabic-caelum-2026"] .content-changing {
+    animation: caelum-content-slide .38s ease-out both;
+  }
+  /* The shared closing photograph and frame stay still while text/QR content enters. */
+  [data-presentation-id="esabic-caelum-2026"] .content-changing:has(.closing-background) {
+    animation: none;
+  }
+  [data-presentation-id="esabic-caelum-2026"] .content-changing .closing-message,
+  [data-presentation-id="esabic-caelum-2026"] .content-changing .closing-footer,
+  [data-presentation-id="esabic-caelum-2026"] .content-changing .closing-hub > div:not(.closing-background) {
+    animation: caelum-content-slide .38s ease-out both;
+  }
+  @keyframes caelum-content-slide {
+    from { transform: translateY(24px); }
+    to { transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-presentation-id="esabic-caelum-2026"] .content-changing,
+    [data-presentation-id="esabic-caelum-2026"] .content-changing .closing-message,
+    [data-presentation-id="esabic-caelum-2026"] .content-changing .closing-footer,
+    [data-presentation-id="esabic-caelum-2026"] .content-changing .closing-hub > div:not(.closing-background) {
+      animation: none;
+    }
+  }
+  .intro-hub { position: relative; }
+  .intro-footer { position: absolute; bottom: 28px; left: 36px; right: 36px; font-size: 13px; color: var(--ink); }
+}
+
+@layer components {
+  [data-presentation-id="esabic-caelum-2026"] .closing-hub h2 { font-size: 42px !important; }
 }
