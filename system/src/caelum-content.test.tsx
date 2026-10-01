@@ -9,6 +9,18 @@ import { changesContentInPlace } from './navigation';
 const notes = fs.readFileSync('presentations/esabic-caelum-2026/Notas.md', 'utf8');
 const originalSlides = notes.split(/^## \d+\s*$/m).slice(1);
 const normalized = (text: string) => text.replace(/\s+/g, ' ').trim();
+// Explicit amendments approved in the 1 October meeting. Historical notes stay intact.
+const amendments: Record<string, readonly string[]> = {
+  'Detecting a drone is not the same as stopping it safely.': ['Detecting a drone is not the same as stopping it safely'],
+  'R.A.R.: an acoustic effector for propeller-driven UAS': ['RAR is an acoustic effector for propeller-driven UAS'],
+  'Every other option has constraints: RF/GNSS, HPM, kinetic, interceptors.': ['Every other option has constraints:', 'RF / GNSS', 'HPM', 'Kinetic systems / interceptors'],
+  'Space connection: upstream, ground systems.': ['Space connection: upstream, ground systems.'],
+  'Start with an evaluation or pilot. Later, sell the product, offer maintenance or specifically required solution.': ['Start with an evaluation or pilot. Later, sell the product, offer product maintenance or a customized solution.'],
+  'University of León.': ['University of León'],
+  'INTA (National Institute of Aerospace Technology): CEAES center (Cuadros, León).': ['INTA (National Institute of Aerospace Technology): CEAES center (Cuadros, León)'],
+  'ESA and Spanish Space Agency.': ['ESA · European Space Agency', 'AEE · Spanish Space Agency'],
+  'Protecting Europe’s space ground infrastructure with disruptive sound technologies.': ['Protecting Europe’s space ground infrastructure with disruptive sound technologies'],
+};
 const sourceStopPairs = [
   [4, 'response-gap'], [5, 'solution'], [6, 'space-market'],
   [7, 'business'], [8, 'team'], [9, 'network'], [10, 'closing'],
@@ -43,16 +55,18 @@ describe('Caelum: fidelidad a las diapositivas originales', () => {
     }
   });
   for (const [slide, stopId] of sourceStopPairs) {
-    it(`conserva literalmente todo el texto de la diapositiva ${slide}`, () => {
+    it(`conserva las fuentes y las modificaciones autorizadas de la diapositiva ${slide}`, () => {
       const stop = definition.model.stops.find(item => item.id === stopId)!;
       const html = renderToStaticMarkup(<Scene definition={definition} stop={stop}
         camera={{ x: 0, y: 0, k: 1 }} output="static" />);
-      const text = normalized(html.replace(/<[^>]*>/g, ' ').replace(/&amp;/g, '&').replace(/&#x27;/g, "'").replace(/&quot;/g, '"'));
+      const text = normalized(html.replace(/<\/?(?:em|span|strong)[^>]*>/g, '').replace(/<[^>]*>/g, ' ').replace(/&amp;/g, '&').replace(/&#x27;/g, "'").replace(/&quot;/g, '"'));
       const lines = originalSlides[slide - 1].split(/^###/m)[0].split(/\r?\n/)
         .map(normalized).filter(line => line && !line.includes('](') &&
           !/^(La imagen|De fondo|Y salimos|Sale junto|Imagen de fondo)/.test(line));
       expect(lines.length).toBeGreaterThan(1);
-      for (const line of lines) expect(text, `Texto original ausente: ${line}`).toContain(line);
+      for (const line of lines) for (const expected of amendments[line] ?? [line]) {
+        expect(text, `Texto autorizado ausente: ${expected}`).toContain(expected);
+      }
       expect(text).not.toMatch(/BLOQUE [A-F]|CIERRE Y CONTACTO/);
     });
   }
@@ -64,7 +78,9 @@ describe('Caelum: fidelidad a las diapositivas originales', () => {
     expect(html).not.toMatch(/BLOQUE [A-F]|escenas apiladas|HEX-AIRFRAME|ROTATIONAL RADIUS|ARM-[A-F]/);
     expect(html).toContain('The team behind Caelum Systems');
     expect(html).not.toContain('Guillermo Alba Buitrón · Alejandro Gil Getino · Christian González Pérez');
-    expect(html).toContain('Acoustic counter UAS defence System');
+    expect(html).toContain('Acoustic counter-UAS defence system');
+    expect(html).toContain('caelum-vector-schema');
+    expect(html).not.toContain('illustrated-airframe');
     expect(html).not.toContain('r="45"');
   });
 });
