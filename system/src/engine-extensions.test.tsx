@@ -10,6 +10,15 @@ import { StaticDeck } from './static';
 import { App } from './app';
 
 describe('extensiones genéricas del motor espacial (F1-F5)', () => {
+  it('valida encuadres intermedios y rechaza dimensiones no utilizables', () => {
+    const model = prototypePresentation.model;
+    const withVia = (cameraVia: NarrativeStop['cameraVia']) => ({ ...model,
+      stops: model.stops.map((stop, i) => i === 0 ? { ...stop, cameraVia } : stop),
+    });
+    expect(() => validatePresentation(withVia({ x: -100, y: -100, width: 400, height: 300 }))).not.toThrow();
+    expect(() => validatePresentation(withVia({ x: 0, y: 0, width: 0, height: 300 }))).toThrow('Encuadre intermedio inválido');
+    expect(() => validatePresentation(withVia({ x: NaN, y: 0, width: 400, height: 300 }))).toThrow('Encuadre intermedio inválido');
+  });
   // F1: Clean black start screen support
   describe('F1: Soporte para pantalla de inicio limpia', () => {
     it('valida las propiedades hideBadge y hideControls en validatePresentation', () => {
