@@ -1,9 +1,5 @@
-# Hexacóptero de prueba
+# Motivo de dron retirado
 
-- Obra: **Black Hexacopter Drone.svg**.
-- Autor: Manuel Campagnoli (Work2survive), 9 de agosto de 2023.
-- Fuente: https://commons.wikimedia.org/wiki/File:Black_Hexacopter_Drone.svg
-- Archivo original: https://upload.wikimedia.org/wikipedia/commons/6/6b/Black_Hexacopter_Drone.svg
-- Licencia: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+El 1 de octubre de 2026 se retiró el SVG Black Hexacopter Drone y su configuración activa a petición de la reunión. Se conserva activo el sketch vectorial original de `../../schema.tsx` como decoración del canvas, sin selector de variantes.
 
-El archivo SVG se conserva sin cambios. La variante lo escala y aplica un filtro de color y opacidad mediante CSS, superponiéndolo a las conexiones originales. La presentación incluye crédito al autor y enlace a la fuente. La adaptación visual de esta ilustración se ofrece bajo CC BY-SA 4.0.
+Antecedente: Manuel Campagnoli (Work2survive), Black Hexacopter Drone.svg, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Black_Hexacopter_Drone.svg. La copia anterior a la modificación se guardó en `output/backups/2026-10-01/hexacopter_original.svg`.
