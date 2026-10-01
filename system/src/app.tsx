@@ -37,6 +37,7 @@ export function App({ definition, available }: {
   const [viewport, setViewport] = React.useState({ width: 0, height: 0 });
   const [camera, setCamera] = React.useState<CameraTransform>({ x: 0, y: 0, k: 1 });
   const [reducedMotion, setReducedMotion] = React.useState(false);
+  const [fullscreenError, setFullscreenError] = React.useState('');
   // Local preview can opt into animation even when the host OS requests less motion.
   const previewFullMotion = import.meta.env.DEV &&
     typeof window !== 'undefined' &&
@@ -69,6 +70,24 @@ export function App({ definition, available }: {
     window.history.replaceState(null, '', url.toString());
     viewportRef.current?.focus({ preventScroll: true });
   }, [mode]);
+
+  const startPresentation = async () => {
+    setFullscreenError('');
+    // Request within the click gesture; browsers cannot synthesize trusted F11.
+    try {
+      if (!document.fullscreenElement) {
+        if (!document.documentElement.requestFullscreen) throw new Error('Fullscreen unavailable');
+        await document.documentElement.requestFullscreen();
+      }
+      if (!document.fullscreenElement) throw new Error('Fullscreen denied');
+    }
+    catch { setFullscreenError('El navegador no ha permitido pantalla completa. Puedes usar F11.'); }
+    setMode('present');
+    const url = new URL(window.location.href);
+    url.searchParams.set('mode', 'present');
+    window.history.replaceState(null, '', url);
+    viewportRef.current?.focus({ preventScroll: true });
+  };
 
   React.useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -125,13 +144,18 @@ export function App({ definition, available }: {
       fittedViewportRef.current?.height === viewport.height;
     if (cameraTargetRef.current === null || !sameViewport || (reducedMotion && !previewFullMotion)) {
       selection.call(behavior.transform, transform);
+    } else if (stop.cameraVia && cameraTargetRef.current !== stop.cameraTargetId) {
+      const wide = fitRect(stop.cameraVia, viewport, padding);
+      selection.transition().duration(presentation.cameraTransitionMs ?? 850)
+        .call(behavior.transform, zoomIdentity.translate(wide.x, wide.y).scale(wide.k))
+        .transition().duration(480).call(behavior.transform, transform);
     } else {
       selection.transition().duration(presentation.cameraTransitionMs ?? 850).call(behavior.transform, transform);
     }
     cameraTargetRef.current = stop.cameraTargetId;
     fittedViewportRef.current = viewport;
     lastFitRef.current = fitKey;
-  }, [stop.cameraTargetId, stop.padding, viewport.width, viewport.height, refitCount, reducedMotion, previewFullMotion, presentation]);
+  }, [stop.cameraTargetId, stop.cameraVia, stop.padding, viewport.width, viewport.height, refitCount, reducedMotion, previewFullMotion, presentation]);
 
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -180,6 +204,10 @@ export function App({ definition, available }: {
         <div className="brand"><span className="brand-symbol">✦</span><span>CAELUM <b>SLIDES</b></span></div>
         <span className="header-note">Prototipo del núcleo espacial</span>
       </header>
+      {mode === 'present' && fullscreenError && <div className="fullscreen-notice" role="status">
+        {fullscreenError} <button type="button" aria-label="Cerrar aviso de pantalla completa"
+          onClick={() => setFullscreenError('')}>×</button>
+      </div>}
       <main className="workspace">
         <section className="viewer" aria-label="Presentación espacial"
           data-camera-target={stop.cameraTargetId}
@@ -216,6 +244,8 @@ export function App({ definition, available }: {
           </div>
           <button className="presentation-mode-button" type="button" onClick={toggleMode}
             aria-keyshortcuts="P">Ocultar HUD · P</button>
+          <button className="presentation-mode-button" type="button" onClick={startPresentation}>Presentar</button>
+          {fullscreenError && <p role="status">{fullscreenError}</p>}
           <p className="presentation-mode-hint">Pulsa P para mostrar u ocultar el HUD. Con el HUD oculto, avanza con las flechas.</p>
           {ReviewControls && <ReviewControls />}
           <nav className="deck-picker" aria-label="Presentaciones de prueba">

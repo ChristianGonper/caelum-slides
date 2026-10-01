@@ -10,6 +10,8 @@ export type ContentProps = {
 export type PersistentProps = { stop: NarrativeStop; index: number; total: number };
 
 export type PresentationVisual = {
+  /** Keep the whole canvas mounted, resolving each element's state along the narrative. */
+  keepElementsVisible?: boolean;
   reviewControls?: ComponentType;
   canvasBackground?: string;
   canvasByStop?: Readonly<Record<string, string | null>>;
@@ -44,6 +46,10 @@ export function validateDefinition(definition: PresentationDefinition): void {
     if (!elementIds.has(id)) throw new Error(`Contenido sin elemento espacial: ${id}`);
   }
   validateThemes(definition.themes, definition.defaultThemeId);
+  if (definition.visual?.keepElementsVisible !== undefined &&
+      typeof definition.visual.keepElementsVisible !== 'boolean') {
+    throw new Error('Configuración de visibilidad persistente inválida');
+  }
   if (definition.visual?.canvasBackground !== undefined &&
       !definition.visual.canvasBackground.trim()) {
     throw new Error('Fondo del lienzo vacío');

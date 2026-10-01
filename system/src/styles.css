@@ -94,6 +94,8 @@
   .static-link { display: block; padding: .7rem .8rem; border: 1px solid var(--accent); border-radius: .5rem; color: var(--ink); text-align: center; text-decoration: none; font-size: .83rem; }
   .static-link:hover { background: var(--surface); }
   .presentation-mode-button { padding: .8rem; border: 1px solid var(--accent); border-radius: .5rem; color: var(--ink); background: var(--surface); cursor: pointer; }
+  .fullscreen-notice { position: fixed; inset: auto 1rem 1rem; z-index: 10; width: fit-content; max-width: calc(100% - 2rem); padding: .7rem 1rem; border-radius: .5rem; background: var(--panel); color: var(--ink); font-size: .85rem; }
+  .fullscreen-notice button { margin-left: .8rem; border: 0; background: transparent; color: inherit; cursor: pointer; }
   .presentation-mode-hint { margin: -.7rem 0 0; color: var(--muted); font-size: .76rem; line-height: 1.5; }
   .static-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .palette-picker { display: grid; gap: .4rem; color: var(--muted); font-size: .76rem; }

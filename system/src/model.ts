@@ -17,6 +17,8 @@ export type NarrativeStop = {
   visibleIds: readonly string[];
   stateByElement?: Readonly<Record<string, string>>;
   padding?: number;
+  /** Optional wide frame before the final fit when entering from another target. */
+  cameraVia?: Rect;
   includeInStatic?: boolean;
   hideBadge?: boolean;
   hideControls?: boolean;
@@ -70,6 +72,10 @@ export function validatePresentation(presentation: Presentation): void {
     }
     if (stop.padding !== undefined && (!Number.isFinite(stop.padding) || stop.padding < 0)) {
       throw new Error(`Margen de encuadre inválido en parada: ${stop.id}`);
+    }
+    if (stop.cameraVia && (![stop.cameraVia.x, stop.cameraVia.y, stop.cameraVia.width, stop.cameraVia.height].every(Number.isFinite) ||
+        stop.cameraVia.width <= 0 || stop.cameraVia.height <= 0)) {
+      throw new Error(`Encuadre intermedio inválido: ${stop.id}`);
     }
     if (stop.includeInStatic !== undefined && typeof stop.includeInStatic !== 'boolean') {
       throw new Error(`Configuración estática inválida en parada: ${stop.id}`);
