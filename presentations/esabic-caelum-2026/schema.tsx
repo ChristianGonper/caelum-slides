@@ -8,7 +8,7 @@ import React, { useId } from 'react';
  * en coordenadas de espacio mundial (world-space).
  *
  * Se ubica en el nivel de decoración del mundo (z-index 1) y se suprime en la pantalla
- * negra inicial y en paradas a sangre mediante `decorationByStop`.
+ * negra inicial mediante `decorationByStop`.
  */
 export function CaelumVectorSchema(): React.JSX.Element {
   const gridPatternId = useId();
@@ -18,7 +18,7 @@ export function CaelumVectorSchema(): React.JSX.Element {
   const targets = [
     { id: 'A', x: 0, y: -1360, label: '12H · CONTEXT' },
     { id: 'B', x: 1150, y: -580, label: '02H · RESPONSE GAP' },
-    { id: 'C', x: 1150, y: 580, label: '04H · R.A.R.' },
+    { id: 'C', x: 1150, y: 580, label: '04H · RAR' },
     { id: 'D', x: 0, y: 1100, label: '06H · SPACE MARKET' },
     { id: 'E', x: -1150, y: 580, label: '08H · BUSINESS' },
     { id: 'F', x: -1150, y: -580, label: '10H · TEAM & NETWORK' },

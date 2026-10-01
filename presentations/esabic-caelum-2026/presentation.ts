@@ -10,9 +10,9 @@ import {
   CenterContent,
   PersistentFooter,
 } from './content';
-import { ExperimentalSchema } from './illustrated-schema';
 import { introFraming } from './experiments';
 import { ExperimentControls } from './experiment-controls';
+import { CaelumVectorSchema } from './schema';
 import './styles.css';
 
 const model: PresentationDefinition['model'] = {
@@ -97,10 +97,11 @@ const model: PresentationDefinition['model'] = {
     },
     {
       id: 'overview',
+      cameraVia: { x: -2100, y: -1880, width: 4200, height: 3480 },
       label: 'Vista general del sistema',
       cameraTargetId: 'overview',
       visibleIds: ['center', 'block-a', 'block-b', 'block-c', 'block-d', 'block-e', 'block-f'],
-      stateByElement: { center: 'intro' },
+      stateByElement: { center: 'intro', 'block-a': 'space' },
       includeInStatic: true,
     },
     {
@@ -112,7 +113,7 @@ const model: PresentationDefinition['model'] = {
     },
     {
       id: 'solution',
-      label: 'Nuestra solución: R.A.R.',
+      label: 'Nuestra solución: RAR',
       cameraTargetId: 'block-c',
       visibleIds: ['block-c'],
       includeInStatic: true,
@@ -173,21 +174,9 @@ export const esabicCaelum2026Presentation: PresentationDefinition = {
   defaultThemeId: 'primary-space',
   visual: {
     reviewControls: ExperimentControls,
-    decoration: ExperimentalSchema,
-    decorationByStop: {
-      black: false,
-      'opening-nuclear': false,
-      'opening-space': false,
-      overview: true,
-      'response-gap': true,
-      solution: true,
-      'space-market': true,
-      business: true,
-      team: true,
-      network: true,
-      closing: true,
-      contacts: true,
-    },
+    keepElementsVisible: true,
+    decoration: CaelumVectorSchema,
+    decorationByStop: { black: false },
     canvasByStop: {
       black: '#000000',
     },
