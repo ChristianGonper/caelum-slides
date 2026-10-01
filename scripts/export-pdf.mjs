@@ -37,14 +37,14 @@ function findBrowser() {
   throw new Error('No se encontró un navegador Chromium compatible (Google Chrome o Microsoft Edge) para la exportación PDF.');
 }
 
-const options = { diagram: 'blueprint', intro: 'focus' };
-const allowed = { diagram: ['blueprint', 'illustrated'], intro: ['focus', 'map'] };
+const options = { intro: 'focus', highlight: 'blue' };
+const allowed = { intro: ['focus', 'map'], highlight: ['blue', 'cyan', 'amber', 'lavender'] };
 const args = process.argv.slice(2);
 for (let index = 0; index < args.length; index++) {
   const [flag, inlineValue] = args[index].split('=');
   const name = flag.replace(/^--/, '');
   if (!flag.startsWith('--') || !Object.hasOwn(allowed, name)) {
-    throw new Error(`Opción desconocida: ${flag}. Usa --diagram blueprint|illustrated y --intro focus|map.`);
+    throw new Error(`Opción desconocida: ${flag}. Usa --intro focus|map y --highlight blue|cyan|amber|lavender.`);
   }
   const value = inlineValue ?? args[++index];
   if (!allowed[name].includes(value)) {

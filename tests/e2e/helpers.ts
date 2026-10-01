@@ -139,14 +139,14 @@ export const TEAM_MEMBERS = [
   {
     name: 'Guillermo Alba Buitrón',
     rawUrl: 'https://www.linkedin.com/in/guillermo-alba-buitrón-07366b254/',
-    encodedUrl: 'https://www.linkedin.com/in/guillermo-alba-buitr%C3%B3n-07366b254/',
+    encodedUrl: 'https://www.linkedin.com/in/guillermo-alba-buitron/',
     roleSlide8: 'Project management · Systems architecture · Business development',
     roleSlide10: 'Project Management & Business',
   },
   {
     name: 'Alejandro Gil Getino',
-    rawUrl: 'https://www.linkedin.com/in/alejandro-gil-getino-6b94733b8/?isSelfProfile=false',
-    encodedUrl: 'https://www.linkedin.com/in/alejandro-gil-getino-6b94733b8/?isSelfProfile=false',
+    rawUrl: 'https://www.linkedin.com/in/alejandro-gil-getino/?isSelfProfile=false',
+    encodedUrl: 'https://www.linkedin.com/in/alejandro-gil-getino/?isSelfProfile=false',
     roleSlide8: 'Electronics · Avionics · Power systems · Control and software',
     roleSlide10: 'Electronics, Avionics & Control',
   },
