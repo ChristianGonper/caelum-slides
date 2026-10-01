@@ -312,7 +312,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
               Acoustics · Data analysis · Financing · Aeroelastic and structural modelling and simulation
             </span>
             <a
-              href="https://www.linkedin.com/in/christiangonzalezp/"
+              href="https://www.linkedin.com/in/christiangonzalezperez/"
               target="_blank"
               rel="noopener noreferrer"
               style={{

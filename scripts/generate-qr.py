@@ -15,7 +15,7 @@ PROFILES = [
     {
         "id": "christian-gonzalez",
         "name": "Christian González Pérez",
-        "url": "https://www.linkedin.com/in/christiangonzalezp/",
+        "url": "https://www.linkedin.com/in/christiangonzalezperez/",
     },
     {
         "id": "alejandro-gil",
