@@ -25,13 +25,14 @@ Abre la dirección que indique Vite. Se carga **Caelum Systems — ESA BIC Casti
 
 | Acción | Control |
 | --- | --- |
-| Avanzar | Flecha derecha, Av Pág o espacio |
+| Avanzar | Clic izquierdo en el lienzo, flecha derecha, Av Pág o espacio |
 | Retroceder | Flecha izquierda o Re Pág |
 | Mostrar u ocultar el HUD | `P` |
 | Ir a una parada | Lista del panel lateral |
 | Volver al contexto | Vista general |
 | Recuperar el encuadre tras desplazar o ampliar | Centrar |
-| Mover o ampliar manualmente | Arrastre y rueda del ratón |
+| Mover manualmente | Ctrl + arrastre con el botón izquierdo, o arrastre con el dedo |
+| Ampliar manualmente | Rueda del ratón o pellizco táctil |
 
 La navegación se detiene en los extremos. `Inicio` y `Fin` no tienen atajos implementados. En modo exposición se ocultan cabecera, panel, controles, indicador y marca superpuesta; la navegación por teclado sigue activa. No activa automáticamente la pantalla completa del navegador.
 

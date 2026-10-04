@@ -62,13 +62,13 @@ La validación detecta duplicados, referencias inexistentes, contenido ausente, 
 
 La cámara representa traslación y escala (`x`, `y`, `k`), sin rotación ni profundidad. `fitRect` centra el rectángulo y ajusta su escala al espacio disponible. El visor pasa por defecto `min(64, ancho del viewport × 0.06)` de margen; estático pasa 64. El valor predeterminado 48 del helper no es el margen efectivo de estas vistas.
 
-D3 anima entre destinos y permite rueda/arrastre; el zoom manual se limita a escala 0.05–8. Una nueva orden interrumpe la transición; el arrastre permite tomar el control. Centrar fuerza un nuevo encuadre. Un cambio de tamaño recalcula el encuadre inmediatamente.
+D3 anima entre destinos y permite rueda, Ctrl + arrastre con el botón izquierdo y gestos táctiles; el zoom manual se limita a escala 0.05–8. Una nueva orden interrumpe la transición; Ctrl + arrastre permite tomar el control. Centrar fuerza un nuevo encuadre. Un cambio de tamaño recalcula el encuadre inmediatamente.
 
 Si objetivo, viewport, margen y contador de reencuadre no cambian, no se vuelve a encuadrar: el cambio de estado conserva la cámara, incluido el pan/zoom manual. La detección de cambio de contenido compara estados de elementos visibles en paradas con el mismo objetivo y aplica una transición CSS. Cambiar de estado remonta el componente mediante su clave; no conserva automáticamente su estado React interno.
 
 El encuadre inicial, el redimensionamiento y el movimiento reducido se aplican sin vuelo. `?motion=full` permite inspeccionar la animación pese a la preferencia del sistema operativo **sólo en desarrollo**.
 
-Flecha derecha, Av Pág y espacio avanzan; izquierda y Re Pág retroceden; `P` alterna revisión/exposición. No hay vuelta circular ni atajos Inicio/Fin. Los atajos se ignoran al editar campos o con modificadores; espacio sobre un enlace o botón conserva su activación normal.
+Un clic izquierdo sin modificadores en el lienzo avanza en revisión y exposición, incluso desde el inicio negro. Los arrastres, gestos táctiles y clics sobre enlaces o controles no avanzan. El doble clic no amplía: sus clics avanzan por el recorrido. Flecha derecha, Av Pág y espacio avanzan; izquierda y Re Pág retroceden; `P` alterna revisión/exposición. No hay vuelta circular ni atajos Inicio/Fin. Los atajos se ignoran al editar campos o con modificadores; espacio sobre un enlace o botón conserva su activación normal.
 
 ## Composición visual
 
