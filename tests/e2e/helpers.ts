@@ -46,6 +46,15 @@ export const EXPECTED_NOMINAL_STOPS: readonly ExpectedStopSpec[] = [
     padding: 0,
     includeInStatic: true,
   },
+  ...[0, 5].map((count): ExpectedStopSpec => ({
+    id: count === 0 ? 'news-black' : `news-${count}`,
+    label: count === 0 ? 'Noticias: fondo negro' : `Noticias: secuencia de recortes`,
+    cameraTargetId: 'block-a',
+    stateByElement: { 'block-a': `news-${count}` },
+    includeInStatic: count === 5,
+    padding: 0,
+    hideBadge: true,
+  })),
   {
     id: 'overview',
     label: 'Vista general del sistema',

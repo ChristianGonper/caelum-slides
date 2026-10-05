@@ -134,7 +134,7 @@ describe('Tier 2: Boundary & Corner Cases', () => {
   describe('Casos límite de conteo de páginas estáticas (10 vs 11 páginas)', () => {
     it('el recorrido nominal genera exactamente 11 páginas estáticas excluyendo el negro inicial', () => {
       const staticStops = EXPECTED_NOMINAL_STOPS.filter((s) => s.includeInStatic !== false);
-      expect(staticStops).toHaveLength(11);
+      expect(staticStops).toHaveLength(12);
       expect(staticStops.some((s) => s.id === 'black')).toBe(false);
     });
 
@@ -150,7 +150,7 @@ describe('Tier 2: Boundary & Corner Cases', () => {
       });
 
       const staticSplit = splitStops.filter((s) => s.includeInStatic !== false);
-      expect(staticSplit).toHaveLength(12);
+      expect(staticSplit).toHaveLength(13);
       expect(staticSplit.map((s) => s.id)).toContain('business-feasibility');
       expect(staticSplit.map((s) => s.id)).toContain('business-production');
     });

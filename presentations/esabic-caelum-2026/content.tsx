@@ -1,4 +1,5 @@
 import React from 'react';
+import { NewsClippings } from './news';
 import type { ContentProps, PersistentProps } from '../../system/src/definition';
 
 // Importación directa de todas las 16 imágenes locales
@@ -405,6 +406,7 @@ export function CenterContent({ state }: ContentProps): React.JSX.Element {
  */
 export function BlockAContent(props: ContentProps): React.JSX.Element {
   const { state } = props;
+  if (state?.startsWith('news-')) return <NewsClippings count={Number(state.slice(5))} output={props.output} />;
   if (state === 'nuclear') {
     return (
       <div
@@ -589,6 +591,10 @@ export function BlockBContent(): React.JSX.Element {
         </div>
       </div>
 
+      <p style={{ margin: '18px 0 12px', fontSize: '22px', lineHeight: 1.35,
+        fontStyle: 'italic', textAlign: 'center', color: 'var(--ink)' }}>
+        The challenge is not just to stop a drone. It is to protect the site without creating another risk.
+      </p>
       <CardFooter number="03" />
     </div>
   );
@@ -650,7 +656,7 @@ export function BlockCContent(): React.JSX.Element {
           <li>External track, <em className="keyword">targeted</em> response.</li>
           <li>Directional acoustic excitation to the propellers.</li>
           <li>Mission denial: loss of control margin or propeller damage.</li>
-          <li><em className="keyword">Reusability</em>.</li>
+          <li><em className="keyword">Reusable</em>, <em className="keyword">not</em> a <em className="keyword">"fire and forget"</em>.</li>
         </ul>
 
         <img

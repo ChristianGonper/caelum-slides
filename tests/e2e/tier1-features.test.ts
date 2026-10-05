@@ -404,10 +404,10 @@ describe('Tier 1: Feature Coverage (F1 - F21)', () => {
   describe('F17: Headless 16:9 PDF Export (11 pages)', () => {
     it('el contrato estático de Caelum especifica exactamente 11 páginas de contenido', () => {
       const staticStops = EXPECTED_NOMINAL_STOPS.filter((s) => s.includeInStatic !== false);
-      expect(staticStops).toHaveLength(11);
+      expect(staticStops).toHaveLength(12);
       expect(staticStops[0].id).toBe('opening-nuclear');
-      expect(staticStops[9].id).toBe('closing');
-      expect(staticStops[10].id).toBe('contacts');
+      expect(staticStops[10].id).toBe('closing');
+      expect(staticStops[11].id).toBe('contacts');
     });
   });
 

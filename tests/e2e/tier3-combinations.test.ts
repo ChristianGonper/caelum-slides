@@ -14,7 +14,7 @@ describe('Tier 3: Cross-Feature Combinations', () => {
   // 1. Theme switching during active stop / flight
   describe('Cambio de tema durante una parada activa', () => {
     it('el cambio de tema actualiza las variables CSS sin alterar el objetivo de cámara ni el índice', () => {
-      let navState: Navigation = { index: 4, previousIndex: 3 };
+      let navState: Navigation = { index: 6, previousIndex: 5 };
       const stop = EXPECTED_NOMINAL_STOPS[navState.index];
       expect(stop.id).toBe('response-gap');
       expect(stop.cameraTargetId).toBe('block-b');
@@ -30,7 +30,7 @@ describe('Tier 3: Cross-Feature Combinations', () => {
         .not.toBe(varsMono['--canvas-bg' as keyof typeof varsMono]);
 
       // El estado de navegación y el objetivo de cámara permanecen invariantes
-      expect(navState.index).toBe(4);
+      expect(navState.index).toBe(6);
       expect(stop.cameraTargetId).toBe('block-b');
     });
 
@@ -59,7 +59,7 @@ describe('Tier 3: Cross-Feature Combinations', () => {
     it('la exportación estática preserva todas las paradas exportables sin controles interactivos de avance', () => {
       const stops = EXPECTED_NOMINAL_STOPS;
       const exportable = stops.filter((s) => s.includeInStatic !== false);
-      expect(exportable).toHaveLength(11);
+      expect(exportable).toHaveLength(12);
       // Ninguna página estática contiene botones de control de navegación interactiva
       for (const stop of exportable) {
         expect(stop.id).not.toBe('black');

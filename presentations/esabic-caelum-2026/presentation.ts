@@ -33,7 +33,7 @@ const model: PresentationDefinition['model'] = {
       kind: 'block',
       label: 'Contexto',
       bounds: { x: -640, y: -1720, width: 1280, height: 720 },
-      states: ['nuclear', 'space'],
+      states: ['nuclear', 'space', 'news-0', 'news-5'],
     },
     {
       id: 'block-b',
@@ -95,6 +95,16 @@ const model: PresentationDefinition['model'] = {
       padding: 0,
       includeInStatic: true,
     },
+    ...[0, 5].map((count) => ({
+      id: count === 0 ? 'news-black' : `news-${count}`,
+      label: count === 0 ? 'Noticias: fondo negro' : `Noticias: secuencia de recortes`,
+      cameraTargetId: 'block-a',
+      visibleIds: ['block-a'],
+      stateByElement: { 'block-a': `news-${count}` },
+      padding: 0,
+      includeInStatic: count === 5,
+      hideBadge: true,
+    })),
     {
       id: 'overview',
       cameraVia: { x: -2100, y: -1880, width: 4200, height: 3480 },
@@ -176,9 +186,10 @@ export const esabicCaelum2026Presentation: PresentationDefinition = {
     reviewControls: ExperimentControls,
     keepElementsVisible: true,
     decoration: CaelumVectorSchema,
-    decorationByStop: { black: false },
+    decorationByStop: { black: false, ...Object.fromEntries(['news-black', 'news-5'].map(id => [id, false])) },
     canvasByStop: {
       black: '#000000',
+      ...Object.fromEntries(['news-black', 'news-5'].map(id => [id, '#000000'])),
     },
     canvasBackground:
       'radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--surface) 25%, var(--background-primary)), var(--background-primary))',
@@ -194,6 +205,7 @@ export const esabicCaelum2026Presentation: PresentationDefinition = {
       default: PersistentFooter,
       byStop: {
         black: null,
+        ...Object.fromEntries(['news-black', 'news-5'].map(id => [id, null])),
         overview: null,
       },
     },
