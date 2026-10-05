@@ -101,7 +101,7 @@ export function App({ definition, available }: {
   React.useEffect(() => {
     const element = viewportRef.current;
     if (!element) return;
-    return bindViewportNavigation(element, () => step(1));
+    return bindViewportNavigation(element, () => step(1), () => step(-1));
   }, [step]);
 
   React.useEffect(() => {
@@ -112,7 +112,7 @@ export function App({ definition, available }: {
       .filter((event) => {
         if (isInteractiveTarget(event.target)) return false;
         if (event.type === 'mousedown') return event.button === 0 && event.ctrlKey;
-        // Double clicks belong to slide navigation; wheel and touch retain zoom.
+        // Double clicks navigate backwards; wheel and touch retain zoom.
         return event.type !== 'dblclick';
       })
       .on('zoom', (event) => setCamera(event.transform));
@@ -221,7 +221,7 @@ export function App({ definition, available }: {
           data-camera-target={stop.cameraTargetId}
           data-stop-id={stop.id}>
           <div className="viewport" ref={viewportRef} tabIndex={0} role="group"
-            aria-label="Lienzo espacial. Haz clic para avanzar, Ctrl + arrastre para desplazar y usa la rueda para ampliar."
+            aria-label="Lienzo espacial. Haz clic para avanzar, doble clic para retroceder, Ctrl + arrastre para desplazar y usa la rueda para ampliar."
             data-camera-target={stop.cameraTargetId} data-camera={formatCamera}>
             <Scene definition={definition} stop={stop} camera={camera}
               output="interactive" changingIds={changingIds} />
@@ -248,13 +248,13 @@ export function App({ definition, available }: {
           <div className="sidebar-intro">
             <span className="eyebrow">PRUEBA DE CONCEPTO</span>
             <h1>{presentation.title}</h1>
-            <p>Selecciona una parada o avanza con un clic izquierdo o las flechas. Usa Ctrl + arrastre para desplazar con ratón, o arrastra con el dedo. Amplía con la rueda o un pellizco y usa Centrar para recuperar el encuadre.</p>
+            <p>Selecciona una parada, avanza con un clic izquierdo o retrocede con un doble clic izquierdo. También puedes usar las flechas. Usa Ctrl + arrastre para desplazar con ratón, o arrastra con el dedo. Amplía con la rueda o un pellizco y usa Centrar para recuperar el encuadre.</p>
           </div>
           <button className="presentation-mode-button" type="button" onClick={toggleMode}
             aria-keyshortcuts="P">Ocultar HUD · P</button>
           <button className="presentation-mode-button" type="button" onClick={startPresentation}>Presentar</button>
           {fullscreenError && <p role="status">{fullscreenError}</p>}
-          <p className="presentation-mode-hint">Pulsa P para mostrar u ocultar el HUD. Con el HUD oculto, avanza con un clic izquierdo o las flechas.</p>
+          <p className="presentation-mode-hint">Pulsa P para mostrar u ocultar el HUD. Con el HUD oculto, usa clic izquierdo para avanzar, doble clic para retroceder o las flechas.</p>
           {ReviewControls && <ReviewControls />}
           <nav className="deck-picker" aria-label="Presentaciones de prueba">
             {available.map((item) => (
