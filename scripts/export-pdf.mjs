@@ -129,6 +129,6 @@ console.log(`PDF exportado correctamente: ${targetPdf}`);
 console.log(`Tamaño: ${(pdfBuffer.length / (1024 * 1024)).toFixed(2)} MB`);
 console.log(`Páginas detectadas: ${pageCount}`);
 
-if (pageCount !== 11) {
-  throw new Error(`Se esperaban exactamente 11 páginas en el PDF estático de Caelum, pero se detectaron ${pageCount}.`);
+if (pageCount !== 12) {
+  throw new Error(`Se esperaban exactamente 12 páginas en el PDF estático de Caelum, pero se detectaron ${pageCount}.`);
 }

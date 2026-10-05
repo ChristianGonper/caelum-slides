@@ -9,10 +9,11 @@ import { changesContentInPlace } from './navigation';
 const notes = fs.readFileSync('presentations/esabic-caelum-2026/Notas.md', 'utf8');
 const originalSlides = notes.split(/^## \d+\s*$/m).slice(1);
 const normalized = (text: string) => text.replace(/\s+/g, ' ').trim();
-// Explicit amendments approved in the 1 October meeting. Historical notes stay intact.
+// Approved amendments from the meeting and subsequent presentation edits. Historical notes stay intact.
 const amendments: Record<string, readonly string[]> = {
   'Detecting a drone is not the same as stopping it safely.': ['Detecting a drone is not the same as stopping it safely'],
   'R.A.R.: an acoustic effector for propeller-driven UAS': ['RAR is an acoustic effector for propeller-driven UAS'],
+  'Reusability.': ['Reusable, not a "fire and forget".'],
   'Every other option has constraints: RF/GNSS, HPM, kinetic, interceptors.': ['Every other option has constraints:', 'RF / GNSS', 'HPM', 'Kinetic systems / interceptors'],
   'Space connection: upstream, ground systems.': ['Space connection: upstream, ground systems.'],
   'Start with an evaluation or pilot. Later, sell the product, offer maintenance or specifically required solution.': ['Start with an evaluation or pilot. Later, sell the product, offer product maintenance or a customized solution.'],

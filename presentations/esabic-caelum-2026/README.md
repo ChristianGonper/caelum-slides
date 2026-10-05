@@ -1,27 +1,30 @@
 # Caelum Systems — ESA BIC Castilla y León 2026
 
-Referencia del deck implementado, revisada el 1 de octubre de 2026. Se abre por defecto en la aplicación, o con `?deck=esabic-caelum-2026`. La [definición inicial](definicion-presentacion.md) y las [notas](Notas.md) conservan las restricciones y fuentes de contenido; este documento describe el funcionamiento actual.
+Referencia del deck implementado, revisada el 5 de octubre de 2026. Se abre por defecto en la aplicación, o con `?deck=esabic-caelum-2026`. La [definición inicial](definicion-presentacion.md) y las [notas](Notas.md) conservan las restricciones y fuentes de contenido; este documento describe el funcionamiento actual.
 
 ## Recorrido y composición
 
-Hay siete elementos espaciales: seis bloques periféricos y un centro reutilizable. El recorrido tiene doce paradas; la pantalla negra inicial se excluye de las once páginas estáticas.
+Hay siete elementos espaciales: seis bloques periféricos y un centro reutilizable. El recorrido tiene catorce paradas; la pantalla negra inicial se excluye de las doce páginas estáticas.
 
 | Parada | Objetivo / estado | Página estática |
 | --- | --- | --- |
 | `black` | `block-a`, sin elementos visibles | Excluida |
 | `opening-nuclear` | `block-a` / `nuclear`, margen 0 | 1 |
 | `opening-space` | `block-a` / `space`, margen 0 | 2 |
-| `overview` | Rectángulo general; centro `intro` y bloques | 3 |
-| `response-gap` | `block-b` | 4 |
-| `solution` | `block-c` | 5 |
-| `space-market` | `block-d` | 6 |
-| `business` | `block-e` | 7 |
-| `team` | `block-f` / `team` | 8 |
-| `network` | `block-f` / `network` | 9 |
-| `closing` | `center` / `closing` | 10 |
-| `contacts` | `center` / `contacts` | 11 |
+| `news-black`, `news-5` | `block-a`, negro y secuencia de cinco recortes | 3 (sólo collage completo) |
+| `overview` | Rectángulo general; centro `intro` y bloques | 4 |
+| `response-gap` | `block-b` | 5 |
+| `solution` | `block-c` | 6 |
+| `space-market` | `block-d` | 7 |
+| `business` | `block-e` | 8 |
+| `team` | `block-f` / `team` | 9 |
+| `network` | `block-f` / `network` | 10 |
+| `closing` | `center` / `closing` | 11 |
+| `contacts` | `center` / `contacts` | 12 |
 
 Las aperturas A, equipo/red F y cierre/contactos cambian de estado en el mismo objetivo. La cámara usa transiciones de 1000 ms; la entrada al centro pasa primero por el mapa y después amplía el centro en 480 ms. Vista general vuelve a `overview`; su encuadre depende de la variante de entrada.
+
+Desde la escena negra tras las antenas, un clic inicia la secuencia completa: un recorte cada 2 segundos, con una entrada de 1,8 segundos y un desplazamiento de 150 px en horizontal y 110 px en vertical. La presentación permanece en el collage hasta el siguiente clic, que lleva a la vista central. La vista general mantiene la fotografía de antenas. Fuentes y créditos: [assets/news/README.md](assets/news/README.md).
 
 Los siete elementos permanecen visibles en el canvas durante el recorrido. Los elementos con varios estados muestran el estado actual en su parada, el final cuando quedan atrás y el inicial cuando aún están por delante. Retroceder recalcula los estados según la posición del recorrido. La pantalla negra inicial sigue vacía. Los cambios de estado en el mismo objetivo animan el contenido verticalmente, respetando movimiento reducido.
 
@@ -58,7 +61,7 @@ npm run export:pdf
 npm run export:pdf -- --intro map --highlight amber
 ```
 
-El comando regenera el HTML y escribe once páginas en `output/pdf/esabic-caelum-2026.pdf`; cada variante sobrescribe la misma ruta. En la barra estática también puedes elegir variantes y paleta antes de imprimir. Se excluyen los controles y el cuadro de marca/número superior derecho; los pies integrados en cada escena permanecen.
+El comando regenera el HTML y escribe doce páginas en `output/pdf/esabic-caelum-2026.pdf`; cada variante sobrescribe la misma ruta. En la barra estática también puedes elegir variantes y paleta antes de imprimir. Se excluyen los controles y el cuadro de marca/número superior derecho; los pies integrados en cada escena permanecen.
 
 Para regenerar los QR, el script auxiliar contiene dependencias PEP 723 y se ejecuta **desde la raíz** con:
 
@@ -70,7 +73,7 @@ Escribe en `presentations/esabic-caelum-2026/qr/`. Conserva primero los SVG que 
 
 ## Comprobar cambios
 
-Revisa las doce paradas, sus paletas y la versión estática. Si cambia el recorrido, actualiza el contador de páginas del exportador y las pruebas pertinentes. Los registros antiguos con once paradas o diez páginas describen una versión anterior. La [guía común](../../system/docs/guia-de-trabajo.md) y [pruebas](../../TEST_INFRA.md) detallan los procedimientos y límites.
+Revisa las catorce paradas, sus paletas y la versión estática. Si cambia el recorrido, actualiza el contador de páginas del exportador y las pruebas pertinentes. Los registros antiguos con once paradas o diez páginas describen una versión anterior. La [guía común](../../system/docs/guia-de-trabajo.md) y [pruebas](../../TEST_INFRA.md) detallan los procedimientos y límites.
 
 ## Modificaciones del 1 de octubre de 2026
 

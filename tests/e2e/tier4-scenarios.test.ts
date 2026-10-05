@@ -26,7 +26,7 @@ describe('Tier 4: Real-World Presentation Scenarios', () => {
     it('ejecuta la secuencia paso a paso verificando objetivos de cámara, estados y números de diapositiva', () => {
       let state: Navigation = { index: 0, previousIndex: null };
       const stops = EXPECTED_NOMINAL_STOPS;
-      expect(stops).toHaveLength(12);
+      expect(stops).toHaveLength(14);
 
       // Parada 1: black (00:00)
       expect(stops[0].id).toBe('black');
@@ -51,64 +51,64 @@ describe('Tier 4: Real-World Presentation Scenarios', () => {
       expect(stops[2].padding).toBe(0);
 
       // Parada 4: overview (01:30) - zoom out reveal
-      state = navigateTo(state, 3, stops.length);
-      expect(state.index).toBe(3);
-      expect(stops[3].id).toBe('overview');
-      expect(stops[3].cameraTargetId).toBe('overview');
-      expect(stops[3].contentNumber).toBeNull();
-
-      // Parada 5: response-gap (02:40) - Bloque B (2h)
-      state = navigateTo(state, 4, stops.length);
-      expect(state.index).toBe(4);
-      expect(stops[4].id).toBe('response-gap');
-      expect(stops[4].cameraTargetId).toBe('block-b');
-      expect(stops[4].contentNumber).toBe('03');
-
-      // Parada 6: solution (04:40) - Bloque C (4h, vuelo directo B->C)
       state = navigateTo(state, 5, stops.length);
       expect(state.index).toBe(5);
-      expect(stops[5].id).toBe('solution');
-      expect(stops[5].cameraTargetId).toBe('block-c');
-      expect(stops[5].contentNumber).toBe('04');
+      expect(stops[5].id).toBe('overview');
+      expect(stops[5].cameraTargetId).toBe('overview');
+      expect(stops[5].contentNumber).toBeNull();
 
-      // Parada 7: space-market (05:50) - Bloque D (6h, vuelo directo C->D)
+      // Parada 5: response-gap (02:40) - Bloque B (2h)
       state = navigateTo(state, 6, stops.length);
       expect(state.index).toBe(6);
-      expect(stops[6].id).toBe('space-market');
-      expect(stops[6].cameraTargetId).toBe('block-d');
-      expect(stops[6].contentNumber).toBe('05');
+      expect(stops[6].id).toBe('response-gap');
+      expect(stops[6].cameraTargetId).toBe('block-b');
+      expect(stops[6].contentNumber).toBe('03');
 
-      // Parada 8: business (07:35) - Bloque E (8h, vuelo directo D->E)
+      // Parada 6: solution (04:40) - Bloque C (4h, vuelo directo B->C)
       state = navigateTo(state, 7, stops.length);
       expect(state.index).toBe(7);
-      expect(stops[7].id).toBe('business');
-      expect(stops[7].cameraTargetId).toBe('block-e');
-      expect(stops[7].contentNumber).toBe('06');
+      expect(stops[7].id).toBe('solution');
+      expect(stops[7].cameraTargetId).toBe('block-c');
+      expect(stops[7].contentNumber).toBe('04');
 
-      // Parada 9: team (08:35) - Bloque F (10h, vuelo directo E->F)
+      // Parada 7: space-market (05:50) - Bloque D (6h, vuelo directo C->D)
       state = navigateTo(state, 8, stops.length);
       expect(state.index).toBe(8);
-      expect(stops[8].id).toBe('team');
-      expect(stops[8].cameraTargetId).toBe('block-f');
-      expect(stops[8].contentNumber).toBe('07');
+      expect(stops[8].id).toBe('space-market');
+      expect(stops[8].cameraTargetId).toBe('block-d');
+      expect(stops[8].contentNumber).toBe('05');
 
-      // Parada 10: network (09:15) - in-place stack F
+      // Parada 8: business (07:35) - Bloque E (8h, vuelo directo D->E)
       state = navigateTo(state, 9, stops.length);
       expect(state.index).toBe(9);
-      expect(stops[9].id).toBe('network');
-      expect(stops[9].cameraTargetId).toBe(stops[8].cameraTargetId);
-      expect(stops[9].contentNumber).toBe('08');
+      expect(stops[9].id).toBe('business');
+      expect(stops[9].cameraTargetId).toBe('block-e');
+      expect(stops[9].contentNumber).toBe('06');
 
-      // Parada 11: closing (09:40 - 10:00+) - regreso al centro
+      // Parada 9: team (08:35) - Bloque F (10h, vuelo directo E->F)
       state = navigateTo(state, 10, stops.length);
       expect(state.index).toBe(10);
-      expect(stops[10].id).toBe('closing');
-      expect(stops[10].cameraTargetId).toBe('center');
-      expect(stops[10].contentNumber).toBe('09');
+      expect(stops[10].id).toBe('team');
+      expect(stops[10].cameraTargetId).toBe('block-f');
+      expect(stops[10].contentNumber).toBe('07');
+
+      // Parada 10: network (09:15) - in-place stack F
       state = navigateTo(state, 11, stops.length);
+      expect(state.index).toBe(11);
+      expect(stops[11].id).toBe('network');
+      expect(stops[11].cameraTargetId).toBe(stops[10].cameraTargetId);
+      expect(stops[11].contentNumber).toBe('08');
+
+      // Parada 11: closing (09:40 - 10:00+) - regreso al centro
+      state = navigateTo(state, 12, stops.length);
+      expect(state.index).toBe(12);
+      expect(stops[12].id).toBe('closing');
+      expect(stops[12].cameraTargetId).toBe('center');
+      expect(stops[12].contentNumber).toBe('09');
+      state = navigateTo(state, 13, stops.length);
       expect(stops[state.index].id).toBe('contacts');
       expect(stops[state.index].contentNumber).toBe('10');
-      expect(stops[state.index].cameraTargetId).toBe(stops[10].cameraTargetId);
+      expect(stops[state.index].cameraTargetId).toBe(stops[12].cameraTargetId);
     });
 
     it('valida la concordancia con la definición del deck real si está implementado', async () => {
@@ -150,12 +150,13 @@ describe('Tier 4: Real-World Presentation Scenarios', () => {
   describe('Escenario 3: Verificación del entregable PDF en formato 16:9', () => {
     it('la secuencia exportable a PDF contiene exactamente las 11 diapositivas acordadas', () => {
       const staticStops = EXPECTED_NOMINAL_STOPS.filter((s) => s.includeInStatic !== false);
-      expect(staticStops).toHaveLength(11);
+      expect(staticStops).toHaveLength(12);
       // El orden de páginas en el PDF debe coincidir con:
       const expectedPdfOrder = [
         'opening-nuclear', // Página 1 (01)
         'opening-space',   // Página 2 (02)
-        'overview',        // Página 3 (Vista general)
+        'news-5',          // Collage completo
+        'overview',        // Página 4 (Vista general)
         'response-gap',    // Página 4 (03)
         'solution',        // Página 5 (04)
         'space-market',    // Página 6 (05)
