@@ -68,7 +68,7 @@ Si objetivo, viewport, margen y contador de reencuadre no cambian, no se vuelve 
 
 El encuadre inicial, el redimensionamiento y el movimiento reducido se aplican sin vuelo. `?motion=full` permite inspeccionar la animación pese a la preferencia del sistema operativo **sólo en desarrollo**.
 
-Un clic izquierdo sin modificadores en el lienzo avanza en revisión y exposición, incluso desde el inicio negro. Los arrastres, gestos táctiles y clics sobre enlaces o controles no avanzan. El doble clic no amplía: sus clics avanzan por el recorrido. Flecha derecha, Av Pág y espacio avanzan; izquierda y Re Pág retroceden; `P` alterna revisión/exposición. No hay vuelta circular ni atajos Inicio/Fin. Los atajos se ignoran al editar campos o con modificadores; espacio sobre un enlace o botón conserva su activación normal.
+Un clic izquierdo sin modificadores en el lienzo avanza en revisión y exposición, incluso desde el inicio negro. El avance espera 500 ms para distinguirlo del doble clic izquierdo, que retrocede una parada sin avance previo ni zoom. Los arrastres, gestos táctiles y clics sobre enlaces o controles no navegan. Un gesto de pan, una tecla, la rueda, la pérdida de foco, la cancelación del puntero o el desmontaje cancelan el avance pendiente. Flecha derecha, Av Pág y espacio avanzan; izquierda y Re Pág retroceden; `P` alterna revisión/exposición. No hay vuelta circular ni atajos Inicio/Fin. Los atajos se ignoran al editar campos o con modificadores; espacio sobre un enlace o botón conserva su activación normal.
 
 ## Composición visual
 

@@ -10,26 +10,29 @@ class TestElement extends EventTarget {
 }
 
 function setup() {
+  vi.useFakeTimers();
   vi.stubGlobal('Element', TestElement);
   const element = new TestElement();
   const advance = vi.fn();
-  const cleanup = bindViewportNavigation(element as unknown as HTMLElement, advance);
+  const retreat = vi.fn();
+  const cleanup = bindViewportNavigation(element as unknown as HTMLElement, advance, retreat);
   const send = (type: string, props = {}, target: EventTarget = element) => {
     const event = new Event(type, { cancelable: true });
     Object.assign(event, { pointerType: 'mouse', pointerId: 1, button: 0,
       clientX: 100, clientY: 100, ...props });
     target.dispatchEvent(event);
   };
-  return { element, advance, cleanup, send };
+  return { element, advance, retreat, cleanup, send };
 }
 
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals(); });
 
 describe('gestos de navegación del lienzo', () => {
   it('avanza una vez por clic y permite clics consecutivos', () => {
     const { send, advance, element } = setup();
     for (let i = 0; i < 2; i++) {
       send('pointerdown'); send('pointerup'); send('click');
+      vi.runAllTimers();
     }
     expect(advance).toHaveBeenCalledTimes(2);
     expect(element.focus).toHaveBeenCalledWith({ preventScroll: true });
@@ -86,6 +89,7 @@ describe('gestos de navegación del lienzo', () => {
     send('pointerdown');
     send('pointermove', { clientX: 102 }, element.ownerDocument.defaultView);
     send('click', { clientX: 102 });
+    vi.runAllTimers();
     expect(advance).toHaveBeenCalledOnce();
   });
 
@@ -97,5 +101,62 @@ describe('gestos de navegación del lienzo', () => {
     event.preventDefault();
     element.dispatchEvent(event);
     expect(advance).not.toHaveBeenCalled();
+  });
+
+  it('retrocede una sola vez con doble clic sin avanzar antes ni después', () => {
+    const { send, advance, retreat } = setup();
+    send('pointerdown'); send('click', { detail: 1 });
+    vi.advanceTimersByTime(300);
+    expect(advance).not.toHaveBeenCalled();
+    send('pointerdown'); send('click', { detail: 2 }); send('dblclick', { detail: 2 });
+    expect(retreat).toHaveBeenCalledOnce();
+    vi.runAllTimers();
+    expect(advance).not.toHaveBeenCalled();
+  });
+
+  it('espera 500 ms antes de avanzar con un clic simple', () => {
+    const { send, advance, retreat } = setup();
+    send('pointerdown'); send('click', { detail: 1 });
+    vi.advanceTimersByTime(499);
+    expect(advance).not.toHaveBeenCalled();
+    vi.advanceTimersByTime(1);
+    expect(advance).toHaveBeenCalledOnce();
+    expect(retreat).not.toHaveBeenCalled();
+  });
+
+  it('conserva dos clics simples que el navegador no agrupa', () => {
+    const { send, advance, retreat } = setup();
+    send('pointerdown'); send('click', { detail: 1 });
+    send('pointerdown', { clientX: 200 }); send('click', { detail: 1, clientX: 200 });
+    vi.runAllTimers();
+    expect(advance).toHaveBeenCalledTimes(2);
+    expect(retreat).not.toHaveBeenCalled();
+  });
+
+  it.each(['keydown', 'wheel', 'blur', 'pointercancel'])('cancela el avance pendiente al recibir %s', (type) => {
+    const { send, advance, element } = setup();
+    send('pointerdown'); send('click', { detail: 1 });
+    send(type, {}, element.ownerDocument.defaultView);
+    vi.runAllTimers();
+    expect(advance).not.toHaveBeenCalled();
+  });
+
+  it('cancela un avance pendiente al desmontar o comenzar pan con Ctrl', () => {
+    const { send, advance, cleanup } = setup();
+    send('pointerdown'); send('click', { detail: 1 });
+    send('pointerdown', { ctrlKey: true }); send('click', { detail: 2 });
+    vi.runAllTimers();
+    expect(advance).not.toHaveBeenCalled();
+    send('pointerdown'); send('click', { detail: 1 });
+    cleanup(); vi.runAllTimers();
+    expect(advance).not.toHaveBeenCalled();
+  });
+
+  it.each(['touch', 'pen'])('no retrocede con doble toque de %s', (pointerType) => {
+    const { send, advance, retreat } = setup();
+    send('pointerdown', { pointerType }); send('click', { detail: 2 });
+    vi.runAllTimers();
+    expect(advance).not.toHaveBeenCalled();
+    expect(retreat).not.toHaveBeenCalled();
   });
 });
